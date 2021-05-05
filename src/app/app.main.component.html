@@ -1,0 +1,45 @@
+<div class="wrapper" [ngClass]="{'sidebar-inactive-l':menuInactiveDesktop, 'sidebar-active-m':menuActiveMobile,
+                                'p-ripple-disabled': !app.ripple, 'p-input-filled': app.inputStyle === 'filled'}">
+    <div class="topbar clearfix">
+        <a id="omega-menu-button" href="#" (click)="toggleMenu($event)">
+            <span class="pi pi-bars"></span>
+        </a>
+        <span class="topbar-title"></span>
+        <a id="options-menu-button" href="#" (click)="toggleTopMenu($event)">
+            <span class="pi pi-ellipsis-h"></span>
+        </a>
+        <div id="topbar-icons" class="animated" [ngClass]="{'topbar-icons-visible flipInX':topMenuActive,'flipOutX':topMenuLeaving}">
+        </div>
+    </div>
+    <div class="sidebar" (click)="onMenuClick()">
+        <div class="sidebar-scroll-content">
+            <div class="logo" routerLink="/" style="outline: none; cursor: pointer; ">
+                <img src="assets/layout/images/logo.png" alt="" height="50px">
+            </div>
+            <div class="profile">
+                <img src="{{urlimage}}" alt="" style="width: 100px; height: 100px; border-radius: 50px;"/>
+                <a id="profile-button" href="#" (click)="toggleProfile($event)">
+                    <span class="username">{{nome}}</span>
+                    <i class="pi pi-fw pi-cog"></i>
+                </a>
+                <ul [@submenu]="profileActive ? 'visible' : 'hidden'">
+                    <li><a href="#/edUser"><i class="pi pi-fw pi-sliders-h"></i><span>Account</span></a></li>
+                    <li ><a (click)="fechar()"><i class="pi pi-fw pi-sign-out" ></i><span>Sair</span></a></li>
+                </ul>
+            </div>
+            <app-menu></app-menu>
+        </div>
+    </div>
+    <div class="main">
+        <router-outlet></router-outlet>
+    </div>
+
+
+
+    <!-- <app-config></app-config> -->
+
+    <!-- <div class="footer">
+        <img src="assets/layout/images/logo-colored.png" alt="" width="32">
+        <span class="footer-text">PrimeNG Omega Theme and Layout</span>
+    </div> -->
+</div>

@@ -1,0 +1,49 @@
+<p-dialog header="Altere a sua senha" [(visible)]="senhapad" modal="modal" showEffect="fade" [style]="{width: '400px'}">
+    <div class="ui-g-12">
+    <span class="md-inputfield">
+        <input type="password" [(ngModel)]="novasenha" pInputText>
+        <label>Nova senha</label>
+    </span>
+    </div>
+    <div class="ui-g-12">
+    <span class="md-inputfield">
+        <input type="password" [(ngModel)]="novasenhaconfirm" pInputText>
+        <label>Confirme a nova senha</label>
+    </span>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times" (click)="senhapad=false" label="Não"></button>
+            <button type="button" pButton icon="pi pi-check" (click)="alterarsenha()" label="Sim"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div class="login-body">
+    <div id="login-wrapper">
+        
+        <img src="assets/layout/images/login-logo.png" alt="omega-layout" width="100px" />
+        <div id="login-container">
+            <div class="p-grid p-fluid">
+                <div class="p-col-12">
+                    <input type="text" autocomplete="off" [(ngModel)]="usuario.email" pInputText placeholder="Username" />
+                </div>
+                <div class="p-col-12">
+                    <input type="password" autocomplete="off" [(ngModel)]="usuario.senha" pInputText placeholder="Password" />
+                </div>
+                <div class="p-col-12 p-md-6">
+                    <span class="remember-me">Relembre-me</span>
+                    <input type="checkbox">
+                </div>
+                <div class="p-col-12 p-md-6">
+                    <a href="#">Esqueci a senha</a>
+                </div>
+                <div class="p-col-12" *ngIf="carregando==false" >
+                    <p-button type="button" icon="pi pi-user"  label="Entrar" (click)= "logar()" icon="ui-icon-person"></p-button>
+                </div>
+                <p-progressBar  *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+            </div>
+        </div>
+        <div class="login-footer">Heser System</div>
+    </div>
+</div>

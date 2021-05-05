@@ -1,0 +1,40 @@
+<div class="card ui-g ui-lg">
+  <h2>Editar Usuário</h2>
+  <div class="ui-g-12 ui-lg-12">
+    <div class="ui-g-12 ui-lg-6" style="text-align: center;">
+      <!-- <img height="250px" style="border-radius: 50%;"  width="250px !important" src="assets/users/{{imagem}}" /> -->
+      <img height="250px" style="border-radius: 50%;"  width="250px !important" src="{{urlimage}}" />
+      <p-fileUpload  class="ui-g-12" #fubauto mode="basic" name="demo[]" accept=".jpg" 
+      maxFileSize="1000000" (change)="uploadImage(fubauto)" [auto]="true" chooseLabel="Selecione a Imagem"></p-fileUpload>
+
+    </div>
+    <div class="ui-g-12 ui-lg-6" >
+      <div class="ui-g-12 ui-md-12" style="margin-top: 30px;"> 
+        <span class="md-inputfield">
+          <input id="input" type="text" [(ngModel)]="UsuarioSelect.nome" class="ui-g-12" pInputText/>
+          <label>Nome Completo</label>
+        </span>
+      </div>
+      <div class="ui-g-12 ui-md-12" style="margin-top: 30px;">
+        <span class="md-inputfield">
+          <input id="input" type="text" [(ngModel)]="UsuarioSelect.email" class="ui-g-12" pInputText/>
+          <label>Email</label>
+        </span>
+      </div>
+      <div class="ui-g-12 ui-md-12"  style="margin-top: 30px;">
+        <span class="md-inputfield">
+          <input id="input" type="text" [(ngModel)]="UsuarioSelect.login" class="ui-g-12" pInputText/>
+          <label >Login</label>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-12" style="margin-top: 40px;">
+    <div class="ui-g-6" style="text-align: center; margin-top: 20px;">
+      <button type="button" pButton icon="pi pi-save" label="Resetar Senha"  (click)="resetarSenha(UsuarioSelect)"></button>
+    </div>
+    <div class="ui-g-6" style="text-align: center; margin-top: 20px;">
+      <button type="button" pButton icon="pi pi-save" label="Salvar"  (click)="editarPermissoes()"></button>
+    </div>
+  </div>
+</div>

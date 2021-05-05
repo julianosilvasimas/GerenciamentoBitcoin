@@ -1,0 +1,75 @@
+<div class="dashboard p-grid p-fluid">
+    <div class="p-col-12 p-md-4">
+        <div class="card clearfix summary">
+            <span class="title">Clientes</span>
+            <span class="detail">Número de Clientes Ativos</span>
+            <span class="count visitors">12</span>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <div class="card clearfix summary">
+            <span class="title">Adesões</span>
+            <span class="detail">Número de Adesões no Mês Atual</span>
+            <span class="count purchases">5</span>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <div class="card clearfix summary">
+            <span class="title">Comissão</span>
+            <span class="detail">Falta Pagar</span>
+            <span class="count revenue">R$ 3,200</span>
+        </div>
+    </div>
+
+    <div class="p-col-12 p-md-6 p-lg-4">
+    <p-panel header="Convide um novo cliente" [style]="{'background':'#fff','height':'100%'}">
+        <div class="p-grid">
+            <div class="p-col-12">
+                <input id="name" type="text" pInputText placeholder="Nome"/>
+            </div>
+            <div class="p-col-12">
+                <input id="message" type="text" pInputText placeholder="Email"/>
+            </div>
+            <div class="p-col-12">
+                <button type="button" label="Enviar" icon="pi pi-plus" pButton></button>
+            </div>
+        </div>
+    </p-panel>
+    </div>
+
+
+    <div class="p-col-12 p-lg-4">
+        <p-panel header="Maiores Clientes" [style]="{'height':'100%'}">
+            <ul class="contacts">
+                <li>
+                    <a href="#">
+                        <img src="assets/layout/images/famosos/2.png" height="35" style="border-radius: 50%;">
+                        <span class="name">Wesley Safadão</span>
+                        <span class="email">wesley@exemplo.com</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="assets/layout/images/famosos/4.png" height="35" style="border-radius: 50%;">
+                        <span class="name">Marília Mendonça</span>
+                        <span class="email">marília@exemplo.com</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="assets/layout/images/famosos/3.png" height="35" style="border-radius: 50%;">
+                        <span class="name">Anitta</span>
+                        <span class="email">anitta@exemplo.com</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="assets/layout/images/famosos/1.png" height="35" style="border-radius: 50%;">
+                        <span class="name">Nego do Borel</span>
+                        <span class="email">nego@exemplo.com</span>
+                    </a>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+</div>

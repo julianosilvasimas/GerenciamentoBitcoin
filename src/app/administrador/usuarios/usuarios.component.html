@@ -1,0 +1,126 @@
+<div class="ui-g card" style="width: 99.5%; margin-left: 3px;" >
+  <h4>GESTÃO DE USUÁRIOS</h4>
+  <!-- <div class="ui-g-12" style="text-align: right;">
+    <p-toggleButton offLabel="Parametrizar Dashboards SCDE"  onLabel="Encolher Dashboards SCDE" [(ngModel)]="atribuirpermdash"></p-toggleButton>
+  </div> -->
+  <p-dataView #dv [value]="usuarios" class="ui-g-12" [paginator]="true" [rows]="25" paginatorPosition="both">
+    <p-header>
+      <div class="ui-helper-clearfix">
+        <div class="ui-g">
+          <div class="ui-g-12 filter-container">
+            <input class="ui-g-4" type="search" pInputText placeholder="Nome" (keyup)="Filter()" [(ngModel)]="VALOR1" >
+          </div>
+        </div>
+      </div>
+    </p-header>
+      <ng-template let-usuarios pTemplate="listItem">
+        <div class="car-details">
+          <div class="ui-g-11">
+            <div class="ui-g-1"><p-checkbox [disabled]="true" [(ngModel)]="usuarios.ativo" binary="true"></p-checkbox></div>
+            <div class="ui-g-3"><b>{{usuarios.nome}}</b></div>
+            <div class="ui-g-3"><b>{{usuarios.login}}</b></div>
+            <div class="ui-g-4"><b>{{usuarios.email}}</b></div>
+            <div class="ui-g-1"><b>{{usuarios.acesso}}</b></div>
+          </div>
+          <div class="ui-g-1" >
+            <button pButton type="button" icon="ui-icon-edit" (click)="selecionar(usuarios)"></button>
+          </div>
+        </div>
+      </ng-template>  
+  </p-dataView>
+  <div class="ui-g-12" style="text-align: right;">
+    <button pButton type="button" icon="ui-icon-edit" label="Adicionar Usuario" (click)="selecionar(null)"></button>
+  </div>
+</div>
+
+<p-dialog header="Editar" [(visible)]="EditUsuario" [responsive]="false" showEffect="fade" [modal]="true" [style]="{ width: '800px'}"  (onAfterHide)="onDialogHide()">
+  <div class="ui-g" *ngIf="UsuarioSelect" >
+
+    <div  style="margin-left: 20px; margin-right: 40px;" class="ui-g">
+      <div class="ui-g-12 ui-md-12" style="margin-top: 40px;">
+        <div class="ui-g-12 ui-md-6">
+          <span class="md-inputfield">
+            <input id="input" type="text" [(ngModel)]="UsuarioSelect.nome" class="ui-g-12" pInputText/>
+            <label>Nome Completo</label>
+          </span>
+        </div>
+        <div class="ui-g-12 ui-md-2">
+          <div class="ui-g-12 item" >
+            <p-checkbox [disabled]="false" [(ngModel)]="UsuarioSelect.ativo" binary="true"></p-checkbox>
+            <label *ngIf="UsuarioSelect.ativo === true" >Ativo</label>
+            <label *ngIf="UsuarioSelect.ativo === false" >Inativo</label>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+          <div class="ui-g-12 item" >
+            <span class="md-inputfield">
+              <input id="input" type="number" [(ngModel)]="UsuarioSelect.acesso" class="ui-g-12" pInputText/>
+              <label>Tipo de Dashboards</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12" style="margin-top: 20px;">
+        <div class="ui-g-12 ui-md-6">
+          <span class="md-inputfield">
+            <input id="input" type="text" [(ngModel)]="UsuarioSelect.email" class="ui-g-12" pInputText/>
+            <label>Email</label>
+          </span>
+        </div>
+        <div class="ui-g-12 ui-md-6" >
+          <span class="md-inputfield">
+            <input id="input" type="text" [(ngModel)]="UsuarioSelect.login" class="ui-g-12" pInputText/>
+            <label >Login</label>
+          </span>
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-12" style="margin-top: 40px;">
+        <div class="ui-g-3" style="text-align: center; margin-top: 20px;">
+          <button type="button" pButton label="Resetar Senha"  (click)="resetarSenha(UsuarioSelect)"></button>
+        </div>
+        <div class="ui-g-3" style="text-align: center; margin-top: 20px;">
+          <button type="button" pButton label="Atribuir Permissões"  (click)="atribuirPermissoes(UsuarioSelect)"></button>
+        </div>
+        <div class="ui-g-3" style="text-align: center; margin-top: 20px;">
+          <button type="button" pButton label="Atribuir Unidades"  (click)="atribuirpermdashs(UsuarioSelect)"></button>
+        </div>
+        <div class="ui-g-3" style="text-align: center; margin-top: 20px;">
+          <button type="button" pButton label="Salvar"  (click)="editarPermissoes()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog header="Atribuir Unidades" [(visible)]="atribuirpermdash" [responsive]="false" showEffect="fade" [modal]="true"   (onAfterHide)="onDialogHide()">
+  <div class="ui-g" *ngIf="atribuirpermdash" >
+    <app-scde-parametrizacao class="ui-g" [usuario]="usSelec" *ngIf="atribuirpermdash"></app-scde-parametrizacao>
+  </div>
+</p-dialog>
+
+<p-dialog header="Atribuir Permissões" [(visible)]="EditPermissoes" [responsive]="false" showEffect="fade" [modal]="true" [style]="{width: '800px'}"  (onAfterHide)="onDialogHide()">
+  <div class="ui-g" *ngIf="PermissoesSelect" >
+    <div  style="margin-left: 20px; margin-right: 40px;" class="ui-g">
+      
+      <p-pickList [source]="sourcePermissoes" [target]="UsuarioSelect.perfis" sourceHeader="Disponíveis" targetHeader="Acessos" [responsive]="true" filterBy="permissao" 
+      dragdrop="true" [sourceStyle]="{'height':'300px', 'width': '300px'}" [targetStyle]="{'height':'300px', 'width': '300px'}">
+        <ng-template let-perfil pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <div class="ui-g">
+              <!-- <div class="ui-g-3" >
+                <button pButton type="button"   label="!" class="ui-button-rounded ui-button-info" ></button>
+              </div> -->
+              <div class="ui-g-9"  pTooltip="{{perfil.permissao}}" tooltipPosition="bottom">
+                {{perfil.permissao}}
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-pickList>
+      <div class="ui-g-12" style="text-align: center; margin-top: 20px;">
+        <button type="button" pButton icon="pi pi-save" label="Salvar"  (click)="editarPermissoes()"></button>
+      </div>
+    </div>
+  </div>
+</p-dialog>
