@@ -71,7 +71,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
         var us = this.getDecodedAccessToken()
         this.nome = "Fulano da Silva"
         
-        this.urlimage ="./assets/layout/images/famosos/1.png";
+        this.urlimage ="./assets/layout/images/avatar_2.png";
         var adm =false
     }
     //==================================FATURAS PENDENTES=================================

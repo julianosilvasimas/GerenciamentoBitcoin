@@ -10,8 +10,18 @@ export class CadastroUsuariosComponent implements OnInit {
   constructor() { }
 
   contratos=[
-    {id:1, descricao: "Contrato 1", cliente: "Wesley Safadão"},
-    {id:2, descricao: "Contrato 2", cliente: "Anitta"}
+    {
+      id:1, 
+      descricao: "Contrato 1", 
+      cliente: "Wesley Safadão",
+      valor: 10000
+    },
+    {
+      id:2, 
+      descricao: "Contrato 2", 
+      cliente: "Anitta",
+      valor: 10000
+    }
   ]
 
   products=[]
@@ -22,6 +32,7 @@ export class CadastroUsuariosComponent implements OnInit {
         id:1,
         descricao: "Contrato 1",
         pagamentoCorrente: true,
+        valor: 10000,
         parcelasPagas: 1,
         totalParcelas: 24,
       },
@@ -29,6 +40,7 @@ export class CadastroUsuariosComponent implements OnInit {
         id:2,
         descricao: "Contrato 1",
         pagamentoCorrente: true,
+        valor: 10000,
         parcelasPagas: 2,
         totalParcelas: 24,
       },
@@ -37,6 +49,7 @@ export class CadastroUsuariosComponent implements OnInit {
         descricao: "Contrato 1",
         pagamentoCorrente: false,
         dataVenc: "2020",
+        valor: 10000,
         parcelasPagas: 3,
         totalParcelas: 24,
       },
@@ -44,6 +57,7 @@ export class CadastroUsuariosComponent implements OnInit {
         id:4,
         descricao: "Contrato 1",
         pagamentoCorrente: false,
+        valor: 10000,
         parcelasPagas: 4,
         totalParcelas: 24,
       },

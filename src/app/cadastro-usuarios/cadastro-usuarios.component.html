@@ -2,10 +2,10 @@
     <div class="p-col-12 p-md-6" style="font-size: 10px">
         <div class="card">
             <h1 style="font-size:20px; font-weight: bold;">Controle de Contratos</h1>
-            <div class="p-col-12 p-md-12" style="font-size: 10px">
+            <div class="p-col-12 p-md-12" >
                 <p-table [value]="contratos" [paginator]="true" [rows]="5">
                     <ng-template pTemplate="header">
-                        <tr>
+                        <tr style="font-size: 11px">
                             <th pSortableColumn="id">Id
                                 <p-sortIcon field="id"></p-sortIcon>
                             </th>
@@ -15,14 +15,18 @@
                             <th pSortableColumn="cliente">Cliente
                                 <p-sortIcon field="cliente"></p-sortIcon>
                             </th>
+                            <th pSortableColumn="valor">Valor
+                                <p-sortIcon field="valor"></p-sortIcon>
+                            </th>
                             <th></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
-                        <tr>
+                        <tr style="font-size: 11px">
                             <td>{{product.id}}</td>
                             <td>{{product.descricao}}</td>
                             <td>{{product.cliente}}</td>
+                            <td>{{product.valor | currency:'BRL':true:'1.2-2'}} </td>
                             <td style="text-align: center">
                                 <button pButton type="button" icon="pi pi-search"></button>
                             </td>
@@ -35,39 +39,42 @@
     <div class="p-col-12 p-md-6" style="font-size: 10px">
         <div class="card">
             <h1 style="font-size:16px">Folha de Pagamentos</h1>
-            <div class="p-grid p-fluid">
-                <div class="p-col-6 p-md-3" style="font-size: 10px">
-                    <img src="assets/layout/images/famosos/2.png" height="100" style="border-radius: 50%;">
+            <div class="p-grid p-fluid"  style="font-size: 10px">
+                <div class="p-col-6 p-md-3" >
+                    <img src="assets/layout/images/avatar_2.png" height="100" style="border-radius: 50%;">
                 </div>
                 <div class="p-col-6 p-md-9" style="font-size: 10px">
                     <div class="p-col-12" style="font-size: 12px; font-weight: bold;">
                         Wesley Safadão
                     </div>
-                    <div class="p-grid p-fluid" style="font-size: 10px">
-                        <div class="p-col-6" style="font-size: 10px">
+                    <div class="p-grid p-fluid">
+                        <div class="p-col-6" >
                             <p>Banco: 1111<br>Agência: 1122<br>Conta: 100000-1<br>Tipo> Conta Corrente</p>
                         </div>
-                        <div class="p-col-6" style="font-size: 10px">
+                        <div class="p-col-6" >
                             Capital Inicial: R$ 10.000<br>
                             Capital Atual: R$ 12.000<br>
                         </div>
                     </div>
-                    <div class="p-col-12" style="font-size: 10px">
-                        <b>Consultor: Joluane Barcelos</b>
+                    <div class="p-col-12">
+                        <b>Consultor: Fulano de Tal</b>
                     </div>
                 </div>
             </div>
             <div class="p-col-12 p-md-12" style="font-size: 10px">
                 <p-table [value]="products" [paginator]="true"  [rows]="5">
                     <ng-template pTemplate="header">
-                        <tr style="font-size: 10px">
+                        <tr style="font-size: 11px">
                             <th pSortableColumn="id">Id
                                 <p-sortIcon field="id"></p-sortIcon>
                             </th>
                             <th pSortableColumn="pagamentoCorrente">Pag. Realizado
                                 <p-sortIcon field="pagamentoCorrente"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="parcelasPagas">Qtd. de Pagamentos
+                            <th pSortableColumn="valor">Valor
+                                <p-sortIcon field="valor"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="parcelasPagas">Status
                                 <p-sortIcon field="parcelasPagas"></p-sortIcon>
                             </th>
                         </tr>
@@ -76,6 +83,8 @@
                         <tr style="font-size: 10px">
                             <td>{{product.id}}</td>
                             <td>{{product.parcelasPagas}}/{{product.totalParcelas}}</td>
+                            <td>{{product.valor | currency:'BRL':true:'1.2-2'}} </td>
+                            
                             <td>
                                 <p-message *ngIf="product.pagamentoCorrente" severity="success" text="Pago" styleClass="p-mr-2"></p-message>  
                                 <p-message *ngIf="product.pagamentoCorrente==false" severity="warn" text="Pendente" styleClass="p-mr-2"></p-message>  
