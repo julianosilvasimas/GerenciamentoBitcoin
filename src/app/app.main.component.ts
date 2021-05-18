@@ -4,8 +4,9 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
 import * as jwt_decode from "jwt-decode";
 import { AppComponent } from './app.component';
 import { UserServiceService } from './administrador/usuarios/user-service.service';
-import { AuthService } from './login/auth.service';
+import { AuthService } from './services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { ServUsuariosService } from './services/serv-usuarios.service';
 
 @Component({
     selector: 'app-main',
@@ -51,7 +52,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
 
     getDecodedAccessToken(): any {
         try{
-            return JSON.parse(jwt_decode(sessionStorage.getItem('token')).iss);
+            return jwt_decode(sessionStorage.getItem('token'));
         }
             catch(Error){
             return null;
@@ -66,12 +67,8 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
         private router: Router,
         private authService: AuthService,
         private messageService: MessageService,
-        private adminserv: UserServiceService
+        private adminserv: ServUsuariosService
     ) {
-        var us = this.getDecodedAccessToken()
-        this.nome = "Fulano da Silva"
-        
-        this.urlimage ="./assets/layout/images/avatar_2.png";
         var adm =false
     }
     //==================================FATURAS PENDENTES=================================
@@ -87,9 +84,12 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
     refParaFaturas
 
     ngOnInit() {
-
+        console.clear()
+        this.nome = localStorage.getItem('nome')
+        this.urlimage = localStorage.getItem('foto')
         
         this.primengConfig.ripple = true;
+        // console.clear()
     }
     RefAtual(data:Date){
       var dia  = data.getDate().toString(),

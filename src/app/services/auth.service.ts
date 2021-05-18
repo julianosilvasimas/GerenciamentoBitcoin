@@ -1,9 +1,9 @@
 import { Injectable, EventEmitter, SystemJsNgModuleLoader  } from '@angular/core';
-import { Usuario } from './login.model';
+import { Usuario } from '../login/login.model';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { API_CONFIG, API_ORCAME } from '../app.api';
+import { API_CONFIG } from '../app.api';
 import { map, catchError, findIndex } from 'rxjs/operators';
 import * as jwt_decode from "jwt-decode";
 import { ErrorHandler } from '../app.error-handler';
@@ -32,25 +32,6 @@ export class AuthService {
   }
 
 
-  //Requisições Http
-  fazerLoginOrcamento(usuario: Usuario): Observable<any>{
-    let headers = new HttpHeaders();
-        headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-        headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        var stat
-
-        return this.http.post<any>(`${API_ORCAME}/login`,
-            {email: usuario.email, senha: usuario.senha},
-            { observe: 'response'})
-            .pipe(
-                map((response) => ({data: response.headers, 
-                                    status: response.status,
-                                    statusTexto: response.statusText,
-                                  }),
-                                  catchError(ErrorHandler.handleError)
-                                  ) 
-            );
-  }
   //Requisições Http
   fazerLogin(usuario: Usuario): Observable<any>{
     let headers = new HttpHeaders();
@@ -173,8 +154,11 @@ export class AuthService {
   
   this.dados.push({ key: 'usuarioId' , valor: tokenDecode.jti, lista: [] });
   
-  var us = JSON.parse(tokenDecode.iss)
-  
+  var us = tokenDecode.iss
+
+  // debugger;
+  console.log(us)
+
   sessionStorage.setItem('token',this.token)
   sessionStorage.setItem('email',us.email)
   sessionStorage.setItem('nome',us.nome)
@@ -190,15 +174,12 @@ export class AuthService {
   dateIni.setUTCSeconds(parseInt(this.dados[2].valor))
   dateExp.setUTCSeconds(parseInt(this.dados[3].valor))
   
-  // console.log('Data Login: '+ dateIni);
-  // console.log('Data Validade: '+ dateExp);
 
   // Verificando permissões
   
   tokenDecode.roles.forEach((element,index) => {
     this.auth.push(element['authority']);
-    // sessionStorage.setItem("permissao "+ index ,element['authority'])
-    // console.log(element)
+    console.log(element)
   });
 
   return this.dados

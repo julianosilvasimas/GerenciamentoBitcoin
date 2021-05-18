@@ -41,9 +41,11 @@
                 <div class="p-col-12" *ngIf="carregando==false" >
                     <p-button type="button" icon="pi pi-user"  label="Entrar" (click)= "logar()" icon="ui-icon-person"></p-button>
                 </div>
-                <p-progressBar  *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+                <div class="p-col-12" *ngIf="carregando" >
+                    <p-progressSpinner class="p-col-12" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                </div>
             </div>
         </div>
-        <div class="login-footer">Heser System</div>
+        <div class="login-footer">JV Systems</div>
     </div>
 </div>
