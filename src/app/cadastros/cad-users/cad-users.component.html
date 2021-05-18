@@ -1,0 +1,87 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div class="dashboard p-grid p-fluid">
+    <div class="p-col-12 p-md-12" style="font-size: 10px">
+        <div class="card">
+            <h1 style="font-size:20px; font-weight: bold;">Cadastro de Usuários</h1>
+            <div class="p-col-12 p-md-12" *ngIf="carregado">
+                <p-toolbar styleClass="p-mb-12">
+                    <ng-template pTemplate="left">
+                        <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="novoUsuario()"></button>
+                    </ng-template>
+                </p-toolbar>
+                <p-table #dt1 [value]="consultores" [columns]="cols" [paginator]="true" [rows]="10" >
+                    <ng-template pTemplate="header" let-columns>
+                        <tr style="font-size: 11px">
+                            <th *ngFor="let col of columns" pSortableColumn="{{col.value}}" [style]="col.width==null? null : { 'width': col.width }">
+                                {{col.label}}
+                                <p-sortIcon field="{{col.value}}"></p-sortIcon>
+                            </th>
+                        </tr>
+                        <tr style="font-size: 11px">
+                            
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-usuario  let-columns="columns">
+                        <tr style="font-size: 11px">
+                            <td *ngFor="let col of columns">
+                                <span *ngIf="col.cxlabel">{{usuario[col.value]}}</span>
+                                <img *ngIf="col.value=='foto'" width="30px" height="30px" style="border-radius: 50%;" [src]="usuario.foto==null ? 'assets/layout/images/noImage.png' : usuario.foto">
+                                <p-inputSwitch *ngIf="col.value=='ativo'" (click)="ativarUsuario(usuario)" [(ngModel)]="usuario.ativo"></p-inputSwitch>
+                                <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verConsultor(usuario)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
+                            </td> 
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="bottom" let-usuario  let-columns="columns">
+                        <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verConsultor(usuario)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+<p-sidebar [(visible)]="editarUser" position="right" [style]="{ 'width': '50%'}" [baseZIndex]="10000">
+    <div class="card" *ngIf="editarUser">
+        <div class="p-col-12 p-md-12" style="text-align: center;">
+            <img [src]="consultor.foto==null ? 'assets/layout/images/noImage.png' : consultor.foto"  height="200" style="border-radius: 50%;">
+        </div>
+        <h5>Usuário Editor</h5>
+        <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">Nome</label>
+                <input id="firstname6" type="text" [(ngModel)]="consultor.nome" pInputText> 
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="lastname6">Login</label>
+                <input id="lastname6" type="text" [(ngModel)]="consultor.login" pInputText> 
+            </div>
+            <div class="p-field p-col-6">
+                <label for="address">Email</label>
+                <textarea id="address" type="text" [(ngModel)]="consultor.email" rows="1" pInputTextarea></textarea>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="city">Cargo</label>
+                <p-dropdown inputId="state" [options]="arrCargos" [(ngModel)]="consultor.cargo" placeholder="Select"></p-dropdown>
+            </div>
+
+            <div class="p-field p-col-12 p-md-12">
+                <h5>Editar Permissões</h5>
+                <p-pickList class="p-field p-col-12 p-md-12" [source]="list1" [target]="list2" [dragdrop]="true" [responsive]="true" [sourceStyle]="{'height':'200px'}" [targetStyle]="{'height':'200px'}" filterBy="perfil">  
+                    <ng-template let-car pTemplate="item"> 
+                        <div >
+                            <div style="font-size:10px;float:right;margin:15px 5px 0 0">{{car.perfil}} - {{car.permissao}}</div>
+                        </div>
+                    </ng-template>
+                </p-pickList>
+            </div>
+            <div class="p-col-4 ">
+                <p-button class="p-col-12" (click)="salvarUsuario()" label="Salvar" icon="pi pi-check"   styleClass="p-button-success p-button-rounded p-button-sm"></p-button>
+            </div>
+            <div class="p-col-4 ">
+                <p-button class="p-col-12" (click)="Cancelar()"  label="Cancelar" icon="pi pi-times" styleClass="p-button-secondary p-button-rounded p-button-sm"></p-button>
+            </div>
+            <div class="p-col-4 " *ngIf="newUsuario==false" >
+                <p-button class="p-col-12" (click)="deletarUsuario()"  label="Deletar" icon="pi pi-trash"  styleClass="p-button-danger p-button-rounded p-button-sm"></p-button>
+            </div>
+        </div>
+    </div>
+</p-sidebar>

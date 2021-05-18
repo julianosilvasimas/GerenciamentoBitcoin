@@ -64,7 +64,6 @@ import {RippleModule} from 'primeng/ripple';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ScrollTopModule} from 'primeng/scrolltop';
 import {SelectButtonModule} from 'primeng/selectbutton';
-import {SidebarModule} from 'primeng/sidebar';
 import {SkeletonModule} from 'primeng/skeleton';
 import {SlideMenuModule} from 'primeng/slidemenu';
 import {SliderModule} from 'primeng/slider';
@@ -85,6 +84,8 @@ import {TooltipModule} from 'primeng/tooltip';
 import {TreeModule} from 'primeng/tree';
 import {TreeTableModule} from 'primeng/treetable';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {SidebarModule} from 'primeng/sidebar';
 
 import {AppCodeModule} from './app.code.component';
 import {AppComponent} from './app.component';
@@ -140,13 +141,28 @@ import {ProductService} from './demo/service/productservice';
 import {MenuService} from './app.menu.service';
 import { LogservService } from './login/logserv.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { AuthService } from './login/auth.service';
+import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import { UserServiceService } from './administrador/usuarios/user-service.service';
 import { HomeComponent } from './home/home.component';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { UsuariosComponent } from './administrador/usuarios/usuarios.component';
-import { CadastroUsuariosComponent } from './cadastro-usuarios/cadastro-usuarios.component';
+import { CadUsersComponent } from './cadastros/cad-users/cad-users.component';
+import { CadContractsComponent } from './cadastros/cad-contracts/cad-contracts.component';
+import { RelatorioBancosComponent } from './relatorios/relatorio-bancos/relatorio-bancos.component';
+import { RelatorioConsultoresComponent } from './relatorios/relatorio-consultores/relatorio-consultores.component';
+import { RelatorioPagamentosClientesComponent } from './relatorios/relatorio-pagamentos-clientes/relatorio-pagamentos-clientes.component';
+import { RelatorioPagamentosConsultoresComponent } from './relatorios/relatorio-pagamentos-consultores/relatorio-pagamentos-consultores.component';
+import { ServUsuariosService } from './services/serv-usuarios.service';
+import { ServRolesService } from './services/serv-roles.service';
+import { CadClientesComponent } from './cadastros/cad-clientes/cad-clientes.component';
+import { ServClientesService } from './services/serv-clientes.service';
+import { ServCepService } from './services/serv-cep.service';
+import { CadClientesView1Component } from './cadastros/cad-clientes/cad-clientes-view1/cad-clientes-view1.component';
+import { ServBancosService } from './services/serv-bancos.service';
+import { ServContasService } from './services/serv-contas.service';
+import { CadClientesView2Component } from './cadastros/cad-clientes/cad-clientes-view2/cad-clientes-view2.component';
+import { ServContatosService } from './services/serv-contatos.service';
 @NgModule({
     imports: [
         BrowserModule,
@@ -233,7 +249,9 @@ import { CadastroUsuariosComponent } from './cadastro-usuarios/cadastro-usuarios
         TreeModule,
         TreeTableModule,
         VirtualScrollerModule,
-        AppCodeModule
+        AppCodeModule,
+        ProgressSpinnerModule,
+        SidebarModule
     ],
     declarations: [
         AppComponent,
@@ -284,7 +302,15 @@ import { CadastroUsuariosComponent } from './cadastro-usuarios/cadastro-usuarios
         LoginComponent,
         AdministradorComponent,
         UsuariosComponent,
-        CadastroUsuariosComponent,
+        CadUsersComponent,
+        CadContractsComponent,
+        RelatorioBancosComponent,
+        RelatorioConsultoresComponent,
+        RelatorioPagamentosClientesComponent,
+        RelatorioPagamentosConsultoresComponent,
+        CadClientesComponent,
+        CadClientesView1Component,
+        CadClientesView2Component,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -293,6 +319,13 @@ import { CadastroUsuariosComponent } from './cadastro-usuarios/cadastro-usuarios
         AuthService,
         UserServiceService, 
         LogservService,
+        ServUsuariosService,
+        ServRolesService,
+        ServClientesService,
+        ServCepService,
+        ServBancosService,
+        ServContasService,
+        ServContatosService
 
         
     ],

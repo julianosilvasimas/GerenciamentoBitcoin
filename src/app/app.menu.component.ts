@@ -14,21 +14,34 @@ import * as jwt_decode from "jwt-decode";
 })
 export class AppMenuComponent implements OnInit {
 
-    model: any[]=[];
+    model: any[];
 
 
     constructor(public app: AppMainComponent) {
         
     }
-    
-    i=0
-
+    carregado=false
     ngOnInit() {
+        // console.clear()
+        this.model=[
+            { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
+            { 
+                label: 'Administrar', icon: 'pi pi-user', 
+                items: [
+                    {label: 'Cadastro de Usuário', icon: 'pi pi-user', routerLink:'/usuarios'},
+                ]
+            },
+            { 
+                label: 'Clientes', icon: 'pi pi-money-bill', 
+                items: [
+                    { label: 'Carteira de Clientes', icon: 'pi pi-money-bill', routerLink:'/clientes'},
+                    { label: 'Contratos', icon: 'pi pi-money-bill', routerLink:'/contratos'},
+                ]
+            },
+          
+        ];
         
-        this.model=[];
-        
-        this.model.push( {label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'});
-        this.model.push( { label: 'Carteira de Clientes', icon: 'pi pi-money-bill', routerLink:'/carteira'},);
-        this.model.push( { label: 'Usuários', icon: 'pi pi-user', routerLink:'/users'},);
+
+        this.carregado=true
     }
 }

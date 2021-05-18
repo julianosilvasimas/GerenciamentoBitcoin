@@ -9,9 +9,10 @@ import {IconsComponent} from './utilities/icons.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard.service';
 import { HomeComponent } from './home/home.component';
-import { CadastroUsuariosComponent } from './cadastro-usuarios/cadastro-usuarios.component';
 import { MediaDemoComponent } from './demo/view/mediademo.component';
 import { WidgetsComponent } from './utilities/widgets.component';
+import { CadUsersComponent } from './cadastros/cad-users/cad-users.component';
+import { CadClientesComponent } from './cadastros/cad-clientes/cad-clientes.component';
 
 @NgModule({
     imports: [
@@ -20,11 +21,13 @@ import { WidgetsComponent } from './utilities/widgets.component';
                 path: '', component: AppMainComponent,
                 children: [
                     {path: '', component: HomeComponent, canActivate: [AuthGuard],},
-                    {path: 'carteira', component: CadastroUsuariosComponent},
+                    {path: 'usuarios', component: CadUsersComponent},
+                    {path: 'clientes', component: CadClientesComponent},
+                    {path: 'carteira', component: CadUsersComponent},
+                    
                     {path: 'dash', component: DashboardDemoComponent},
                     {path: 'utils', component: IconsComponent},
                     {path: 'media', component: WidgetsComponent},
-            
                 ]
             },
             {path: 'error', component: AppErrorComponent},
