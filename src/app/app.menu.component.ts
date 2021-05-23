@@ -22,24 +22,32 @@ export class AppMenuComponent implements OnInit {
     }
     carregado=false
     ngOnInit() {
-        // console.clear()
-        this.model=[
-            { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
-            { 
-                label: 'Administrar', icon: 'pi pi-user', 
-                items: [
-                    {label: 'Usuário', icon: 'pi pi-user', routerLink:'/usuarios'},
-                    {label: 'Clientes', icon: 'pi pi-money-bill', routerLink:'/clientes'},
-                    {label: 'Contratos', icon: 'pi pi-money-bill', routerLink:'/contratos'},
-                ]
-            },
-            // { 
-            //     label: 'C', icon: 'pi pi-money-bill', 
-            //     items: [
-            //     ]
-            // },
-          
-        ];
+        this.model=[]
+        var cargo = localStorage.getItem('cargo');
+        if(cargo.indexOf('Gerente')>-1){
+            this.model=[
+                { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
+                { 
+                    label: 'Administrar', icon: 'pi pi-user', 
+                    items: [
+                        {label: 'Usuário', icon: 'pi pi-user', routerLink:'/usuarios'},
+                        {label: 'Clientes', icon: 'pi pi-money-bill', routerLink:'/clientes'},
+                        {label: 'Contratos', icon: 'pi pi-money-bill', routerLink:'/contratos'},
+                    ]
+                },          
+            ];
+        }else if(cargo.indexOf('Consultor')>-1){
+            this.model=[
+                { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
+                { 
+                    label: 'Administrar', icon: 'pi pi-user', 
+                    items: [
+                        {label: 'Usuário', icon: 'pi pi-user', routerLink:'/usuarios'},
+                    ]
+                },          
+            ];
+
+        }
         
 
         this.carregado=true

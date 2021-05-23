@@ -18,6 +18,10 @@ export class ServInvestimentosService {
     return this.http.get(`${API_CONFIG}/investimentos`) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
+  getInvestimentosByConsultor(email): Observable<any[]>{
+    return this.http.get(`${API_CONFIG}/investimentos/consultor/${email}`) 
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
 
   getInvestimentosId(id): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/investimentos/${id}`) 

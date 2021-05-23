@@ -29,12 +29,13 @@ export class CadUsersComponent implements OnInit {
   ]
 
   cols=[
-    { label: "",      cxlabel:false ,value: 'foto' , width: "70px" },
-    { label: "Nome",  cxlabel:true ,value: 'nome' },
-    { label: "Cargo", cxlabel:true ,value: 'cargo'},
-    { label: "Email", cxlabel:true ,value: 'email'},
-    { label: "Ativo", cxlabel:false ,value: 'ativo', width: "80px" },
-    { label: "",      cxlabel:false ,value: 'botao', width: "90px" },
+    { label: "",              cxlabel:false ,value: 'foto' , width: "70px" },
+    { label: "Nome",          cxlabel:true ,value: 'nome' },
+    { label: "Cargo",         cxlabel:true ,value: 'cargo'},
+    { label: "Email",         cxlabel:true ,value: 'email'},
+    { label: "Ativo",         cxlabel:false ,value: 'ativo', width: "80px" },
+    { label: "Resetar Senha", cxlabel:false ,value: 'reset', width: "90px" },
+    { label: "",              cxlabel:false ,value: 'botao', width: "90px" },
   ]
 
 
@@ -148,13 +149,23 @@ export class CadUsersComponent implements OnInit {
 
   verConsultor(user){
     this.coletarEscritorios()
-    console.log(user)
     this.serv.getUser(user.id).subscribe(
       resp=>{
         console.log(resp)
         this.consultor=resp
         this.newUsuario=false
         this.editarUser=true
+      }
+    )
+  }
+
+  resetSenha(user){
+    console.log(user)
+    this.serv.resetSenha(user.id).subscribe(
+      resp=>{
+        this.messageService.add({severity:'success', summary: 'Sucesso!', detail:'Senha resetada com sucesso', life: 5000});
+      },erro=>{
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'Erro ao resetar a senha', life: 5000});
       }
     )
   }

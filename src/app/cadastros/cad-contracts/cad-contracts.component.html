@@ -34,7 +34,24 @@
 </div>
 
 <p-sidebar [(visible)]="editarInvestimento"  [fullScreen]="true" [baseZIndex]="10000">
-    <div class="card" *ngIf="editarInvestimento">
+    <div *ngIf="carregado==false" style="width: 100%;">
+        <div class="custom-skeleton p-p-4">
+            <div class="p-d-flex p-mb-3">
+                <p-skeleton shape="circle" size="4rem" styleClass="p-mr-2"></p-skeleton>
+                <div>
+                    <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+                    <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+                    <p-skeleton height=".5rem"></p-skeleton>
+                </div>
+            </div>
+            <p-skeleton width="100%" height="150px"></p-skeleton>
+            <div class="p-d-flex p-jc-between p-mt-3">
+                <p-skeleton width="4rem" height="2rem"></p-skeleton>
+                <p-skeleton width="4rem" height="2rem"></p-skeleton>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="width: 100%;" *ngIf="editarInvestimento && carregado">
         <h3>Editor de Investimentos</h3>
         <p-scrollPanel [style]="{width: '100%', height: height}" styleClass="custom">
             <div class="p-fluid p-formgrid p-grid">
@@ -181,14 +198,11 @@
                         <app-cad-contract-pagamentos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [Recebedor]="'Consultor'" [investimento]="investimento"></app-cad-contract-pagamentos>
                     </p-accordionTab>
                 </p-accordion>
-                <div class="p-col-4 ">
-                    <p-button class="p-col-12" (click)="salvarUsuario()" label="Salvar" icon="pi pi-check"   styleClass="p-button-success p-button-rounded p-button-sm"></p-button>
+                <div class="p-field p-col-12 p-md-6">
+                    <p-button class="p-col-12" (click)="salvar()" label="Salvar" icon="pi pi-check"   styleClass="p-button-success p-button-rounded p-button-sm"></p-button>
                 </div>
-                <div class="p-col-4 ">
+                <div class="p-field p-col-12 p-md-6 ">
                     <p-button class="p-col-12" (click)="Cancelar()"  label="Cancelar" icon="pi pi-times" styleClass="p-button-secondary p-button-rounded p-button-sm"></p-button>
-                </div>
-                <div class="p-col-4 ">
-                    <p-button class="p-col-12" (click)="deletarUsuario()"   label="Deletar" icon="pi pi-trash"  styleClass="p-button-danger p-button-rounded p-button-sm"></p-button>
                 </div>
                 
             </div>

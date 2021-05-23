@@ -167,6 +167,8 @@ import { ServDashboardsService } from './services/serv-dashboards.service';
 import { CadContractContasComponent } from './cadastros/cad-contracts/cad-contract-contas/cad-contract-contas.component';
 import { CadContractContatosComponent } from './cadastros/cad-contracts/cad-contract-contatos/cad-contract-contatos.component';
 import { CadContractPagamentosComponent } from './cadastros/cad-contracts/cad-contract-pagamentos/cad-contract-pagamentos.component';
+import { AdministConsultorComponent } from './administ-consultor/administ-consultor.component';
+import { MeusContratosComponent } from './administ-consultor/meus-contratos/meus-contratos.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -316,7 +318,9 @@ import { CadContractPagamentosComponent } from './cadastros/cad-contracts/cad-co
         EditUsersComponent,
         CadContractContasComponent,
         CadContractContatosComponent,
-        CadContractPagamentosComponent
+        CadContractPagamentosComponent,
+        AdministConsultorComponent,
+        MeusContratosComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

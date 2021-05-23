@@ -35,6 +35,7 @@
                                 <span *ngIf="col.cxlabel">{{usuario[col.value]}}</span>
                                 <img *ngIf="col.value=='foto'" width="30px" height="30px" style="border-radius: 50%;" [src]="usuario.foto==null ? 'assets/layout/images/noImage.png' : usuario.foto">
                                 <p-inputSwitch *ngIf="col.value=='ativo'" (click)="ativarUsuario(usuario)" [(ngModel)]="usuario.ativo"></p-inputSwitch>
+                                <button *ngIf="col.value=='reset'" pButton pRipple type="button" (click)="resetSenha(usuario)" icon="pi pi-key" class="p-button-danger p-button-rounded p-button-outlined"></button>
                                 <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verConsultor(usuario)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
                             </td> 
                         </tr>

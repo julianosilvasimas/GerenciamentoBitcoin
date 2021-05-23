@@ -63,13 +63,14 @@ export class AuthService {
                       catchError(ErrorHandler.handleError))
   }
   
-  senhaUpdate2(id: number, senha: string,keys): Observable<any>{
+  senhaUpdate2(id: number, email: string ,senha: string,keys): Observable<any>{
       const headers = new HttpHeaders().set("Content-Type", "application/json").set('Authorization',keys)
       let bodyObj = {
                       "id": id,
+                      "email": email,
                       "senha": senha
                     }
-     
+        console.log(headers)
       return this.http.put(`${API_CONFIG}/usuarios/attsenha`,JSON.stringify(bodyObj) ,{headers: headers}) 
                       .pipe(map(this.extractData),
                       catchError(ErrorHandler.handleError))

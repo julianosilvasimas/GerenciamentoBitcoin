@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     cols: any[];
 
     // selectedCar: Car;
+    localStorage=localStorage
 
     chartData: any;
 

@@ -34,10 +34,10 @@ import { DocumentationComponent } from './demo/view/documentation.component';
                 path: '', component: AppMainComponent,
                 children: [
                     {path: '', component: HomeComponent, canActivate: [AuthGuard],},
-                    {path: 'editaruser', component: EditUsersComponent},
-                    {path: 'usuarios', component: CadUsersComponent},
-                    {path: 'clientes', component: CadClientesComponent},
-                    {path: 'contratos', component: CadContractsComponent},
+                    {path: 'editaruser', component: EditUsersComponent, canActivate: [AuthGuard],},
+                    {path: 'usuarios', component: CadUsersComponent, canActivate: [AuthGuard],},
+                    {path: 'clientes', component: CadClientesComponent, canActivate: [AuthGuard],},
+                    {path: 'contratos', component: CadContractsComponent, canActivate: [AuthGuard],},
                     
                     {path: 'dash', component: DashboardDemoComponent},
                     {path: 'utils', component: IconsComponent},

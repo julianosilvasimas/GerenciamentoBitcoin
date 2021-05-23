@@ -230,7 +230,6 @@ export class CadClientesComponent implements OnInit {
   procurarCEP(cep){
     this.cepserv.getCEP(cep).subscribe(
       resp=>{
-        console.log(resp)
         this.consultor.estado = resp['uf']
         this.consultor.bairro = resp['bairro']
         this.consultor.cidade = resp['localidade']
@@ -240,7 +239,6 @@ export class CadClientesComponent implements OnInit {
   }
 
   salvarUsuario(){
-    console.log(this.consultor)
     this.consultor.cpf = this.consultor.cpf.replaceAll(".","").replaceAll("-","")
     if(this.consultor.investidor==null  || this.consultor.email==null || this.consultor.cpf==null){
       this.messageService.add({severity:'warn', summary: 'Faltam Itens', detail:'Preencha pelo menos o nome e o email', life: 5000});

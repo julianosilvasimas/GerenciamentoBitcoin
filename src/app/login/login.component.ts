@@ -35,14 +35,12 @@ export class LoginComponent implements OnInit {
 
   }
   token
+  user
   alterarsenha(){
     
     if(this.novasenha === this.novasenhaconfirm){
       var id
-      this.authService.usuario2(sessionStorage.getItem('email'),this.token)
-      .subscribe(res=>{
-        console.log(res)
-        this.authService.senhaUpdate2(res['iduser'] , this.novasenha,this.token)
+        this.authService.senhaUpdate2(this.user['id'] ,this.user['email'] , this.novasenha,this.token)
         .subscribe(
           response => {
             this.log.salvarlog("Alterar Senha","Editar");
@@ -51,16 +49,14 @@ export class LoginComponent implements OnInit {
             this.usuario.senha = this.novasenha
             setTimeout(() => {
               this.logar()
-            }, 1000);
+            }, 500);
           },
           error =>  { 
             this.messageService.add({severity:'error', summary: "Senha não alterada!", detail:error.message, life: 5000});
-            console.log(error)
+            // console.log(error)
           }
         );
-    });
 
-      this.senhapad = false;
     }else{
       this.messageService.add({severity:'error', summary: "Senha não alterada!", detail:'As senhas digitadas não conferem!!!', life: 5000});
     } 
@@ -88,7 +84,8 @@ export class LoginComponent implements OnInit {
           var us = this.getDecodedAccessToken(this.token)
         
           this.adminserv.getUserByEmail(us.sub.replaceAll("\"","")).subscribe(resp2=>{
-              console.log(resp2)
+              // console.log(resp2)
+              this.user=resp2
 
               this.authService.getToken(localStorage.getItem('token'));
               localStorage.setItem('email', resp2['email']);

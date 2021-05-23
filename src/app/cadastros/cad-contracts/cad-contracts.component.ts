@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServInvestimentosService } from 'src/app/services/serv-contratos.service';
 import {get} from 'lodash';
 import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
-import { PrimeIcons } from 'primeng/api';
+import { MessageService, PrimeIcons } from 'primeng/api';
 
 @Component({
   selector: 'app-cad-contracts',
@@ -11,7 +11,8 @@ import { PrimeIcons } from 'primeng/api';
 })
 export class CadContractsComponent implements OnInit {
 
-  constructor(private serv:ServInvestimentosService,private serv2:ServUsuariosService) { }
+  constructor(private serv:ServInvestimentosService,private serv2:ServUsuariosService,
+    private messageService: MessageService,) { }
 
   tipos=[
     { label: "Investimento Inicial",  cxlabel:true ,value: 'inicial' },
@@ -72,26 +73,28 @@ export class CadContractsComponent implements OnInit {
         // console.log(users)
         this.consultores=users.filter(function(e) { return e.cargo.indexOf("Consultor")>-1 || e.cargo.indexOf("Gerente")>-1 })
         this.secretarias=users.filter(function(e) { return e.cargo.indexOf("Secretaria")>-1 || e.cargo.indexOf("Gerente")>-1  })
-
-        this.serv.getInvestimentos().subscribe(
-          resp=>{
-            this.investimentos=resp
-
-            //apagar depois
-            // this.verInvestimento(resp[0])
-          }
-        )
+        this.recarregaInvestimentos()
       }
     )
   }
-  
+  recarregaInvestimentos(){
+    this.serv.getInvestimentos().subscribe(
+      resp=>{
+        this.investimentos=resp
+      }
+    )
+  }
+
   editarInvestimento=false
+  carregado=false
   investimento
   
   selectedConsultor: string;
   selectedSecretario: string;
 
   verInvestimento(invest){
+    this.editarInvestimento = true
+    this.carregado=false
     this.events1 = [
         {status: 'Financeiro',            responsavel:'', observacao:null, data: '', icon: PrimeIcons.DOLLAR,       color: 'grey'},
         {status: 'Geração de Pagamentos', responsavel:'', observacao:null, data: '', icon: PrimeIcons.MONEY_BILL,  color: 'grey'},
@@ -100,7 +103,6 @@ export class CadContractsComponent implements OnInit {
     this.serv.getInvestimentosId(invest.id).subscribe(
       resp=>{
         this.investimento = resp
-        //AtualizarStatusFinanceiro
         if(resp['statusFinanceiro'] == 2){
           this.events1[0].icon = PrimeIcons.CLOCK
           this.events1[0].color = "orange"
@@ -143,11 +145,37 @@ export class CadContractsComponent implements OnInit {
           this.events1[1].icon = PrimeIcons.CHECK
           this.events1[1].color = "green"
         }
+        this.carregado=true
 
-        this.editarInvestimento = true
       }
     )
   }
 
+  salvar(){
 
+    this.investimento.contatos =null
+    this.investimento.contasBancarias =null
+    this.investimento.pagamentos =null
+    this.investimento.secretaria = { id: this.investimento.secretaria.id}
+    this.investimento.cliente = { cpf: this.investimento.cliente.cpf}
+    this.investimento.consultor = { id: this.investimento.consultor.id}
+    this.serv.putInvestimentos(this.investimento).subscribe(
+      resp=>{
+        this.editarInvestimento = false
+        this.messageService.add({severity:'success', summary: 'Sucesso!', detail:'Salvo com sucesso', life: 5000});
+        setTimeout(() => {
+          this.recarregaInvestimentos()
+        }, 500);
+      },erro=>{
+        this.editarInvestimento = false
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'Erro ao salvar', life: 5000});
+      }
+    )
+  }
+  Cancelar(){
+    this.editarInvestimento = false
+    setTimeout(() => {
+      this.recarregaInvestimentos()
+    }, 500);
+  }
 }
