@@ -4,11 +4,11 @@ import {get} from 'lodash';
 import { ServContatosService } from 'src/app/services/serv-contatos.service';
 
 @Component({
-  selector: 'app-cad-clientes-view2',
-  templateUrl: './cad-clientes-view2.component.html',
-  styleUrls: ['./cad-clientes-view2.component.scss']
+  selector: 'app-cad-contract-contatos',
+  templateUrl: './cad-contract-contatos.component.html',
+  styleUrls: ['./cad-contract-contatos.component.scss']
 })
-export class CadClientesView2Component implements OnInit {
+export class CadContractContatosComponent implements OnInit {
 
   @Input() cliente
   constructor(private serv: ServContatosService, 
@@ -25,7 +25,7 @@ export class CadClientesView2Component implements OnInit {
   _ = get;
 
   ngOnInit(): void {
-      this.contatos = this.cliente.contatos
+      this.recarregarContas()
       this.carregado=true
   }
   recarregarContas(){
@@ -55,7 +55,7 @@ export class CadClientesView2Component implements OnInit {
       id: 0,
       tpoContato: null,
       contato: null,
-      cliente: { id: this.cliente['id'] }
+      contrato: { id: this.cliente['id'] }
     }
     this.editarNovaConta=true
   }

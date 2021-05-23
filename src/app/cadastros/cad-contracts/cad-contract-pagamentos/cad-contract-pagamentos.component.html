@@ -1,0 +1,40 @@
+<div class="p-col-12 p-md-12">
+    <p-toolbar styleClass="p-mb-12">
+        <ng-template pTemplate="right">
+            <i class="pi pi-money-bill"  style="font-size: 2rem"></i>
+            -  Pagamentos {{Recebedor}}
+        </ng-template>
+    </p-toolbar>
+    <p-table #dt1 [value]="pagamentos" [columns]="cols" [paginator]="true" [rows]="5" >
+
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Filtro Inteligente" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr style="font-size: 11px">
+                <th *ngFor="let col of columns" pSortableColumn="{{col.value}}" [style]="col.width==null? null : { 'width': col.width }">
+                    {{col.label}}
+                    <p-sortIcon field="{{col.value}}"></p-sortIcon>
+                </th>
+            </tr>
+            <tr style="font-size: 11px">
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario  let-columns="columns">
+            <tr style="font-size: 11px">
+                <td *ngFor="let col of columns">
+                    <span *ngIf="col.cxlabel">{{ col.number ? (usuario[col.value]  | currency:'BRL':'symbol')  :usuario[col.value]  }}</span>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('Pendente')>-1" value="Pendente" severity="warning" [rounded]="true"></p-tag>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('Pago')>-1"     value="Pago" severity="success" [rounded]="true"></p-tag>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('Erro')>-1"     value="Erro" severity="danger"  [rounded]="true"></p-tag>
+                    <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verConsultor(usuario)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
+                </td> 
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

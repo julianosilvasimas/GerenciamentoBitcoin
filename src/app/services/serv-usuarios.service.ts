@@ -49,6 +49,10 @@ export class ServUsuariosService {
     return this.http.put(`${API_CONFIG}/usuarios/attsenha/${user.id}`,user) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
+  resetSenha(user): Observable<any[]>{
+    return this.http.put(`${API_CONFIG}/usuarios/resetSenha/${user}`,user) 
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
   atualizarFoto(id,foto): Observable<any[]>{
     const formData = new FormData();
     formData.append('file',foto);

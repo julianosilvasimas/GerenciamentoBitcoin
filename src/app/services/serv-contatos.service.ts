@@ -15,7 +15,7 @@ export class ServContatosService {
 
   
   getcontatos(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/contatos/cliente/${id}`) 
+    return this.http.get(`${API_CONFIG}/contatos/investimento/${id}`) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 

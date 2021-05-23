@@ -158,11 +158,17 @@ import { ServRolesService } from './services/serv-roles.service';
 import { CadClientesComponent } from './cadastros/cad-clientes/cad-clientes.component';
 import { ServClientesService } from './services/serv-clientes.service';
 import { ServCepService } from './services/serv-cep.service';
-import { CadClientesView1Component } from './cadastros/cad-clientes/cad-clientes-view1/cad-clientes-view1.component';
 import { ServBancosService } from './services/serv-bancos.service';
 import { ServContasService } from './services/serv-contas.service';
-import { CadClientesView2Component } from './cadastros/cad-clientes/cad-clientes-view2/cad-clientes-view2.component';
 import { ServContatosService } from './services/serv-contatos.service';
+import { EditUsersComponent } from './administrador/usuarios/edit-users/edit-users.component';
+import { ServInvestimentosService } from './services/serv-contratos.service';
+import { ServDashboardsService } from './services/serv-dashboards.service';
+import { CadContractContasComponent } from './cadastros/cad-contracts/cad-contract-contas/cad-contract-contas.component';
+import { CadContractContatosComponent } from './cadastros/cad-contracts/cad-contract-contatos/cad-contract-contatos.component';
+import { CadContractPagamentosComponent } from './cadastros/cad-contracts/cad-contract-pagamentos/cad-contract-pagamentos.component';
+import { AdministConsultorComponent } from './administ-consultor/administ-consultor.component';
+import { MeusContratosComponent } from './administ-consultor/meus-contratos/meus-contratos.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -309,8 +315,12 @@ import { ServContatosService } from './services/serv-contatos.service';
         RelatorioPagamentosClientesComponent,
         RelatorioPagamentosConsultoresComponent,
         CadClientesComponent,
-        CadClientesView1Component,
-        CadClientesView2Component,
+        EditUsersComponent,
+        CadContractContasComponent,
+        CadContractContatosComponent,
+        CadContractPagamentosComponent,
+        AdministConsultorComponent,
+        MeusContratosComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -325,8 +335,9 @@ import { ServContatosService } from './services/serv-contatos.service';
         ServCepService,
         ServBancosService,
         ServContasService,
-        ServContatosService
-
+        ServContatosService,
+        ServInvestimentosService,
+        ServDashboardsService
         
     ],
     bootstrap: [AppComponent]

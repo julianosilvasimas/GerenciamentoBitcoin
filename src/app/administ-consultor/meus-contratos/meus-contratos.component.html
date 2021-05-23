@@ -1,0 +1,26 @@
+
+<p-table [value]="investimentos" [columns]="cols"  [paginator]="true" [rows]="20">
+    <ng-template pTemplate="header"  let-columns>
+        <tr>
+            <th *ngFor="let col of columns" pSortableColumn="{{col.value}}" [style]="col.width==null? null : { 'width': col.width }">
+                {{col.label}}
+                <p-sortIcon field="{{col.value}}"></p-sortIcon>
+            </th>
+        </tr>
+        <tr ></tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData  let-columns="columns">
+        <tr style="font-size: 11px">
+            <td *ngFor="let col of columns">
+                <img *ngIf="col.value=='foto'" width="30px" height="30px" style="border-radius: 50%;" [src]="usuario.foto==null ? 'assets/layout/images/noImage.png' : usuario.foto">
+                <p-inputSwitch *ngIf="col.value=='ativo'" (click)="ativarUsuario(usuario)" [(ngModel)]="usuario.ativo"></p-inputSwitch>
+                {{ col.cxlabel ?  col.number ? ( _(rowData, col.value ) | currency:'BRL':true:'1.2-2') :  _(rowData, col.value ) : null }}
+                <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verInvestimento(rowData)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
+                
+                <p-tag styleClass="p-mr-12" *ngIf="col.aprov &&  _(rowData, col.value ) == 2" value="Pendente" severity="warning" [rounded]="true"></p-tag>
+                <p-tag styleClass="p-mr-12" *ngIf="col.aprov &&  _(rowData, col.value ) == 1" value="Aprovado" severity="success" [rounded]="true"></p-tag>
+                <p-tag styleClass="p-mr-12" *ngIf="col.aprov &&  _(rowData, col.value ) == 3" value="Recusado" severity="danger"  [rounded]="true"></p-tag>
+            </td> 
+        </tr>
+    </ng-template>
+</p-table>

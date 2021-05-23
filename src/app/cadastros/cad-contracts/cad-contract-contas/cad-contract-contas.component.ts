@@ -1,40 +1,38 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {get} from 'lodash';
 import { MessageService } from 'primeng/api';
+import {get} from 'lodash';
 import { ServBancosService } from 'src/app/services/serv-bancos.service';
 import { ServContasService } from 'src/app/services/serv-contas.service';
 
 @Component({
-  selector: 'app-cad-clientes-view1',
-  templateUrl: './cad-clientes-view1.component.html',
-  styleUrls: ['./cad-clientes-view1.component.scss']
+  selector: 'app-cad-contract-contas',
+  templateUrl: './cad-contract-contas.component.html',
+  styleUrls: ['./cad-contract-contas.component.scss']
 })
-export class CadClientesView1Component implements OnInit {
+export class CadContractContasComponent implements OnInit {
 
-  @Input() cliente
   constructor(private serv: ServContasService, private serv2:ServBancosService,
     private messageService: MessageService,) { }
+  @Input() cliente
 
-  cols=[
-    { label: "Banco",  cxlabel:true ,value: 'banco.banco' },
-    { label: "Agencia",  cxlabel:true ,value: 'agencia' },
-    { label: "Titular",  cxlabel:true ,value: 'titular' },
-    { label: "Cód.",  cxlabel:true ,value: 'cod' },
-    { label: "Conta",  cxlabel:true ,value: 'conta' },
-    { label: "Doc.",  cxlabel:true ,value: 'docTitular' },
-    { label: "Tipo",  cxlabel:true ,value: 'tpo' },
-    { label: "",      cxlabel:false ,value: 'botao', width: "90px" },
-  ]
+  _ = get;
   bancos=[]
   contasBancarias=[]
   carregado=false
 
-  _ = get;
+  colsContas=[
+    { label: "Banco",  cxlabel:true ,value: 'banco.banco' },
+    { label: "Agencia",  cxlabel:true ,value: 'agencia' },
+    { label: "Titular",  cxlabel:true ,value: 'titular' },
+    { label: "Conta",  cxlabel:true ,value: 'conta' },
+    { label: "Doc.",  cxlabel:true ,value: 'docTitular' },
+    { label: "",      cxlabel:false ,value: 'botao', width: "90px" },
+  ]
 
   ngOnInit(): void {
     this.serv2.getBancos().subscribe(resp=>{
       this.bancos=resp
-      console.log(resp)
+      // console.log(resp)
       this.contasBancarias = this.cliente.contasBancarias
       this.carregado=true
     })
@@ -70,7 +68,7 @@ export class CadClientesView1Component implements OnInit {
       tpo: 0,
       cod: null,
       id: 0,
-      cliente: { id: this.cliente['id'] }
+      contrato: { id: this.cliente['id'] }
     }
     this.editarNovaConta=true
   }
@@ -103,4 +101,5 @@ export class CadClientesView1Component implements OnInit {
     )
 
   }
+
 }

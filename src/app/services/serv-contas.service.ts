@@ -15,7 +15,7 @@ export class ServContasService {
 
   
   getcontasbancarias(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/contasbancarias/cliente/${id}`) 
+    return this.http.get(`${API_CONFIG}/contasbancarias/contrato/${id}`) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 

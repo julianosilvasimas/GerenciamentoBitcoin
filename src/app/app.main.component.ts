@@ -29,6 +29,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
     public menuInactiveDesktop: boolean;
 
     public menuActiveMobile: boolean;
+    localStorage=localStorage
 
     public profileActive: boolean;
 
@@ -60,6 +61,8 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
     } 
     permissao
 
+    fileCarregado=false
+
     constructor(
         public renderer: Renderer2, 
         private primengConfig: PrimeNGConfig, 
@@ -84,7 +87,9 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
     refParaFaturas
 
     ngOnInit() {
-        console.clear()
+        this.fileCarregado=true
+        // console.clear()
+        
         this.nome = localStorage.getItem('nome')
         this.urlimage = localStorage.getItem('foto')
         

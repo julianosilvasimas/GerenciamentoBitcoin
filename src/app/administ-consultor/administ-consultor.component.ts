@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ServInvestimentosService } from '../services/serv-contratos.service';
 import { ServDashboardsService } from '../services/serv-dashboards.service';
 import { ServUsuariosService } from '../services/serv-usuarios.service';
 
 @Component({
-  selector: 'app-administrador',
-  templateUrl: './administrador.component.html',
-  styleUrls: ['./administrador.component.css']
+  selector: 'app-administ-consultor',
+  templateUrl: './administ-consultor.component.html',
+  styleUrls: ['./administ-consultor.component.scss']
 })
-export class AdministradorComponent implements OnInit {
+export class AdministConsultorComponent implements OnInit {
 
   constructor(private serv:ServDashboardsService, private adminserv: ServUsuariosService,private messageService: MessageService) {}
 

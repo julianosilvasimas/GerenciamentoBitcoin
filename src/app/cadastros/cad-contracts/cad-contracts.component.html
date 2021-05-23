@@ -1,94 +1,30 @@
 <div class="dashboard p-grid p-fluid">
-    <div class="p-col-12 p-md-6" style="font-size: 10px">
+    <div class="p-col-12 p-md-12" style="font-size: 10px">
         <div class="card">
             <h1 style="font-size:20px; font-weight: bold;">Controle de Contratos</h1>
             <div class="p-col-12 p-md-12" >
-                <p-table [value]="contratos" [paginator]="true" [rows]="5">
-                    <ng-template pTemplate="header">
-                        <tr style="font-size: 11px">
-                            <th pSortableColumn="id">Id
-                                <p-sortIcon field="id"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="descricao">Descrição
-                                <p-sortIcon field="descricao"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="cliente">Cliente
-                                <p-sortIcon field="cliente"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="valor">Valor
-                                <p-sortIcon field="valor"></p-sortIcon>
-                            </th>
-                            <th></th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-product>
-                        <tr style="font-size: 11px">
-                            <td>{{product.id}}</td>
-                            <td>{{product.descricao}}</td>
-                            <td>{{product.cliente}}</td>
-                            <td>{{product.valor | currency:'BRL':true:'1.2-2'}} </td>
-                            <td style="text-align: center">
-                                <button pButton type="button" icon="pi pi-search"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-        </div>
-    </div>
-    <div class="p-col-12 p-md-6" style="font-size: 10px">
-        <div class="card">
-            <h1 style="font-size:16px">Folha de Pagamentos</h1>
-            <div class="p-grid p-fluid"  style="font-size: 10px">
-                <div class="p-col-6 p-md-3" >
-                    <img src="assets/layout/images/avatar_2.png" height="100" style="border-radius: 50%;">
-                </div>
-                <div class="p-col-6 p-md-9" style="font-size: 10px">
-                    <div class="p-col-12" style="font-size: 12px; font-weight: bold;">
-                        Wesley Safadão
-                    </div>
-                    <div class="p-grid p-fluid">
-                        <div class="p-col-6" >
-                            <p>Banco: 1111<br>Agência: 1122<br>Conta: 100000-1<br>Tipo> Conta Corrente</p>
-                        </div>
-                        <div class="p-col-6" >
-                            Capital Inicial: R$ 10.000<br>
-                            Capital Atual: R$ 12.000<br>
-                        </div>
-                    </div>
-                    <div class="p-col-12">
-                        <b>Consultor: Fulano de Tal</b>
-                    </div>
-                </div>
-            </div>
-            <div class="p-col-12 p-md-12" style="font-size: 10px">
-                <p-table [value]="products" [paginator]="true"  [rows]="5">
-                    <ng-template pTemplate="header">
-                        <tr style="font-size: 11px">
-                            <th pSortableColumn="id">Id
-                                <p-sortIcon field="id"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="pagamentoCorrente">Pag. Realizado
-                                <p-sortIcon field="pagamentoCorrente"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="valor">Valor
-                                <p-sortIcon field="valor"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="parcelasPagas">Status
-                                <p-sortIcon field="parcelasPagas"></p-sortIcon>
+                <p-table [value]="investimentos" [columns]="cols"  [paginator]="true" [rows]="20">
+                    <ng-template pTemplate="header"  let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" pSortableColumn="{{col.value}}" [style]="col.width==null? null : { 'width': col.width }">
+                                {{col.label}}
+                                <p-sortIcon field="{{col.value}}"></p-sortIcon>
                             </th>
                         </tr>
+                        <tr ></tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
-                        <tr style="font-size: 10px">
-                            <td>{{product.id}}</td>
-                            <td>{{product.parcelasPagas}}/{{product.totalParcelas}}</td>
-                            <td>{{product.valor | currency:'BRL':true:'1.2-2'}} </td>
-                            
-                            <td>
-                                <p-message *ngIf="product.pagamentoCorrente" severity="success" text="Pago" styleClass="p-mr-2"></p-message>  
-                                <p-message *ngIf="product.pagamentoCorrente==false" severity="warn" text="Pendente" styleClass="p-mr-2"></p-message>  
-                            </td>
+                    <ng-template pTemplate="body" let-rowData  let-columns="columns">
+                        <tr style="font-size: 11px">
+                            <td *ngFor="let col of columns">
+                                <img *ngIf="col.value=='foto'" width="30px" height="30px" style="border-radius: 50%;" [src]="usuario.foto==null ? 'assets/layout/images/noImage.png' : usuario.foto">
+                                <p-inputSwitch *ngIf="col.value=='ativo'" (click)="ativarUsuario(usuario)" [(ngModel)]="usuario.ativo"></p-inputSwitch>
+                                {{ col.cxlabel ?  col.number ? ( _(rowData, col.value ) | currency:'BRL':true:'1.2-2') :  _(rowData, col.value ) : null }}
+                                <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verInvestimento(rowData)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
+                                
+                                <p-tag styleClass="p-mr-12" *ngIf="col.aprov &&  _(rowData, col.value ) == 2" value="Pendente" severity="warning" [rounded]="true"></p-tag>
+                                <p-tag styleClass="p-mr-12" *ngIf="col.aprov &&  _(rowData, col.value ) == 1" value="Aprovado" severity="success" [rounded]="true"></p-tag>
+                                <p-tag styleClass="p-mr-12" *ngIf="col.aprov &&  _(rowData, col.value ) == 3" value="Recusado" severity="danger"  [rounded]="true"></p-tag>
+                            </td> 
                         </tr>
                     </ng-template>
                 </p-table>
@@ -96,3 +32,181 @@
         </div>
     </div>
 </div>
+
+<p-sidebar [(visible)]="editarInvestimento"  [fullScreen]="true" [baseZIndex]="10000">
+    <div *ngIf="carregado==false" style="width: 100%;">
+        <div class="custom-skeleton p-p-4">
+            <div class="p-d-flex p-mb-3">
+                <p-skeleton shape="circle" size="4rem" styleClass="p-mr-2"></p-skeleton>
+                <div>
+                    <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+                    <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+                    <p-skeleton height=".5rem"></p-skeleton>
+                </div>
+            </div>
+            <p-skeleton width="100%" height="150px"></p-skeleton>
+            <div class="p-d-flex p-jc-between p-mt-3">
+                <p-skeleton width="4rem" height="2rem"></p-skeleton>
+                <p-skeleton width="4rem" height="2rem"></p-skeleton>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="width: 100%;" *ngIf="editarInvestimento && carregado">
+        <h3>Editor de Investimentos</h3>
+        <p-scrollPanel [style]="{width: '100%', height: height}" styleClass="custom">
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3" style="text-align: center;">
+                    <img [src]="investimento.cliente.imgPerfil==null? 'assets/layout/images/noImage.png' : investimento.cliente.imgPerfil" width="200px" height="200px" style="border-radius: 50%;"/>
+                </div>
+                <div class="p-field p-col-12 p-md-9 p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12">
+                        <h4><b>Dados do Usuário</b></h4>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Cliente</label>
+                        <input type="text" [disabled]="true" [(ngModel)]="investimento.cliente.investidor" pInputText> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Tipo de Investimento</label>
+                        <p-dropdown [options]="tipos" [(ngModel)]="investimento.tpoContrato" [filter]="true" ></p-dropdown>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Data do Investimento</label>
+                        <p-calendar  [disabled]="true" class="p-field p-col-12 p-md-12" dateFormat="dd/mm/yy" [(ngModel)]="investimento.datInvestimento"  [showIcon]="true"></p-calendar>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Valor
+                            <h4>
+                                {{(investimento.vlrInvestimento  | currency:'BRL':'symbol')}}
+                            </h4>
+                        </label>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Prazo do Investimento
+                            <h4>
+                                {{(investimento.prazo)}}
+                            </h4>
+                        </label>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Recibo<br>
+                            <button pButton pRipple type="button" (click)="op1.toggle($event)" icon="pi pi-eye" class="p-button-rounded p-button-success  p-button-outlined"></button>
+                        </label>
+                        <p-overlayPanel class="p-field p-col-12 p-md-12" #op1>
+                            <img  width="400px" *ngIf="investimento.imagemRecibo!=null"  [src]="investimento.imagemRecibo" alt="Imagem Recibo" />
+                        </p-overlayPanel>
+                    </div>
+                </div>
+                <div class="p-field p-col-12 p-md-12">
+                    <h4>Aprovações</h4>
+                    <div class="card">
+                        <p-timeline [value]="events1" align="alternate" layout="vertical" styleClass="customized-timeline">
+                            <ng-template pTemplate="marker" let-event>
+                                <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
+                                    <i [ngClass]="event.icon"></i>
+                                </span>
+                            </ng-template>
+                            <ng-template pTemplate="content" let-event>
+                                <p-card [header]="event.status" [subheader]="event.responsavel + ' - '+ event.data">
+                                    <p>{{event.observacao}}</p>
+                                </p-card>
+                            </ng-template>
+                        </p-timeline>
+                    </div>
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                    <h4>Consultores</h4>
+                    <p-dropdown [options]="consultores" [(ngModel)]="investimento.consultor" optionLabel="nome" [filter]="true" filterBy="nome" [showClear]="true">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="box"  *ngIf="investimento.consultor">
+                                <div>
+                                    <img [src]="investimento.consultor.foto==null? 'assets/layout/images/noImage.png' : investimento.consultor.foto" />
+                                </div>
+                                <div class="nome">
+                                    <div style="margin-left: 20px;">
+                                        <span><b>{{investimento.consultor.nome}}</b></span>-<span>{{investimento.consultor.cargo}}</span><br>
+                                        <span>{{investimento.consultor.cpf != null ? 'CPF: ' +investimento.consultor.cpf : ""}}</span><br>
+                                        <span>{{investimento.consultor.banco != null ? 'Banco: '+investimento.consultor.banco.banco : ""}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-consultores pTemplate="item">
+                            <div class="box">
+                                <div>
+                                    <img [src]="consultores.foto==null? 'assets/layout/images/noImage.png' : consultores.foto" />
+                                </div>
+                                <div class="nome">
+                                    <div style="margin-left: 20px;">
+                                        <span><b>{{consultores.nome}}</b></span>-<span>{{consultores.cargo}}</span><br>
+                                        <span>{{consultores.cpf !=null ? 'CPF: ' +consultores.cpf : ""}}</span><br>
+                                        <span>{{consultores.banco != null ? 'Banco: '+consultores.banco.banco : ""}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                    <h4>Secretaria</h4>
+                    <p-dropdown [options]="secretarias" [(ngModel)]="investimento.secretaria" optionLabel="nome" [filter]="true" filterBy="nome" [showClear]="true">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="box"  *ngIf="investimento.secretaria">
+                                <div>
+                                    <img [src]="investimento.secretaria.foto==null? 'assets/layout/images/noImage.png' : investimento.secretaria.foto" />
+                                </div>
+                                <div class="nome">
+                                    <div style="margin-left: 20px;">
+                                        <span><b>{{investimento.secretaria.nome}}</b></span>-<span>{{investimento.secretaria.cargo}}</span><br>
+                                        <span>{{investimento.secretaria.escritorioLocal != null ? 'Banco: '+investimento.secretaria.escritorioLocal : ""}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-secretarias pTemplate="item">
+                            <div class="box">
+                                <div>
+                                    <img [src]="secretarias.foto==null? 'assets/layout/images/noImage.png' : secretarias.foto" />
+                                </div>
+                                <div class="nome">
+                                    <div style="margin-left: 20px;">
+                                        <span><b>{{secretarias.nome}}</b></span>-<span>{{secretarias.cargo}}</span><br>
+                                        <span>{{secretarias.escritorioLocal != null ? 'Escritório: '+secretarias.escritorioLocal : ""}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <p-accordion class="p-field p-col-12 p-md-6 p-formgrid p-grid" >
+                    <p-accordionTab  class="p-formgrid p-grid p-col-12 p-md-12" header="Contatos" [selected]="false">
+                        <app-cad-contract-contatos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [cliente]="investimento"></app-cad-contract-contatos>
+                    </p-accordionTab>
+                </p-accordion>
+                <p-accordion class="p-field p-col-12 p-md-6 p-formgrid p-grid" >
+                    <p-accordionTab  class="p-formgrid p-grid p-col-12 p-md-12" header="Contas bancárias" [selected]="false">
+                        <app-cad-contract-contas   class="p-field p-col-12 p-md-12 p-formgrid p-grid" [cliente]="investimento"></app-cad-contract-contas>
+                    </p-accordionTab>
+                </p-accordion>
+                <p-accordion class="p-field p-col-12 p-md-6 p-formgrid p-grid" >
+                    <p-accordionTab  class="p-formgrid p-grid p-col-12 p-md-12" header="Pagamentos Cliente" [selected]="false">
+                        <app-cad-contract-pagamentos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [Recebedor]="'Cliente'" [investimento]="investimento"></app-cad-contract-pagamentos>
+                    </p-accordionTab>
+                </p-accordion>
+                <p-accordion class="p-field p-col-12 p-md-6 p-formgrid p-grid" >
+                    <p-accordionTab  class="p-formgrid p-grid p-col-12 p-md-12" header="Pagamentos Consultor" [selected]="false">
+                        <app-cad-contract-pagamentos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [Recebedor]="'Consultor'" [investimento]="investimento"></app-cad-contract-pagamentos>
+                    </p-accordionTab>
+                </p-accordion>
+                <div class="p-field p-col-12 p-md-6">
+                    <p-button class="p-col-12" (click)="salvar()" label="Salvar" icon="pi pi-check"   styleClass="p-button-success p-button-rounded p-button-sm"></p-button>
+                </div>
+                <div class="p-field p-col-12 p-md-6 ">
+                    <p-button class="p-col-12" (click)="Cancelar()"  label="Cancelar" icon="pi pi-times" styleClass="p-button-secondary p-button-rounded p-button-sm"></p-button>
+                </div>
+                
+            </div>
+        </p-scrollPanel>
+    </div>
+
+</p-sidebar>
