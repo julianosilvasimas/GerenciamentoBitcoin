@@ -18,9 +18,21 @@ export class ServClientesService {
     return this.http.get(`${API_CONFIG}/clientes`) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
+  putFotoCliente(foto,id): Observable<any[]>{
+    const formData = new FormData();
+    formData.append('file',foto);
+    return this.http.post(`${API_CONFIG}/clientes/picture/perfil/${id}`,formData) 
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
+  putDocumentoCliente(foto,id): Observable<any[]>{
+    const formData = new FormData();
+    formData.append('file',foto);
+    return this.http.post(`${API_CONFIG}/clientes/picture/${id}`,formData) 
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
 
   putClientes(user): Observable<any[]>{
-    return this.http.put(`${API_CONFIG}/clientes/${user.id}`,user) 
+    return this.http.put(`${API_CONFIG}/clientes/${user.cpf}`,user) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postClientes(user): Observable<any[]>{
@@ -28,7 +40,7 @@ export class ServClientesService {
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   deleteClientes(user): Observable<any[]>{
-    return this.http.delete(`${API_CONFIG}/clientes/${user.id}`) 
+    return this.http.delete(`${API_CONFIG}/clientes/${user.cpf}`) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }
