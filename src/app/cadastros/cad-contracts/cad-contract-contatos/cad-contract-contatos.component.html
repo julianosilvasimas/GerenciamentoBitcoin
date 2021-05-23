@@ -3,8 +3,12 @@
         <ng-template pTemplate="left">
             <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="novo()"></button>
         </ng-template>
+        <ng-template pTemplate="right">
+            Contatos   -
+            <i class="pi pi-envelope"  style="font-size: 2rem"></i>
+        </ng-template>
     </p-toolbar>
-    <p-table #dt1 [value]="contasBancarias" [columns]="cols" [paginator]="true" [rows]="10" >
+    <p-table #dt1 [value]="contatos" [columns]="cols" [paginator]="true" [rows]="10" >
         <ng-template pTemplate="header" let-columns>
             <tr style="font-size: 11px">
                 <th *ngFor="let col of columns" pSortableColumn="{{col.value}}" [style]="col.width==null? null : { 'width': col.width }">
@@ -25,36 +29,17 @@
         </ng-template>
     </p-table>
 </div>
-<p-dialog header="Nova Conta" [(visible)]="editarNovaConta" [style]="{width: '400px', height: '450px'}">
+<p-dialog header="Novo Contato" [(visible)]="editarNovaConta" >
     <div *ngIf="editarNovaConta" class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6">
-            <label >Nome</label>
-            <input type="text" [(ngModel)]="newObj.titular" pInputText> 
-        </div>
-        <div class="p-field p-col-12 p-md-6">
-            <label >Documento</label>
-            <input type="text" [(ngModel)]="newObj.docTitular" pInputText> 
+        <div class="p-field p-col-12 p-md-12">
+            <label >Tipo de Contato</label>
+            <p-dropdown [options]="tiposDeContato" [(ngModel)]="newObj.tpoContato" placeholder="Select"></p-dropdown>
         </div>
         <div class="p-field p-col-12 p-md-12">
-            <label >Banco</label>
-            <p-dropdown [options]="bancos" [(ngModel)]="newObj.banco" optionLabel="banco" placeholder="Select"></p-dropdown>
+            <label >Contato</label>
+            <input type="text" [(ngModel)]="newObj.contato" pInputText> 
         </div>
-        <div class="p-field p-col-12 p-md-12">
-            <label >Tipo</label>
-            <p-dropdown [options]="tiposDeConta" [(ngModel)]="newObj.tpo" placeholder="Select"></p-dropdown>
-        </div>
-        <div class="p-field p-col-12 p-md-4">
-            <label >Agencia</label>
-            <input  type="text" [(ngModel)]="newObj.agencia" pInputText>
-        </div>
-        <div class="p-field p-col-12 p-md-3">
-            <label >Op.</label>
-            <input  type="text" [(ngModel)]="newObj.cod" pInputText>
-        </div>
-        <div class="p-field p-col-12 p-md-5">
-            <label >Conta</label>
-            <input  type="text" [(ngModel)]="newObj.conta" pInputText>
-        </div>
+
         <div class="p-col-6 ">
             <p-button class="p-col-12" (click)="salvarNovaConta()" label="Salvar" icon="pi pi-check"   styleClass="p-button-success p-button-rounded p-button-sm"></p-button>
         </div>

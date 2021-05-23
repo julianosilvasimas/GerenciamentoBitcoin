@@ -16,14 +16,15 @@
             <div class="logo" routerLink="/" style="outline: none; cursor: pointer; ">
                 <img src="assets/layout/images/logo.png" alt="" height="50px">
             </div>
-            <div class="profile">
-                <img src="{{urlimage}}" alt="" style="width: 100px; height: 100px; border-radius: 50px;"/>
+            <div class="profile" *ngIf="fileCarregado" >
+                <img [src]="localStorage.getItem('foto')" alt="" style="width: 100px; height: 100px; border-radius: 50px;"/>
                 <a id="profile-button" href="#" (click)="toggleProfile($event)">
-                    <span class="username">{{nome}}</span>
+                    <span class="username">{{localStorage.getItem('nome')}}</span><br>
+                    <span class="username" style="font-size: 9px">{{localStorage.getItem('cargo')}}</span>
                     <i class="pi pi-fw pi-cog"></i>
                 </a>
                 <ul [@submenu]="profileActive ? 'visible' : 'hidden'">
-                    <li><a href="#/edUser"><i class="pi pi-fw pi-sliders-h"></i><span>Account</span></a></li>
+                    <li><a href="#/editaruser"><i class="pi pi-fw pi-sliders-h"></i><span>Editar Conta</span></a></li>
                     <li ><a (click)="fechar()"><i class="pi pi-fw pi-sign-out" ></i><span>Sair</span></a></li>
                 </ul>
             </div>
@@ -38,8 +39,7 @@
 
     <!-- <app-config></app-config> -->
 
-    <!-- <div class="footer">
-        <img src="assets/layout/images/logo-colored.png" alt="" width="32">
-        <span class="footer-text">PrimeNG Omega Theme and Layout</span>
-    </div> -->
+    <div class="footer" style="min-height: 60px;background: linear-gradient(to bottom, #4e5159 0%, #1f2023 100%) !important;">
+        <span style="color: white;" class="footer-text">SGCI - Sistema de Gerenciamento de Contratos de Investimentos</span>
+    </div>
 </div>

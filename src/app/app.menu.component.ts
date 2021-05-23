@@ -28,16 +28,16 @@ export class AppMenuComponent implements OnInit {
             { 
                 label: 'Administrar', icon: 'pi pi-user', 
                 items: [
-                    {label: 'Cadastro de Usuário', icon: 'pi pi-user', routerLink:'/usuarios'},
+                    {label: 'Usuário', icon: 'pi pi-user', routerLink:'/usuarios'},
+                    {label: 'Clientes', icon: 'pi pi-money-bill', routerLink:'/clientes'},
+                    {label: 'Contratos', icon: 'pi pi-money-bill', routerLink:'/contratos'},
                 ]
             },
-            { 
-                label: 'Clientes', icon: 'pi pi-money-bill', 
-                items: [
-                    { label: 'Carteira de Clientes', icon: 'pi pi-money-bill', routerLink:'/clientes'},
-                    { label: 'Contratos', icon: 'pi pi-money-bill', routerLink:'/contratos'},
-                ]
-            },
+            // { 
+            //     label: 'C', icon: 'pi pi-money-bill', 
+            //     items: [
+            //     ]
+            // },
           
         ];
         

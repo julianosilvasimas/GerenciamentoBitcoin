@@ -13,6 +13,19 @@ import { MediaDemoComponent } from './demo/view/mediademo.component';
 import { WidgetsComponent } from './utilities/widgets.component';
 import { CadUsersComponent } from './cadastros/cad-users/cad-users.component';
 import { CadClientesComponent } from './cadastros/cad-clientes/cad-clientes.component';
+import { CadContractsComponent } from './cadastros/cad-contracts/cad-contracts.component';
+import { EditUsersComponent } from './administrador/usuarios/edit-users/edit-users.component';
+import { OverlaysDemoComponent } from './demo/view/overlaysdemo.component';
+import { FormLayoutDemoComponent } from './demo/view/formlayoutdemo.component';
+import { InputDemoComponent } from './demo/view/inputdemo.component';
+import { FloatLabelDemoComponent } from './demo/view/floatlabeldemo.component';
+import { ButtonDemoComponent } from './demo/view/buttondemo.component';
+import { InvalidStateDemoComponent } from './demo/view/invalidstatedemo.component';
+import { ListDemoComponent } from './demo/view/listdemo.component';
+import { TableDemoComponent } from './demo/view/tabledemo.component';
+import { TreeDemoComponent } from './demo/view/treedemo.component';
+import { PanelsDemoComponent } from './demo/view/panelsdemo.component';
+import { DocumentationComponent } from './demo/view/documentation.component';
 
 @NgModule({
     imports: [
@@ -21,13 +34,43 @@ import { CadClientesComponent } from './cadastros/cad-clientes/cad-clientes.comp
                 path: '', component: AppMainComponent,
                 children: [
                     {path: '', component: HomeComponent, canActivate: [AuthGuard],},
+                    {path: 'editaruser', component: EditUsersComponent},
                     {path: 'usuarios', component: CadUsersComponent},
                     {path: 'clientes', component: CadClientesComponent},
-                    {path: 'carteira', component: CadUsersComponent},
+                    {path: 'contratos', component: CadContractsComponent},
                     
                     {path: 'dash', component: DashboardDemoComponent},
                     {path: 'utils', component: IconsComponent},
                     {path: 'media', component: WidgetsComponent},
+                    {path: 'overlay', component: OverlaysDemoComponent},
+                    {path: 'formlayout', component: FormLayoutDemoComponent},
+                    {path: 'input', component: InputDemoComponent},
+                    {path: 'floatlabel', component: FloatLabelDemoComponent},
+                    {path: 'invalidstate', component: InvalidStateDemoComponent},
+                    {path: 'button', component: ButtonDemoComponent},
+                    {path: 'table', component: TableDemoComponent},
+                    {path: 'list', component: ListDemoComponent},
+                    {path: 'tree', component: TreeDemoComponent},
+                    {path: 'panel', component: PanelsDemoComponent},
+                    {path: 'documentation', component: DocumentationComponent},
+                    // {path: 'uikit/menu', component: MenusDemoComponent},
+                    // {path: 'uikit/message', component: MessagesDemoComponent},
+                    // {path: 'uikit/misc', component: MiscDemoComponent},
+                    // {path: 'uikit/charts', component: ChartsDemoComponent},
+                    // {path: 'uikit/file', component: FileDemoComponent},
+                    // {path: 'utilities/display', component: DisplayComponent},
+                    // {path: 'utilities/elevation', component: ElevationComponent},
+                    // {path: 'utilities/flexbox', component: FlexboxComponent},
+                    // {path: 'utilities/grid', component: GridComponent},
+                    // {path: 'utilities/spacing', component: SpacingComponent},
+                    // {path: 'utilities/typography', component: TypographyComponent},
+                    // {path: 'utilities/text', component: TextComponent},
+                    // {path: 'pages/crud', component: AppCrudComponent},
+                    // {path: 'pages/calendar', component: AppCalendarComponent},
+                    // {path: 'pages/timeline', component: AppTimelineDemoComponent},
+                    // {path: 'pages/invoice', component: AppInvoiceComponent},
+                    // {path: 'pages/help', component: AppHelpComponent},
+                    // {path: 'pages/empty', component: EmptyDemoComponent},
                 ]
             },
             {path: 'error', component: AppErrorComponent},

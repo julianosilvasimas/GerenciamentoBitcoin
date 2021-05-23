@@ -20,7 +20,7 @@ export class ServInvestimentosService {
   }
 
   getInvestimentosId(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/investimentos/cliente/${id}`) 
+    return this.http.get(`${API_CONFIG}/investimentos/${id}`) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
