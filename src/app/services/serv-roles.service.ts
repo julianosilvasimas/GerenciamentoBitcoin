@@ -15,7 +15,7 @@ export class ServRolesService {
   
   getPerfis(): Observable<any[]>{
     console.log(this.httpOptions)
-    return this.http.get(`${API_CONFIG}/perfis`) 
+    return this.http.get(`${API_CONFIG}/perfis`,this.httpOptions) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }

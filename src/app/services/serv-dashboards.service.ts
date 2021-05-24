@@ -15,13 +15,13 @@ export class ServDashboardsService {
 
   
   getDash(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/dashboards/${id}`) 
+    return this.http.get(`${API_CONFIG}/dashboards/${id}`,this.httpOptions) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
   
   getMaioresClientes(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/dashboards/clientes/${id}`) 
+    return this.http.get(`${API_CONFIG}/dashboards/clientes/${id}`,this.httpOptions) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }

@@ -3,10 +3,10 @@ export const VERSIONAMENTO = 1.1
 
 // ============================================================================================
 //EXTERNO1
-// export const API_CONFIG =  'http://200.98.171.178:7777/bitinvestapi'
+export const API_CONFIG =  'http://200.98.171.178:7777/bitinvestapi'
 
 // LOCAL
-export const API_CONFIG =  'http://localhost:7777'
+// export const API_CONFIG =  'http://localhost:7777'
 
 //manager
 //login: SabeEstoque

@@ -73,43 +73,42 @@ export class LoginComponent implements OnInit {
   logar(){
     this.carregando= true
     sessionStorage.clear()
+    console.log(" Login ativado")
     this.authService.fazerLogin(this.usuario)
     .subscribe(
       resp => {
-          // console.clear()
           var keys = resp.data.get('Authorization');
           this.token = keys 
-          localStorage.setItem('token', keys);
-
           var us = this.getDecodedAccessToken(this.token)
-        
-          this.adminserv.getUserByEmail(us.sub.replaceAll("\"","")).subscribe(resp2=>{
-              // console.log(resp2)
-              this.user=resp2
+          
+          setTimeout(() => {
+            this.adminserv.getUserByEmailToken(us.sub.replaceAll("\"",""),this.token).subscribe(resp2=>{
 
-              this.authService.getToken(localStorage.getItem('token'));
-              localStorage.setItem('email', resp2['email']);
-              localStorage.setItem('cargo', resp2['cargo']);
-              localStorage.setItem('nome', resp2['nome']);
-              localStorage.setItem('foto', resp2['foto']==null? 'assets/layout/images/noImage.png' : resp2['foto']);
+                this.user=resp2
 
-              this.authService.userDados()
-              
-              setTimeout(() => {
-                // Faz o check se é primeiro acesso
-                if(this.usuario.senha === 'bitcoingerenciator'){
-                  this.messageService.add({severity:'warn', summary: "Login não efetuado!", detail:'Redefina sua senha!', life: 5000});
-                  this.senhapad = true;
-                }else{
-                  this.authService.checkAutenticado(resp.status);
-                  document.body.style.background  = '#ebebeb8f';
-                  this.router.navigate(['/']);  //precisa melhorar a permissões no menu
-                  
-                }
-                this.carregando= false
-              }, 1500);
-            }
+                this.authService.getToken(localStorage.getItem('token'));
+                localStorage.setItem('email', resp2['email']);
+                localStorage.setItem('cargo', resp2['cargo']);
+                localStorage.setItem('nome', resp2['nome']);
+                localStorage.setItem('foto', resp2['foto']==null? 'assets/layout/images/noImage.png' : resp2['foto']);
+
+                this.authService.userDados()
+                
+                  // Faz o check se é primeiro acesso
+                  if(this.usuario.senha === 'bitcoingerenciator'){
+                    this.messageService.add({severity:'warn', summary: "Login não efetuado!", detail:'Redefina sua senha!', life: 5000});
+                    this.senhapad = true;
+                  }else{
+                    console.log("Autenticado")
+                    this.authService.checkAutenticado(resp.status);
+                    document.body.style.background  = '#ebebeb8f';
+                    this.router.navigate(['/']);  //precisa melhorar a permissões no menu
+                    
+                  }
+                  this.carregando= false
+              }
           )
+        }, 500);
       },
       error=>{
         if(error.status === 0){
