@@ -14,11 +14,7 @@ export class CadContractsComponent implements OnInit {
   constructor(private serv:ServInvestimentosService,private serv2:ServUsuariosService,
     private messageService: MessageService,) { }
 
-  tipos=[
-    { label: "Investimento Inicial",  cxlabel:true ,value: 'inicial' },
-    { label: "Carta Fiança",          cxlabel:true ,value: 'fianca' },
-    { label: "Reinvestimento",        cxlabel:true ,value: 'reinvestimento' },
-  ]
+  tipos=[]
 
   _ = get;
   cols=[
@@ -47,8 +43,9 @@ export class CadContractsComponent implements OnInit {
     x = w.innerWidth || e.clientWidth || g.clientWidth,
     y = w.innerHeight|| e.clientHeight|| g.clientHeight;
 
-    this.height=(y-100)+"px"
+    this.height=(y-150)+"px"
     if(x<1000){
+      this.height=(y-200)+"px"
       this.cols=[
         { label: "Cliente",  cxlabel:true ,value: 'cliente.investidor' },
         { label: "Valor",  cxlabel:true ,value: 'vlrInvestimento', number: true },
@@ -67,7 +64,9 @@ export class CadContractsComponent implements OnInit {
   secretarias=[]
   
   ngOnInit(): void {
+    console.clear
     this.recarregaTamanho()
+    this.tipos = this.serv.getTipoDeInvestimentos()
     this.serv2.getUsers().subscribe(
       users=>{
         // console.log(users)
@@ -81,6 +80,7 @@ export class CadContractsComponent implements OnInit {
     this.serv.getInvestimentos().subscribe(
       resp=>{
         this.investimentos=resp
+        this.verInvestimento(resp[0])
       }
     )
   }
@@ -93,48 +93,34 @@ export class CadContractsComponent implements OnInit {
   selectedSecretario: string;
 
   verInvestimento(invest){
+    this.activeItem=this.steps[0]
+    console.log(this.activeItem)
     this.editarInvestimento = true
     this.carregado=false
     this.events1 = [
-        {status: 'Financeiro',            responsavel:'', observacao:null, data: '', icon: PrimeIcons.DOLLAR,       color: 'grey'},
-        {status: 'Geração de Pagamentos', responsavel:'', observacao:null, data: '', icon: PrimeIcons.MONEY_BILL,  color: 'grey'},
-        {status: 'Secretaria',            responsavel:'', observacao:null, data: '', icon: PrimeIcons.USER,        color: 'grey'},
+      {status: 'Secretaria',            responsavel:'', observacao:null, data: '', icon: PrimeIcons.USER,        color: 'grey'},
+      {status: 'Geração de Pagamentos', responsavel:'', observacao:null, data: '', icon: PrimeIcons.MONEY_BILL,  color: 'grey'},
     ];
     this.serv.getInvestimentosId(invest.id).subscribe(
       resp=>{
         this.investimento = resp
-        if(resp['statusFinanceiro'] == 2){
+        
+        
+        if(resp['statusSecretaria'] == 2){
           this.events1[0].icon = PrimeIcons.CLOCK
           this.events1[0].color = "orange"
 
-        }else if(resp['statusFinanceiro'] == 1){
+        }else if(resp['statusSecretaria'] == 1){
           this.events1[0].icon = PrimeIcons.CHECK
           this.events1[0].color = "green"
-          this.events1[0].responsavel = resp['aprovadorFinanceiro']
-          this.events1[0].data        = resp['dataAprovacaoFinanceiro']
+          this.events1[0].responsavel = resp['aprovadorSecretaria']
+          this.events1[0].data        = resp['dataAprovacaoSecretaria']
         }else{
           this.events1[0].icon = PrimeIcons.TIMES
           this.events1[0].color = "red"
-          this.events1[0].responsavel = resp['aprovadorFinanceiro']
-          this.events1[0].data        = resp['dataAprovacaoFinanceiro']
-          this.events1[0].observacao        = resp['observacaoFinanceiro']
-        }
-
-        if(resp['statusSecretaria'] == 2){
-          this.events1[2].icon = PrimeIcons.CLOCK
-          this.events1[2].color = "orange"
-
-        }else if(resp['statusSecretaria'] == 1){
-          this.events1[2].icon = PrimeIcons.CHECK
-          this.events1[2].color = "green"
-          this.events1[2].responsavel = resp['aprovadorSecretaria']
-          this.events1[2].data        = resp['dataAprovacaoSecretaria']
-        }else{
-          this.events1[2].icon = PrimeIcons.TIMES
-          this.events1[2].color = "red"
-          this.events1[2].responsavel = resp['aprovadorSecretaria']
-          this.events1[2].data        = resp['dataAprovacaoSecretaria']
-          this.events1[2].observacao        = resp['observacaoSecretaria']
+          this.events1[0].responsavel = resp['aprovadorSecretaria']
+          this.events1[0].data        = resp['dataAprovacaoSecretaria']
+          this.events1[0].observacao        = resp['observacaoSecretaria']
         }
 
         //AtualizarStatusPagamentos
@@ -177,4 +163,40 @@ export class CadContractsComponent implements OnInit {
       this.recarregaInvestimentos()
     }, 500);
   }
+
+
+
+  activeItem
+  steps = [
+    {
+      id: 1, label: 'Investimento', icon: "pi pi-money-bill", command: (event) => { 
+        this.activeItem= event.item 
+      }
+    },
+    {
+      id: 0 , label: 'Aprovação', icon: "pi pi-user", command: (event) => { 
+        this.activeItem= event.item 
+      }
+    },
+    {
+      id: 3 , label: 'Contato', icon: "pi pi-phone", command: (event) => { 
+        this.activeItem= event.item 
+      }
+    },
+    {
+      id: 4 , label: 'Contas', icon: "pi pi-wallet", command: (event) => { 
+        this.activeItem= event.item 
+      }
+    },
+    {
+      id: 5 , label: 'Pag. Cliente', icon: "pi pi-money-bill", command: (event) => { 
+        this.activeItem= event.item 
+      }
+    },
+    {
+      id: 6 , label: 'Pag. Consultor', icon: "pi pi-money-bill", command: (event) => { 
+        this.activeItem= event.item 
+      }
+    },
+  ];
 }

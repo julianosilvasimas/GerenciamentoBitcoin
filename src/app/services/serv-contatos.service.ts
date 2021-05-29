@@ -13,6 +13,14 @@ export class ServContatosService {
   constructor(private http: HttpClient){}
   httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
 
+  getTiposContatos(){
+    return [
+      {label:"Telefone", value: 0},
+      {label:"Email", value: 1},
+      {label:"WhatsApp", value: 2}, 
+      {label:"Telegram", value: 3} 
+    ]
+  }
   
   getcontatos(id): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/contatos/investimento/${id}`,this.httpOptions)

@@ -13,6 +13,33 @@ export class ServClientesService {
   constructor(private http: HttpClient){}
   httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
 
+  getTipoDeComunhaoDeBens(){
+    return[
+      { label: "Comunhão Parcial", value: "comunhao parcial"},
+      { label: "Comunhão Universal", value: "comunhao universal"},
+      { label: "Separação Total", value: "separacao total"},
+      { label: "Separação Obrigatória", value: "separacao obrigatoria"},
+      { label: "Participação final nos aquestos", value: "Participação final nos aquestos"},
+    ]
+  }
+  getTiposEstadosCivil(){
+    return[
+      { label: "Solteiro(a)", value: "solteiro"},
+      { label: "Casado(a)", value: "casado"}
+    ]
+  }
+  getComoSoube(){
+    return[
+      { label: "Amigo", value: "amigo"},
+      { label: "Consultor", value: "consultor"},
+      { label: "Facebook", value: "facebook"},
+      { label: "Instagram", value: "instagram"},
+      { label: "Twitter", value: "twitter"},
+      { label: "Linkedin", value: "linkedin"},
+      { label: "WhatsApp", value: "whatsapp"},
+    ]
+  }
+
   
   getClientes(): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/clientes`,this.httpOptions)

@@ -62,8 +62,9 @@
     </div>
     <div class="card" style="width: 100%;" *ngIf="editarInvestimento && carregado">
         <h3>Editor de Investimentos</h3>
-        <p-scrollPanel [style]="{width: '100%', height: height}" styleClass="custom">
-            <div class="p-fluid p-formgrid p-grid">
+        <p-tabMenu [model]="steps"  [activeItem]="activeItem"></p-tabMenu>
+        <p-scrollPanel [style]="{'margin-top': '10px', width: '100%', height: height}" styleClass="custom">
+            <div *ngIf="activeItem.id==1" class="p-fluid p-formgrid p-grid">
                 <div class="p-field p-col-12 p-md-3" style="text-align: center;">
                     <img [src]="investimento.cliente.imgPerfil==null? 'assets/layout/images/noImage.png' : investimento.cliente.imgPerfil" width="200px" height="200px" style="border-radius: 50%;"/>
                 </div>
@@ -106,23 +107,8 @@
                         </p-overlayPanel>
                     </div>
                 </div>
-                <div class="p-field p-col-12 p-md-12">
-                    <h4>Aprovações</h4>
-                    <div class="card">
-                        <p-timeline [value]="events1" align="alternate" layout="vertical" styleClass="customized-timeline">
-                            <ng-template pTemplate="marker" let-event>
-                                <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
-                                    <i [ngClass]="event.icon"></i>
-                                </span>
-                            </ng-template>
-                            <ng-template pTemplate="content" let-event>
-                                <p-card [header]="event.status" [subheader]="event.responsavel + ' - '+ event.data">
-                                    <p>{{event.observacao}}</p>
-                                </p-card>
-                            </ng-template>
-                        </p-timeline>
-                    </div>
-                </div>
+            </div>
+            <div *ngIf="activeItem.id==0" class="p-fluid p-formgrid p-grid">
                 <div class="p-field p-col-12 p-md-6">
                     <h4>Consultores</h4>
                     <p-dropdown [options]="consultores" [(ngModel)]="investimento.consultor" optionLabel="nome" [filter]="true" filterBy="nome" [showClear]="true">
@@ -187,33 +173,44 @@
                         </ng-template>
                     </p-dropdown>
                 </div>
-                <p-accordion class="p-field p-col-12 p-md-6 p-formgrid p-grid" >
-                    <p-accordionTab  class="p-formgrid p-grid p-col-12 p-md-12" header="Contatos" [selected]="false">
-                        <app-cad-contract-contatos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [cliente]="investimento"></app-cad-contract-contatos>
-                    </p-accordionTab>
-                </p-accordion>
-                <p-accordion class="p-field p-col-12 p-md-6 p-formgrid p-grid" >
-                    <p-accordionTab  class="p-formgrid p-grid p-col-12 p-md-12" header="Contas bancárias" [selected]="false">
-                        <app-cad-contract-contas   class="p-field p-col-12 p-md-12 p-formgrid p-grid" [cliente]="investimento"></app-cad-contract-contas>
-                    </p-accordionTab>
-                </p-accordion>
-                <p-accordion class="p-field p-col-12 p-md-6 p-formgrid p-grid" >
-                    <p-accordionTab  class="p-formgrid p-grid p-col-12 p-md-12" header="Pagamentos Cliente" [selected]="false">
-                        <app-cad-contract-pagamentos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [Recebedor]="'Cliente'" [investimento]="investimento"></app-cad-contract-pagamentos>
-                    </p-accordionTab>
-                </p-accordion>
-                <p-accordion class="p-field p-col-12 p-md-6 p-formgrid p-grid" >
-                    <p-accordionTab  class="p-formgrid p-grid p-col-12 p-md-12" header="Pagamentos Consultor" [selected]="false">
-                        <app-cad-contract-pagamentos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [Recebedor]="'Consultor'" [investimento]="investimento"></app-cad-contract-pagamentos>
-                    </p-accordionTab>
-                </p-accordion>
+                <div class="p-field p-col-12 p-md-12">
+                    <h4>Aprovações</h4>
+                    <div class="card">
+                        <p-timeline [value]="events1" align="alternate" layout="vertical" styleClass="customized-timeline">
+                            <ng-template pTemplate="marker" let-event>
+                                <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
+                                    <i [ngClass]="event.icon"></i>
+                                </span>
+                            </ng-template>
+                            <ng-template pTemplate="content" let-event>
+                                <p-card [header]="event.status" [subheader]="event.responsavel + ' - '+ event.data">
+                                    <p>{{event.observacao}}</p>
+                                </p-card>
+                            </ng-template>
+                        </p-timeline>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="activeItem.id==3" class="p-fluid p-formgrid p-grid">
+                <app-cad-contract-contatos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [cliente]="investimento"></app-cad-contract-contatos>
+            </div>
+            <div *ngIf="activeItem.id==4" class="p-fluid p-formgrid p-grid">
+                <app-cad-contract-contas   class="p-field p-col-12 p-md-12 p-formgrid p-grid" [cliente]="investimento"></app-cad-contract-contas>
+            </div>
+            <div *ngIf="activeItem.id==5" class="p-fluid p-formgrid p-grid">
+                <app-cad-contract-pagamentos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [Recebedor]="'Cliente'" [investimento]="investimento"></app-cad-contract-pagamentos>
+            </div>
+            <div *ngIf="activeItem.id==6" class="p-fluid p-formgrid p-grid"> 
+                <app-cad-contract-pagamentos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [Recebedor]="'Consultor'" [investimento]="investimento"></app-cad-contract-pagamentos>
+            </div>
+
+            <div class="p-fluid p-formgrid p-grid"> 
                 <div class="p-field p-col-12 p-md-6">
                     <p-button class="p-col-12" (click)="salvar()" label="Salvar" icon="pi pi-check"   styleClass="p-button-success p-button-rounded p-button-sm"></p-button>
                 </div>
                 <div class="p-field p-col-12 p-md-6 ">
                     <p-button class="p-col-12" (click)="Cancelar()"  label="Cancelar" icon="pi pi-times" styleClass="p-button-secondary p-button-rounded p-button-sm"></p-button>
                 </div>
-                
             </div>
         </p-scrollPanel>
     </div>

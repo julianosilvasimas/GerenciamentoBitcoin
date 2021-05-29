@@ -48,6 +48,10 @@ export class ServUsuariosService {
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
+  getSecretarias(): Observable<any[]>{
+    return this.http.get(`${API_CONFIG}/usuarios/findSecretarias`,this.httpOptions)
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
 
 
   attSenha(user): Observable<any[]>{

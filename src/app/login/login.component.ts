@@ -100,10 +100,12 @@ export class LoginComponent implements OnInit {
                     this.messageService.add({severity:'warn', summary: "Login não efetuado!", detail:'Redefina sua senha!', life: 5000});
                     this.senhapad = true;
                   }else{
-                    console.log("Autenticado")
-                    this.authService.checkAutenticado(resp.status);
-                    document.body.style.background  = '#ebebeb8f';
-                    this.router.navigate(['/']);  //precisa melhorar a permissões no menu
+                    setTimeout(() => {
+                      console.log("Autenticado")
+                      this.authService.checkAutenticado(resp.status);
+                      document.body.style.background  = '#ebebeb8f';
+                      this.router.navigate(['/']);  //precisa melhorar a permissões no menu
+                    }, 500);
                     
                   }
                   this.carregando= false

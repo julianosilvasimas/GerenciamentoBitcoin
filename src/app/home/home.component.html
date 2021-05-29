@@ -4,3 +4,6 @@
 <div class="p-grid p-fluid dashboard" *ngIf="localStorage.getItem('cargo').indexOf('Consultor')>-1">
     <app-administ-consultor  class="p-col-12"></app-administ-consultor>
 </div>
+<div class="p-grid p-fluid dashboard" *ngIf="localStorage.getItem('cargo').indexOf('Secretaria')>-1">
+    <app-administ-secretaria  class="p-col-12"></app-administ-secretaria>
+</div>
