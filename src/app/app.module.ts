@@ -157,7 +157,7 @@ import { ServUsuariosService } from './services/serv-usuarios.service';
 import { ServRolesService } from './services/serv-roles.service';
 import { CadClientesComponent } from './cadastros/cad-clientes/cad-clientes.component';
 import { ServClientesService } from './services/serv-clientes.service';
-import { ServCepService } from './services/serv-cep.service';
+import { ServCepService } from './utils/ceps/serv-cep.service';
 import { ServBancosService } from './services/serv-bancos.service';
 import { ServContasService } from './services/serv-contas.service';
 import { ServContatosService } from './services/serv-contatos.service';
@@ -169,6 +169,7 @@ import { CadContractContatosComponent } from './cadastros/cad-contracts/cad-cont
 import { CadContractPagamentosComponent } from './cadastros/cad-contracts/cad-contract-pagamentos/cad-contract-pagamentos.component';
 import { AdministConsultorComponent } from './administ-consultor/administ-consultor.component';
 import { MeusContratosComponent } from './administ-consultor/meus-contratos/meus-contratos.component';
+import { AdministSecretariaComponent } from './administ-secretaria/administ-secretaria.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -320,7 +321,8 @@ import { MeusContratosComponent } from './administ-consultor/meus-contratos/meus
         CadContractContatosComponent,
         CadContractPagamentosComponent,
         AdministConsultorComponent,
-        MeusContratosComponent
+        MeusContratosComponent,
+        AdministSecretariaComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

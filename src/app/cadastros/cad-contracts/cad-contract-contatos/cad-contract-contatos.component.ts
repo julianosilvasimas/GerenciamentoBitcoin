@@ -24,9 +24,11 @@ export class CadContractContatosComponent implements OnInit {
 
   _ = get;
 
+  tiposDeContato=[]
   ngOnInit(): void {
-      this.recarregarContas()
-      this.carregado=true
+    this.tiposDeContato = this.serv.getTiposContatos()
+    this.recarregarContas()
+    this.carregado=true
   }
   recarregarContas(){
     this.contatos=[]
@@ -40,13 +42,6 @@ export class CadContractContatosComponent implements OnInit {
       )
     }, 500);
   }
-
-  tiposDeContato=[
-    {label:"Telefone", value: 0},
-    {label:"Email", value: 1},
-    {label:"WhatsApp", value: 2}, 
-    {label:"Telegram", value: 3} 
-  ]
 
   editarNovaConta=false
   newObj={}

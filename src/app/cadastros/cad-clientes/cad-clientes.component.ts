@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ServCepService } from 'src/app/services/serv-cep.service';
+import { ServCepService } from 'src/app/utils/ceps/serv-cep.service';
 import { ServClientesService } from 'src/app/services/serv-clientes.service';
-import { ServRolesService } from 'src/app/services/serv-roles.service';
 import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
+import { ServContasService } from 'src/app/services/serv-contas.service';
 
 @Component({
   selector: 'app-cad-clientes',
@@ -12,10 +12,11 @@ import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
 })
 export class CadClientesComponent implements OnInit {
 
-  constructor(private servRoles:ServRolesService , 
+  constructor(
     private serv:ServClientesService, 
-    private messageService: MessageService,
     private cepserv: ServCepService,
+    private contasserv: ServContasService,
+    private messageService: MessageService,
     ) { }
     
 
@@ -29,62 +30,13 @@ export class CadClientesComponent implements OnInit {
     { label: "Cidade",  cxlabel:true ,value: 'cidade' },
     { label: "",      cxlabel:false ,value: 'botao', width: "90px" },
   ]
-
-  ufs=[
-      { label: "Rondônia RO	          ", value: "RO"},
-      { label: "Acre AC	              ", value: "AC"},
-      { label: "Amazonas AM	          ", value: "AM"},
-      { label: "Roraima RR	          ", value: "RR"},
-      { label: "Pará PA	              ", value: "PA"},
-      { label: "Amapá AP	            ", value: "AP"},
-      { label: "Tocantins TO	        ", value: "TO"},
-      { label: "Maranhão MA	          ", value: "MA"},
-      { label: "Piauí PI	            ", value: "PI"},
-      { label: "Ceará CE	            ", value: "CE"},
-      { label: "Rio Grande do Norte RN", value: "RN"},
-      { label: "Paraíba PB	          ", value: "PB"},
-      { label: "Pernambuco PE	        ", value: "PE"},
-      { label: "Alagoas AL	          ", value: "AL"},
-      { label: "Sergipe SE	          ", value: "SE"},
-      { label: "Bahia BA	            ", value: "BA"},
-      { label: "Minas Gerais MG	      ", value: "MG"},
-      { label: "Espírito Santo ES	    ", value: "ES"},
-      { label: "Rio de Janeiro RJ	    ", value: "RJ"},
-      { label: "São Paulo SP	        ", value: "SP"},
-      { label: "Paraná PR	            ", value: "PR"},
-      { label: "Santa Catarina SC	    ", value: "SC"},
-      { label: "Rio Grande do Sul RS  ", value: "RS"},
-      { label: "Mato Grosso do Sul MS	", value: "MS"},
-      { label: "Mato Grosso MT	      ", value: "MT"},
-      { label: "Goiás GO	            ", value: "GO"},
-      { label: "Distrito Federal DF	  ", value: "DF"}
-  ]
-
-  comoSoube=[
-    { label: "Amigo", value: "amigo"},
-    { label: "Consultor", value: "consultor"},
-    { label: "Facebook", value: "facebook"},
-    { label: "Instagram", value: "instagram"},
-    { label: "Twitter", value: "twitter"},
-    { label: "Linkedin", value: "linkedin"},
-    { label: "WhatsApp", value: "whatsapp"},
-  ]
-  estCivil=[
-    { label: "Solteiro(a)", value: "solteiro"},
-    { label: "Casado(a)", value: "casado"}
-  ]
-  bens=[
-    { label: "Comunhão Parcial", value: "comunhao parcial"},
-    { label: "Comunhão Universal", value: "comunhao universal"},
-    { label: "Separação Total", value: "separacao total"},
-    { label: "Separação Obrigatória", value: "separacao obrigatoria"},
-    { label: "Participação final nos aquestos", value: "Participação final nos aquestos"},
-  ]
   
-  tiposDeConta=[
-    {label:"Conta Corrente", value: 0},
-    {label:"Conta Poupança", value: 1},
-  ]
+
+  comoSoube=[]
+  estCivil=[]
+  bens=[]
+  ufs=[]
+  tiposDeConta=[]
 
   carregado = false
   ano1=2020
@@ -117,7 +69,15 @@ export class CadClientesComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
+    this.comoSoube=this.serv.getComoSoube()
+    this.estCivil=this.serv.getTiposEstadosCivil()
+    this.bens=this.serv.getTipoDeComunhaoDeBens()
+    this.tiposDeConta=this.contasserv.getTiposDeConta()
+    this.ufs=this.cepserv.getUFs()
+
     this.recarregaTamanho()
+
     this.ano1 = (new Date().getFullYear()-18)
     this.ano2 = ((this.ano1)-60)
 

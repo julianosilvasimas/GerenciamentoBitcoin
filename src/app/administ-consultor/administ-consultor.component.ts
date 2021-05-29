@@ -29,6 +29,12 @@ export class AdministConsultorComponent implements OnInit {
 
   ngOnInit() {
     console.clear()
+    this.recarregarDash()
+
+  }
+
+  recarregarDash(){
+    this.carregado1=false
     this.serv.getDash(localStorage.getItem("email")).subscribe(
       resp=>{
         this.contratosAtivos=resp[0]==null?0:resp[0]
@@ -59,7 +65,7 @@ export class AdministConsultorComponent implements OnInit {
   carregarInvestimentos(){
     console.clear()
     
-    this.serv2.getInvestimentosByConsultor(localStorage.getItem('email')).subscribe(
+    this.serv2.getInvestimentosByConsultor().subscribe(
       resp=>{
         this.investimentos=resp
         this.calcularPagamentos(resp)

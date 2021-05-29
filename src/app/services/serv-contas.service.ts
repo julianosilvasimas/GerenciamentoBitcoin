@@ -13,6 +13,13 @@ export class ServContasService {
   constructor(private http: HttpClient){}
   httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
 
+  getTiposDeConta(){
+    return [
+      {label:"Conta Corrente", value: 0},
+      {label:"Conta Poupança", value: 1},
+    ]
+  }
+
   
   getcontasbancarias(id): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/contasbancarias/contrato/${id}`,this.httpOptions)

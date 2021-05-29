@@ -1,0 +1,17 @@
+.box {
+    display: flex;
+    align-items: stretch;
+}
+.box>div>img{
+    border-radius: 30%;
+    height: 50px !important;
+}
+.box>div>.nome{
+    height: 100%;
+}
+.box>div>span{
+    margin-top: 20px !important;
+    vertical-align: middle !important;
+}
+
+
