@@ -79,6 +79,7 @@ export class LoginComponent implements OnInit {
       resp => {
           var keys = resp.data.get('Authorization');
           this.token = keys 
+          localStorage.setItem("token",this.token)
           var us = this.getDecodedAccessToken(this.token)
           
           setTimeout(() => {
@@ -92,7 +93,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('nome', resp2['nome']);
                 localStorage.setItem('foto', resp2['foto']==null? 'assets/layout/images/noImage.png' : resp2['foto']);
 
-                this.authService.userDados()
+                this.authService.userDados(localStorage.getItem('token'))
                 
                   // Faz o check se é primeiro acesso
                   if(this.usuario.senha === 'bitcoingerenciator'){

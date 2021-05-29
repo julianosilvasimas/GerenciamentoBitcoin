@@ -15,7 +15,7 @@ export class ServBancosService {
 
   
   getBancos(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/bancos`,this.httpOptions) 
+    return this.http.get(`${API_CONFIG}/bancos`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
@@ -24,11 +24,11 @@ export class ServBancosService {
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postBancos(bancos): Observable<any[]>{
-    return this.http.post(`${API_CONFIG}/bancos`,bancos,this.httpOptions) 
+    return this.http.post(`${API_CONFIG}/bancos`,bancos,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   deleteBancos(bancos): Observable<any[]>{
-    return this.http.delete(`${API_CONFIG}/bancos/${bancos.id}`,this.httpOptions) 
+    return this.http.delete(`${API_CONFIG}/bancos/${bancos.id}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }

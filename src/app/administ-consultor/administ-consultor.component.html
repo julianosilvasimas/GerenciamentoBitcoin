@@ -1,15 +1,15 @@
 <div class="dashboard p-grid p-fluid" *ngIf="carregado1">
     <div class="p-col-12 p-md-4">
         <div class="card clearfix summary">
-            <span class="title">Clientes Ativos</span>
-            <span class="detail">Número de Clientes Ativos</span>
+            <span class="title">Clientes</span>
+            <span class="detail">Carteira de Clientes</span>
             <span style="font-size: 15px;" class="count visitors">{{clientes}}</span>
         </div>
     </div>
     <div class="p-col-12 p-md-4">
         <div class="card clearfix summary">
-            <span class="title">Contratos Ativos</span>
-            <span class="detail">Número de contratos ativos</span>
+            <span class="title">Contratos</span>
+            <span class="detail">Número de contratos</span>
             <span style="font-size: 15px;" class="count purchases">{{contratosAtivos}}</span>
         </div>
     </div>
@@ -20,6 +20,36 @@
             <span style="font-size: 15px;" class="count revenue">R$ {{ valorTotalDeContratos.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}}</span>
         </div>
     </div>
+    <!-- <div class="p-col-12 p-md-4">
+        <div class="highlight-box">
+            <div class="initials" style="background-color:#007be5;color:#00448f">TV</div>
+            <div class="card">
+                <span class="highlight-box-icon pi pi-eye"></span>
+                <span>Total Views</span>
+                <span class="count">523</span>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <div class="highlight-box">
+            <div class="initials" style="background-color:#ef6262;color:#a83d3b">TI</div>
+            <div class="card">
+                <span class="highlight-box-icon pi pi-question-circle"></span>
+                <span>Total Issues</span>
+                <span class="count">81</span>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <div class="highlight-box">
+            <div class="initials" style="background-color:#20d077;color:#038d4a">OI</div>
+            <div class="card">
+                <span class="highlight-box-icon pi pi-question-circle"></span>
+                <span>Open Issues</span>
+                <span class="count">21</span>
+            </div>
+        </div>
+    </div> -->
 
     <div class="p-col-12 p-lg-4">
         <p-panel header="Maiores Clientes" [style]="{'height':'100%'}">
@@ -35,9 +65,49 @@
             </ul>
         </p-panel>
     </div>
-    <div class="p-col-12 p-lg-8" >
+    <div class="p-col-12 p-md-4">
+        <p-panel header="Atividade" [style]="{'height':'100%'}">
+            <ul class="activity-list">
+                <li>
+                    <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
+                        <h5 class="activity p-m-0">Comissão</h5>
+                        <div style="font-size: 15px;" class="count">
+                            {{converter(pagamConsult)}}/{{converter(pagamConsultMax)}}
+                        </div>
+                    </div>
+                    <p-progressBar [showValue]="true" value="{{pagamConsultPorcent}}" [showValue]="false"></p-progressBar>
+                </li>
+                <li>
+                    <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
+                        <h5 class="activity p-m-0">Pagamento de Investidores</h5>
+                        <div class="count" style="font-size: 15px;background-color:#f9c851">
+                            {{converter(pagamClient)}}/{{converter(pagamClientMax)}}
+                        </div>
+                    </div>
+                    <p-progressBar [showValue]="true" value="{{pagamClientPorcent}}"  value="55" [showValue]="false"></p-progressBar>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+
+    <div class="p-col-12 p-lg-4">
+        <p-panel header="Proximos Pagamentos" [style]="{'height':'100%'}">
+            <ul class="contacts">
+                <li *ngFor="let cli of pagamentosConsultor">
+                    <a href="#" >
+                        <img src="assets/layout/images/noImage.png" height="35" style="border-radius: 50%;">
+                        <span class="name">{{cli.dataPagamento}}</span>
+                        <span class="email">{{cli.dataPagamento}} - R$ {{cli.status.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} </span>
+                    </a>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+
+
+    <div class="p-col-12 p-lg-12" >
         <p-panel header="Meus Contratos" [style]="{'height':'100%'}">
-            <app-meus-contratos [style]="{'width':'100%' }"></app-meus-contratos>
+            <app-meus-contratos *ngIf="carregado1" [investimentos]="investimentos" ></app-meus-contratos>
         </p-panel>
     </div>
 </div>

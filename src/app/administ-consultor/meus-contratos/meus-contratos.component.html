@@ -1,4 +1,9 @@
 
+<p-toolbar [style]="{'width': '100%'}">
+    <ng-template style="text-align: right;" pTemplate="right">
+        <button pButton pRipple label="Novo Contrato" icon="pi pi-plus" class="p-button-success" (click)="novoContrato()"></button>
+    </ng-template>
+</p-toolbar>
 <p-table [value]="investimentos" [columns]="cols"  [paginator]="true" [rows]="20">
     <ng-template pTemplate="header"  let-columns>
         <tr>

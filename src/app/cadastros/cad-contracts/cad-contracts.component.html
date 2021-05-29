@@ -3,7 +3,16 @@
         <div class="card">
             <h1 style="font-size:20px; font-weight: bold;">Controle de Contratos</h1>
             <div class="p-col-12 p-md-12" >
-                <p-table [value]="investimentos" [columns]="cols"  [paginator]="true" [rows]="20">
+                <p-table #dt1 [value]="investimentos" [columns]="cols"  [paginator]="true" [rows]="20"  
+                 [globalFilterFields]="['id','cliente.investidor','tpoContrato','consultor.nome','secretaria.nome','datInvestimento']">
+                    <ng-template pTemplate="caption">
+                        <div class="p-d-flex">
+                            <span class="p-input-icon-left p-ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Filtro Inteligente" />
+                            </span>
+                        </div>
+                    </ng-template>
                     <ng-template pTemplate="header"  let-columns>
                         <tr>
                             <th *ngFor="let col of columns" pSortableColumn="{{col.value}}" [style]="col.width==null? null : { 'width': col.width }">

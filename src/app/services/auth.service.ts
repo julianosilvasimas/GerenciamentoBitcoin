@@ -127,35 +127,9 @@ export class AuthService {
  }
 
 
- userDados(){
-  var tokenDecode = this.getDecodedAccessToken(this.token);
+ userDados(token){
+  var us = this.getDecodedAccessToken(token);
 
-  function capitalizar(text) {
-    var loweredText = text.toLowerCase();
-    var words = loweredText.split(" ");
-    for (var a = 0; a < words.length; a++) {
-        var w = words[a];
-
-        var firstLetter = w[0];
-
-        if( w.length > 3){ 
-           w = firstLetter.toUpperCase() + w.slice(1);
-        }else if(w.length == 1 && firstLetter != 'e'){
-          w = firstLetter.toUpperCase();
-        }else {
-           w = firstLetter + w.slice(1);
-        }
-
-        words[a] = w;
-    }
-    return words.join(" ");
-  }
-
-  
-  
-  this.dados.push({ key: 'usuarioId' , valor: tokenDecode.jti, lista: [] });
-  
-  var us = tokenDecode.iss
 
   // debugger;
   console.log(us)
@@ -164,24 +138,21 @@ export class AuthService {
   sessionStorage.setItem('email',us.email)
   sessionStorage.setItem('nome',us.nome)
   // sessionStorage.setItem('permissao',us.acesso)
-  this.dados.push({ key: 'email' , valor: tokenDecode.sub, lista: [] });
-  this.dados.push({ key: 'datalogin' , valor: tokenDecode.iat, lista: [] });
-  this.dados.push({ key: 'dataexpire' , valor: tokenDecode.exp, lista: [] });
+  // this.dados.push({ key: 'email' , valor: tokenDecode.sub, lista: [] });
+  // this.dados.push({ key: 'datalogin' , valor: tokenDecode.iat, lista: [] });
+  // this.dados.push({ key: 'dataexpire' , valor: tokenDecode.exp, lista: [] });
   
 
   var dateIni = new Date(0)
   var dateExp = new Date(0)
 
-  dateIni.setUTCSeconds(parseInt(this.dados[2].valor))
-  dateExp.setUTCSeconds(parseInt(this.dados[3].valor))
+  // dateIni.setUTCSeconds(parseInt(this.dados[2].valor))
+  // dateExp.setUTCSeconds(parseInt(this.dados[3].valor))
   
 
   // Verificando permissões
   
-  tokenDecode.roles.forEach((element,index) => {
-    this.auth.push(element['authority']);
-    console.log(element)
-  });
+
 
   return this.dados
   }

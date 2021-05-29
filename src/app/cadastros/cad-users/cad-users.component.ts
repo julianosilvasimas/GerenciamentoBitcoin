@@ -11,7 +11,8 @@ import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
 })
 export class CadUsersComponent implements OnInit {
 
-  constructor(private servRoles:ServBancosService , private serv:ServUsuariosService, private messageService: MessageService,) { }
+  constructor(private servRoles:ServBancosService , private serv:ServUsuariosService, private messageService: MessageService,) { 
+  }
 
   consultores=[]
   arrCargos=[
@@ -43,6 +44,11 @@ export class CadUsersComponent implements OnInit {
   width="50%"
   height=""
   
+  bancos=[]
+  ngOnInit() {
+    this.carregado=false
+    this.carregarUsers()
+  }
 
   recarregaTamanho(){
     var w = window,
@@ -64,25 +70,21 @@ export class CadUsersComponent implements OnInit {
 
   }
 
-  bancos=[]
-  ngOnInit(): void {
-    this.servRoles.getBancos().subscribe(
+
+  carregarUsers(){
+    this.serv.getUsers().subscribe(
       resp=>{
-        this.bancos=resp
-        console.log(resp)
-        this.recarregaTamanho()
-        this.carregarUsers()
+        this.consultores=resp
+        this.getBancos()
       }
     )
   }
 
-  carregarUsers(){
-    this.carregado=false
+  getBancos(){
     setTimeout(() => {
-      this.serv.getUsers().subscribe(
+      this.servRoles.getBancos().subscribe(
         resp=>{
-          console.log(resp)
-          this.consultores=resp
+          this.bancos=resp
           this.carregado=true
         }
       )

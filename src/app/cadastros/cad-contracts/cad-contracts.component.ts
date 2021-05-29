@@ -22,6 +22,7 @@ export class CadContractsComponent implements OnInit {
 
   _ = get;
   cols=[
+    { label: "Identificador",  cxlabel:true ,value: 'id' },
     { label: "Cliente",  cxlabel:true ,value: 'cliente.investidor' },
     { label: "Tipo",  cxlabel:true ,value: 'tpoContrato' },
     { label: "Consultor",  cxlabel:true ,value: 'consultor.nome' },
@@ -29,7 +30,6 @@ export class CadContractsComponent implements OnInit {
     { label: "Data",  cxlabel:true ,value: 'datInvestimento' },
     { label: "Valor",  cxlabel:true ,value: 'vlrInvestimento', number: true },
     { label: "Prazo",  cxlabel:true ,value: 'prazo' },
-    { label: "Aprv. Financ.",  cxlabel:false    , aprov: true, value: 'statusFinanceiro'     },
     { label: "Aprv. Secretaria",  cxlabel:false , aprov: true, value: 'statusSecretaria'  },
     { label: "",      cxlabel:false ,value: 'botao', width: "90px" },
   ]
@@ -152,7 +152,7 @@ export class CadContractsComponent implements OnInit {
   }
 
   salvar(){
-
+    this.editarInvestimento = false
     this.investimento.contatos =null
     this.investimento.contasBancarias =null
     this.investimento.pagamentos =null
@@ -161,7 +161,6 @@ export class CadContractsComponent implements OnInit {
     this.investimento.consultor = { id: this.investimento.consultor.id}
     this.serv.putInvestimentos(this.investimento).subscribe(
       resp=>{
-        this.editarInvestimento = false
         this.messageService.add({severity:'success', summary: 'Sucesso!', detail:'Salvo com sucesso', life: 5000});
         setTimeout(() => {
           this.recarregaInvestimentos()

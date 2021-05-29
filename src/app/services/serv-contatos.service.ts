@@ -15,20 +15,20 @@ export class ServContatosService {
 
   
   getcontatos(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/contatos/investimento/${id}`,this.httpOptions) 
+    return this.http.get(`${API_CONFIG}/contatos/investimento/${id}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
   putcontatos(user): Observable<any[]>{
-    return this.http.put(`${API_CONFIG}/contatos/${user.id}`,user,this.httpOptions) 
+    return this.http.put(`${API_CONFIG}/contatos/${user.id}`,user,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postcontatos(user): Observable<any[]>{
-    return this.http.post(`${API_CONFIG}/contatos`,user,this.httpOptions) 
+    return this.http.post(`${API_CONFIG}/contatos`,user,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   deletecontatos(user): Observable<any[]>{
-    return this.http.delete(`${API_CONFIG}/contatos/${user.id}`,this.httpOptions) 
+    return this.http.delete(`${API_CONFIG}/contatos/${user.id}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }
