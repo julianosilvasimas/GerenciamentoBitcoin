@@ -205,6 +205,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
     }
     fechar(){
         sessionStorage.clear()
+        localStorage.clear()
         this.router.navigate(['/login']);  //precisa melhorar a permissões no menu
     }
     senhapad=false

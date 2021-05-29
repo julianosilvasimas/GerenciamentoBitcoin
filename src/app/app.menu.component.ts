@@ -24,7 +24,7 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
         this.model=[]
         var cargo = localStorage.getItem('cargo');
-        if(cargo.indexOf('Gerente')>-1){
+        // if(cargo.indexOf('Gerente')>-1){
             this.model=[
                 { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
                 { 
@@ -36,18 +36,18 @@ export class AppMenuComponent implements OnInit {
                     ]
                 },          
             ];
-        }else if(cargo.indexOf('Consultor')>-1){
-            this.model=[
-                { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
-                { 
-                    label: 'Administrar', icon: 'pi pi-user', 
-                    items: [
-                        {label: 'Usuário', icon: 'pi pi-user', routerLink:'/usuarios'},
-                    ]
-                },          
-            ];
+        // }else if(cargo.indexOf('Consultor')>-1){
+        //     this.model=[
+        //         { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
+        //         { 
+        //             label: 'Administrar', icon: 'pi pi-user', 
+        //             items: [
+        //                 {label: 'Usuário', icon: 'pi pi-user', routerLink:'/usuarios'},
+        //             ]
+        //         },          
+        //     ];
 
-        }
+        // }
         
 
         this.carregado=true
