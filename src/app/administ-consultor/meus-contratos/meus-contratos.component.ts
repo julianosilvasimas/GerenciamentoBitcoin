@@ -88,11 +88,9 @@ export class MeusContratosComponent implements OnInit {
 
       datInvestimento: new Date(),
       vlrInvestimento: null,
-      tpoContrato: 1,
+      tpoContrato: this.tiposContratos[0].value,
       prazo: null,
       secretaria:this.secretarias[0],
-      statusFinanceiro:2,
-      statusSecretaria:2,
       
       cep: null,
       estado: null,
@@ -111,26 +109,26 @@ export class MeusContratosComponent implements OnInit {
     }
     this.activeItem = this.steps[0];
     this.newContract=true
-    this.preehcher()
+    // this.preehcher()
   }
 
   preehcher(){
     this.activeItem = this.steps[0];
-    this.novoContratoObj['investidor']="Vitor Heser Rosa"
-    this.novoContratoObj['cpf']="111.222.333-44"
-    this.novoContratoObj['rg']="11.222.333-4"
+    this.novoContratoObj['investidor']="Fulano de Tal"
+    this.novoContratoObj['cpf']="123.654.789-9"
+    this.novoContratoObj['rg']="12.365.456-9"
     this.novoContratoObj['ufDoc']="RJ"
     this.novoContratoObj['orgEmissor']="DETRAN"
     this.novoContratoObj['nacionalidade']="Brasileiro"
-    this.novoContratoObj['email']="vitorheserrosa@gmail.com"
+    this.novoContratoObj['email']="fulano da Silva@gmail.com"
     this.novoContratoObj['profissao']="Analista"
-    this.novoContratoObj['vlrInvestimento']=5000
+    this.novoContratoObj['vlrInvestimento']=100000
     this.novoContratoObj['prazo']=36
     this.novoContratoObj['cep']="13.450-041"
     this.procurarCEP( this.novoContratoObj['cep'])
     this.novoContratoObj['nro']="1722"
     this.novoContratoObj['contatos']=[{ tpoContato: 1, contato:'vitorheserrosa@gmail.com.br'}]
-    this.novoContratoObj['contasBancarias']=[{ banco: this.bancos[0], agencia: "2222", titular: "Vitor Heser Rosa", conta: "000000", docTitular: "000000" }]
+    this.novoContratoObj['contasBancarias']=[{ banco: this.bancos[1], agencia: "2222", titular: "Ciclano da Silva", conta: "112223344556", docTitular: "123654789" }]
   }
 
 

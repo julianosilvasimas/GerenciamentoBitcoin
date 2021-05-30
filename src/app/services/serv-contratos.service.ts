@@ -56,7 +56,7 @@ export class ServInvestimentosService {
     const formData = new FormData();
     formData.append('profile',investOld['imgPerfil'][0]);
     formData.append('documment',investOld['fotoDoc'][0]);
-    formData.append('trasnfer',investOld['fotoDeposito'][0]);
+    formData.append('transfer',investOld['fotoDeposito'][0]);
     return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento/anexos/${invest.id}/${invest.cliente.cpf}`,formData,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }

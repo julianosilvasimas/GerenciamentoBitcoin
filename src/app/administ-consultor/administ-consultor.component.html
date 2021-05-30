@@ -1,56 +1,34 @@
 <div class="dashboard p-grid p-fluid" *ngIf="carregado1">
     <div class="p-col-12 p-md-4">
-        <div class="card clearfix summary">
-            <span class="title">Clientes</span>
-            <span class="detail">Carteira de Clientes</span>
-            <span style="font-size: 15px;" class="count visitors">{{clientes}}</span>
-        </div>
-    </div>
-    <div class="p-col-12 p-md-4">
-        <div class="card clearfix summary">
-            <span class="title">Contratos</span>
-            <span class="detail">Número de contratos</span>
-            <span style="font-size: 15px;" class="count purchases">{{contratosAtivos}}</span>
-        </div>
-    </div>
-    <div class="p-col-12 p-md-4">
-        <div class="card clearfix summary">
-            <span class="title">Valor total</span>
-            <span class="detail">Somatório dos contratos</span>
-            <span style="font-size: 15px;" class="count revenue">R$ {{ valorTotalDeContratos.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}}</span>
-        </div>
-    </div>
-    <!-- <div class="p-col-12 p-md-4">
         <div class="highlight-box">
-            <div class="initials" style="background-color:#007be5;color:#00448f">TV</div>
+            <div class="initials" style="background-color:#007be5;color:#00448f">CC</div>
             <div class="card">
                 <span class="highlight-box-icon pi pi-eye"></span>
-                <span>Total Views</span>
-                <span class="count">523</span>
+                <span>Carteira de Clientes</span>
+                <span class="count" style="font-size: 25px">{{clientes}}</span>
             </div>
         </div>
     </div>
     <div class="p-col-12 p-md-4">
         <div class="highlight-box">
-            <div class="initials" style="background-color:#ef6262;color:#a83d3b">TI</div>
+            <div class="initials" style="background-color:#20d077;color:#038d4a">CA</div>
             <div class="card">
                 <span class="highlight-box-icon pi pi-question-circle"></span>
-                <span>Total Issues</span>
-                <span class="count">81</span>
+                <span>Contratos Aprovados</span>
+                <span class="count" style="font-size: 25px">{{contratosAtivos}}</span>
             </div>
         </div>
     </div>
     <div class="p-col-12 p-md-4">
         <div class="highlight-box">
-            <div class="initials" style="background-color:#20d077;color:#038d4a">OI</div>
+            <div class="initials" style="background-color:#ef6262;color:#a83d3b">CR</div>
             <div class="card">
                 <span class="highlight-box-icon pi pi-question-circle"></span>
-                <span>Open Issues</span>
-                <span class="count">21</span>
+                <span>Valor Negociado</span>
+                <span class="count" style="font-size: 25px">{{ converter(valorTotalDeContratos)}}</span>
             </div>
         </div>
-    </div> -->
-
+    </div>
     <div class="p-col-12 p-lg-4">
         <p-panel header="Maiores Clientes" [style]="{'height':'100%'}">
             <ul class="contacts">
@@ -58,7 +36,7 @@
                     <a href="#" >
                         <img src="{{cli[0].imgPerfil==null? 'assets/layout/images/noImage.png' : cli[0].imgPerfil}}" height="35" style="border-radius: 50%;">
                         <span class="name">{{cli[0].investidor}}</span>
-                        <span class="email">R$ {{cli[1].toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})
+                        <span class="email">{{converter(cli[1])
                             + ' - ' +cli[2]}} Contratos</span>
                     </a>
                 </li>

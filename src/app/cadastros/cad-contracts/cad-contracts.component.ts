@@ -80,7 +80,7 @@ export class CadContractsComponent implements OnInit {
     this.serv.getInvestimentos().subscribe(
       resp=>{
         this.investimentos=resp
-        this.verInvestimento(resp[0])
+        // this.verInvestimento(resp[2])
       }
     )
   }
@@ -94,43 +94,47 @@ export class CadContractsComponent implements OnInit {
 
   verInvestimento(invest){
     this.activeItem=this.steps[0]
-    console.log(this.activeItem)
     this.editarInvestimento = true
     this.carregado=false
-    this.events1 = [
-      {status: 'Secretaria',            responsavel:'', observacao:null, data: '', icon: PrimeIcons.USER,        color: 'grey'},
-      {status: 'Geração de Pagamentos', responsavel:'', observacao:null, data: '', icon: PrimeIcons.MONEY_BILL,  color: 'grey'},
-    ];
     this.serv.getInvestimentosId(invest.id).subscribe(
       resp=>{
         this.investimento = resp
+        this.events1 = [
+          {status: 'Lançamento',            responsavel: invest.consultor.nome    , observacao:null, data: resp['datLancamento'], icon: PrimeIcons.CHECK,       color: 'green'},
+          {status: 'Secretaria',            responsavel:''                        , observacao:null, data: ''                   , icon: PrimeIcons.USER,        color: 'grey'},
+          {status: 'Geração de Pagamentos', responsavel:''                        , observacao:null, data: ''                   , icon: PrimeIcons.MONEY_BILL,  color: 'grey'},
+        ];
         
         
+        var i=1 //Secretaria
         if(resp['statusSecretaria'] == 2){
-          this.events1[0].icon = PrimeIcons.CLOCK
-          this.events1[0].color = "orange"
+          this.events1[i].icon = PrimeIcons.CLOCK
+          this.events1[i].color = "orange"
 
         }else if(resp['statusSecretaria'] == 1){
-          this.events1[0].icon = PrimeIcons.CHECK
-          this.events1[0].color = "green"
-          this.events1[0].responsavel = resp['aprovadorSecretaria']
-          this.events1[0].data        = resp['dataAprovacaoSecretaria']
+          this.events1[i].icon = PrimeIcons.CHECK
+          this.events1[i].color = "green"
+          this.events1[i].responsavel = resp['aprovadorSecretaria']
+          this.events1[i].data        = resp['dataAprovacaoSecretaria']
         }else{
-          this.events1[0].icon = PrimeIcons.TIMES
-          this.events1[0].color = "red"
-          this.events1[0].responsavel = resp['aprovadorSecretaria']
-          this.events1[0].data        = resp['dataAprovacaoSecretaria']
-          this.events1[0].observacao        = resp['observacaoSecretaria']
+          this.events1[i].icon = PrimeIcons.TIMES
+          this.events1[i].color = "red"
+          this.events1[i].responsavel = resp['aprovadorSecretaria']
+          this.events1[i].data        = resp['dataAprovacaoSecretaria']
+          this.events1[i].observacao  = resp['observacaoSecretaria']
         }
 
-        //AtualizarStatusPagamentos
+        
+        var p=2 //AtualizarStatusPagamentos
         if(resp['pagamentos'].length==0){
-          this.events1[1].icon = PrimeIcons.CLOCK
-          this.events1[1].color = "orange"
+          this.events1[p].icon = PrimeIcons.CLOCK
+          this.events1[p].color = "orange"
         }else{
-          this.events1[1].icon = PrimeIcons.CHECK
-          this.events1[1].color = "green"
+          this.events1[p].icon = PrimeIcons.CHECK
+          this.events1[p].color = "green"
         }
+
+        
         this.carregado=true
 
       }

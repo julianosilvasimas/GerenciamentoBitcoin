@@ -15,10 +15,14 @@ export class ServDashboardsService {
 
   
   getDash(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/dashboards/${id}`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/dashboards/consultor/${localStorage.getItem('token')}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
+  getDashSecretaria(): Observable<any[]>{
+    return this.http.get(`${API_CONFIG}/dashboards/secretaria/${localStorage.getItem('token')}`,this.httpOptions)
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
   
   getMaioresClientes(id): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/dashboards/clientes/${id}`,this.httpOptions)
