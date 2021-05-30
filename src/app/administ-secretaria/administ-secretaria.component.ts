@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServInvestimentosService } from '../services/serv-contratos.service';
+import { ServDashboardsService } from '../services/serv-dashboards.service';
 
 @Component({
   selector: 'app-administ-secretaria',
@@ -8,15 +9,58 @@ import { ServInvestimentosService } from '../services/serv-contratos.service';
 })
 export class AdministSecretariaComponent implements OnInit {
 
-  constructor(private serv:ServInvestimentosService) { }
+  constructor(private serv:ServInvestimentosService,private servdash:ServDashboardsService) { }
+  carregado=false
+  contratosPendentes=[]
 
   ngOnInit(): void {
+    this.carregado=false
+    console.clear()
+    this.getDashSecretaria()
+
+  }
+
+  totalContratos=0
+  totalContratosAprovados=0
+  totalContratosPendentes=0
+  totalContratosErro=0
+
+  getDashSecretaria(){
     console.clear()
     this.serv.getInvestimentosBySecretaria().subscribe(
-      resp=>{
-        console.log(resp)
+      contratosPendentes=>{
+        this.contratosPendentes=contratosPendentes
+        console.log(contratosPendentes)
+        this.totalContratos=0
+        this.totalContratosAprovados=0
+        this.totalContratosPendentes=0
+        this.totalContratosErro=0
+        this.servdash.getDashSecretaria().subscribe(
+          resp=>{
+            for(let obj of resp){
+              var o = obj[0]
+              var qtd = obj[1]
+
+              this.totalContratos+=qtd
+              switch(o){
+                case 1:
+                  this.totalContratosAprovados+=qtd
+                  break;
+                case 2:
+                  this.totalContratosPendentes+=qtd
+                  break;
+                case 3:
+                  this.totalContratosErro+=qtd
+                  break;
+              }
+            }
+            this.carregado=true
+            setTimeout(() => {
+              this.getDashSecretaria()
+            },180000);
+          }
+        )
       }
     )
   }
-
 }

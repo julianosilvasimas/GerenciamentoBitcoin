@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ServInvestimentosService } from 'src/app/services/serv-contratos.service';
+import { Component, Input, OnInit } from '@angular/core';
 import {get} from 'lodash';
 import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
+import { ServInvestimentosService } from 'src/app/services/serv-contratos.service';
 import { MessageService, PrimeIcons } from 'primeng/api';
 
 @Component({
-  selector: 'app-cad-contracts',
-  templateUrl: './cad-contracts.component.html',
-  styleUrls: ['./cad-contracts.component.scss']
+  selector: 'app-meus-contratos-view',
+  templateUrl: './meus-contratos-view.component.html',
+  styleUrls: ['./meus-contratos-view.component.scss']
 })
-export class CadContractsComponent implements OnInit {
-
+export class MeusContratosViewComponent implements OnInit {
   constructor(private serv:ServInvestimentosService,private serv2:ServUsuariosService,
     private messageService: MessageService,) { }
 
@@ -59,29 +58,19 @@ export class CadContractsComponent implements OnInit {
 
   consultores=[]
   secretarias=[]
-  
+
+  @Input() invest
   ngOnInit(): void {
-    console.clear
-    this.recarregaTamanho()
-    this.tipos = this.serv.getTipoDeInvestimentos()
     this.serv2.getUsersDTO().subscribe(
       users=>{
-        // console.log(users)
         this.consultores=users.filter(function(e) { return e.cargo.indexOf("Consultor")>-1 || e.cargo.indexOf("Gerente")>-1 })
         this.secretarias=users.filter(function(e) { return e.cargo.indexOf("Secretaria")>-1 || e.cargo.indexOf("Gerente")>-1  })
-        this.recarregaInvestimentos()
+        console.log(this.invest)
+        this.tipos = this.serv.getTipoDeInvestimentos()
+        this.verInvestimento(this.invest)
       }
     )
   }
-  recarregaInvestimentos(){
-    this.serv.getInvestimentos().subscribe(
-      resp=>{
-        this.investimentos=resp
-        // this.verInvestimento(resp[2])
-      }
-    )
-  }
-
   editarInvestimento=false
   carregado=false
   investimento
@@ -133,7 +122,6 @@ export class CadContractsComponent implements OnInit {
 
         
         this.carregado=true
-
       }
     )
   }
@@ -149,9 +137,7 @@ export class CadContractsComponent implements OnInit {
     this.serv.putInvestimentos(this.investimento).subscribe(
       resp=>{
         this.messageService.add({severity:'success', summary: 'Sucesso!', detail:'Salvo com sucesso', life: 5000});
-        setTimeout(() => {
-          this.recarregaInvestimentos()
-        }, 500);
+
       },erro=>{
         this.editarInvestimento = false
         this.messageService.add({severity:'error', summary: 'Erro!', detail:'Erro ao salvar', life: 5000});
@@ -161,7 +147,6 @@ export class CadContractsComponent implements OnInit {
   Cancelar(){
     this.editarInvestimento = false
     setTimeout(() => {
-      this.recarregaInvestimentos()
     }, 500);
   }
 

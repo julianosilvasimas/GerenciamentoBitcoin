@@ -176,16 +176,17 @@
                 <div class="p-field p-col-12 p-md-12">
                     <h4>Aprovações</h4>
                     <div class="card">
-                        <p-timeline [value]="events1" align="alternate" layout="vertical" styleClass="customized-timeline">
+                        <p-timeline [value]="events1">
+                            <ng-template pTemplate="content" let-event>
+                                <small class="p-text-secondary">{{event.data}} -  <b>{{event.responsavel}}</b> - {{event.observacao}}</small>
+                            </ng-template>
                             <ng-template pTemplate="marker" let-event>
                                 <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
                                     <i [ngClass]="event.icon"></i>
                                 </span>
                             </ng-template>
-                            <ng-template pTemplate="content" let-event>
-                                <p-card [header]="event.status" [subheader]="event.responsavel + ' - '+ event.data">
-                                    <p>{{event.observacao}}</p>
-                                </p-card>
+                            <ng-template pTemplate="opposite" let-event>
+                                {{event.status}} 
                             </ng-template>
                         </p-timeline>
                     </div>

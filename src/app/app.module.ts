@@ -170,6 +170,8 @@ import { CadContractPagamentosComponent } from './cadastros/cad-contracts/cad-co
 import { AdministConsultorComponent } from './administ-consultor/administ-consultor.component';
 import { MeusContratosComponent } from './administ-consultor/meus-contratos/meus-contratos.component';
 import { AdministSecretariaComponent } from './administ-secretaria/administ-secretaria.component';
+import { MeusContratosViewComponent } from './administ-consultor/meus-contratos/meus-contratos-view/meus-contratos-view.component';
+import { SecretAprovacoesContratosComponent } from './administ-secretaria/secret-aprovacoes-contratos/secret-aprovacoes-contratos.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -322,7 +324,9 @@ import { AdministSecretariaComponent } from './administ-secretaria/administ-secr
         CadContractPagamentosComponent,
         AdministConsultorComponent,
         MeusContratosComponent,
-        AdministSecretariaComponent
+        AdministSecretariaComponent,
+        MeusContratosViewComponent,
+        SecretAprovacoesContratosComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

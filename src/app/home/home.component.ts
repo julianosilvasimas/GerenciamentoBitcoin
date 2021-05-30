@@ -27,7 +27,8 @@ export class HomeComponent implements OnInit {
 
     selectedCity: any;
 
-    items: MenuItem[];
+    items: any[]=[];
+    activeItem={id:0}
 
     fullcalendarOptions: any;
 
@@ -40,6 +41,29 @@ export class HomeComponent implements OnInit {
     
     ngOnInit() {
         document.body.style.zoom = "100%";
+        if(localStorage.getItem('cargo').indexOf('Gerente')>-1){
+            this.items = [
+                { id: 1, label: 'Home',       icon: 'pi pi-fw pi-home', command: (event) => { 
+                    this.activeItem= event.item 
+                  }
+                },
+                { id: 2, label: 'Consultor',  icon: 'pi pi-fw pi-calendar', command: (event) => { 
+                    this.activeItem= event.item 
+                  }
+                },
+                { id: 3, label: 'Secretaria', icon: 'pi pi-fw pi-calendar', command: (event) => { 
+                    this.activeItem= event.item 
+                  }
+                },
+            ];
+            this.activeItem = this.items[2];
+        }else if(localStorage.getItem('cargo').indexOf('Consultor')>-1){
+            this.items=[]
+            this.activeItem={id:2}
+        }else if(localStorage.getItem('cargo').indexOf('Secretaria')>-1){
+            this.items=[]
+            this.activeItem={id:3}
+        }
         
 
     }

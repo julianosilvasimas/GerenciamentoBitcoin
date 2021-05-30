@@ -22,6 +22,10 @@ export class ServUsuariosService {
     return this.http.get(`${API_CONFIG}/usuarios`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
+  getUsersDTO(): Observable<any[]>{
+    return this.http.get(`${API_CONFIG}/usuarios/DTO`,this.httpOptions)
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
   getUser(id): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/usuarios/${id}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
