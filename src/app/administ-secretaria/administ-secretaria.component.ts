@@ -11,15 +11,13 @@ export class AdministSecretariaComponent implements OnInit {
 
   constructor(private serv:ServInvestimentosService,private servdash:ServDashboardsService) { }
   carregado=false
-  ngOnInit(): void {
-    console.clear()
-    this.serv.getInvestimentosBySecretaria().subscribe(
-      resp=>{
-        this.carregado=true
-        this.getDashSecretaria()
+  contratosPendentes=[]
 
-      }
-    )
+  ngOnInit(): void {
+    this.carregado=false
+    console.clear()
+    this.getDashSecretaria()
+
   }
 
   totalContratos=0
@@ -29,33 +27,40 @@ export class AdministSecretariaComponent implements OnInit {
 
   getDashSecretaria(){
     console.clear()
-    this.totalContratos=0
-    this.totalContratosAprovados=0
-    this.totalContratosPendentes=0
-    this.totalContratosErro=0
-    this.servdash.getDashSecretaria().subscribe(
-      resp=>{
-        for(let obj of resp){
-          var o = obj[0]
-          var qtd = obj[1]
+    this.serv.getInvestimentosBySecretaria().subscribe(
+      contratosPendentes=>{
+        this.contratosPendentes=contratosPendentes
+        console.log(contratosPendentes)
+        this.totalContratos=0
+        this.totalContratosAprovados=0
+        this.totalContratosPendentes=0
+        this.totalContratosErro=0
+        this.servdash.getDashSecretaria().subscribe(
+          resp=>{
+            for(let obj of resp){
+              var o = obj[0]
+              var qtd = obj[1]
 
-          this.totalContratos+=qtd
-          switch(o){
-            case 1:
-              this.totalContratosAprovados+=qtd
-              break;
-            case 2:
-              this.totalContratosPendentes+=qtd
-              break;
-            case 3:
-              this.totalContratosErro+=qtd
-              break;
+              this.totalContratos+=qtd
+              switch(o){
+                case 1:
+                  this.totalContratosAprovados+=qtd
+                  break;
+                case 2:
+                  this.totalContratosPendentes+=qtd
+                  break;
+                case 3:
+                  this.totalContratosErro+=qtd
+                  break;
+              }
+            }
+            this.carregado=true
+            setTimeout(() => {
+              this.getDashSecretaria()
+            },180000);
           }
-        }
+        )
       }
     )
-    setTimeout(() => {
-      this.getDashSecretaria()
-    },180000);
   }
 }

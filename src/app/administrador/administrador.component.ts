@@ -30,12 +30,12 @@ export class AdministradorComponent implements OnInit {
   ngOnInit() {
     // console.log(localStorage.getItem("email"))
 
-    this.serv.getDash(localStorage.getItem("email")).subscribe(
+    this.serv.getDash().subscribe(
       resp=>{
         this.contratosAtivos=resp[0]==null?0:resp[0]
         this.valorTotalDeContratos=resp[1]==null?0:resp[1]
         this.clientes=resp[2]==null?0:resp[2]
-        this.serv.getMaioresClientes(localStorage.getItem("email")).subscribe(
+        this.serv.getMaioresClientes().subscribe(
           resp=>{
             console.log(resp)
             this.maioresClientes = resp[0].sort(function(a,b){ return a[1] < b[1] ? 1 : -1 })

@@ -52,6 +52,10 @@ export class ServInvestimentosService {
     return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento`,invest,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
+  postInvestimentosAprovacao(invest): Observable<any[]>{
+    return this.http.post(`${API_CONFIG}/investimentos/statusSecretaria/${sessionStorage.getItem('token')}`,invest,this.httpOptions)
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
   postInvestimentosAnexos(invest,investOld): Observable<any[]>{
     const formData = new FormData();
     formData.append('profile',investOld['imgPerfil'][0]);

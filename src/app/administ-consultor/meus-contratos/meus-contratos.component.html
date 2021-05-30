@@ -17,8 +17,6 @@
     <ng-template pTemplate="body" let-rowData  let-columns="columns">
         <tr style="font-size: 11px">
             <td *ngFor="let col of columns">
-                <img *ngIf="col.value=='foto'" width="30px" height="30px" style="border-radius: 50%;" [src]="usuario.foto==null ? 'assets/layout/images/noImage.png' : usuario.foto">
-                <p-inputSwitch *ngIf="col.value=='ativo'" (click)="ativarUsuario(usuario)" [(ngModel)]="usuario.ativo"></p-inputSwitch>
                 {{ col.cxlabel ?  col.number ? ( _(rowData, col.value ) | currency:'BRL':true:'1.2-2') :  _(rowData, col.value ) : null }}
                 <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verInvestimento(rowData)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
                 
@@ -30,6 +28,9 @@
     </ng-template>
 </p-table>
 
+<p-sidebar [(visible)]="editarInvestimento"  [fullScreen]="true" [baseZIndex]="10000">
+    <app-meus-contratos-view *ngIf="editarInvestimento" [invest]="invest" ></app-meus-contratos-view>
+</p-sidebar>
 
 <p-sidebar [(visible)]="newContract" position="left" [style]="{ 'width': width, 'max-width': width}" [baseZIndex]="10000">
     <p-toast   [style]="{marginTop: '5px'}"></p-toast>

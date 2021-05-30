@@ -1,9 +1,10 @@
-<div class="p-grid p-fluid dashboard" *ngIf="localStorage.getItem('cargo').indexOf('Gerente')>-1">
+<p-tabMenu *ngIf="localStorage.getItem('cargo').indexOf('Gerente')>-1" [model]="items"></p-tabMenu>
+<div class="p-grid p-fluid dashboard" *ngIf="activeItem.id==1">
     <app-administrador  class="p-col-12"></app-administrador>
 </div>
-<div class="p-grid p-fluid dashboard" *ngIf="localStorage.getItem('cargo').indexOf('Consultor')>-1">
+<div class="p-grid p-fluid dashboard" *ngIf="activeItem.id==2 ">
     <app-administ-consultor  class="p-col-12"></app-administ-consultor>
 </div>
-<div class="p-grid p-fluid dashboard" *ngIf="localStorage.getItem('cargo').indexOf('Secretaria')>-1">
+<div class="p-grid p-fluid dashboard" *ngIf="activeItem.id==3">
     <app-administ-secretaria  class="p-col-12"></app-administ-secretaria>
 </div>

@@ -14,7 +14,7 @@ export class ServDashboardsService {
   httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
 
   
-  getDash(id): Observable<any[]>{
+  getDash(): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/dashboards/consultor/${localStorage.getItem('token')}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
@@ -24,8 +24,8 @@ export class ServDashboardsService {
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   
-  getMaioresClientes(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/dashboards/clientes/${id}`,this.httpOptions)
+  getMaioresClientes(): Observable<any[]>{
+    return this.http.get(`${API_CONFIG}/dashboards/clientes/${localStorage.getItem('token')}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }

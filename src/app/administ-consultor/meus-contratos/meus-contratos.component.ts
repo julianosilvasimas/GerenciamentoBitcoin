@@ -62,9 +62,19 @@ export class MeusContratosComponent implements OnInit {
     );
   }
   
+  //==========================================================================
+  //MEUS CONTRATOS VIEW
+  invest={}
+  editarInvestimento = false
+
+  verInvestimento(invest){
+    this.invest = invest
+    this.editarInvestimento=true
+  }
 
 
 
+  //==========================================================================
   newContract=false
   novoContratoObj={}
   novoContrato(){
@@ -115,14 +125,14 @@ export class MeusContratosComponent implements OnInit {
   preehcher(){
     this.activeItem = this.steps[0];
     this.novoContratoObj['investidor']="Fulano de Tal"
-    this.novoContratoObj['cpf']="123.654.789-9"
+    this.novoContratoObj['cpf']="123.654.789-19"
     this.novoContratoObj['rg']="12.365.456-9"
     this.novoContratoObj['ufDoc']="RJ"
     this.novoContratoObj['orgEmissor']="DETRAN"
     this.novoContratoObj['nacionalidade']="Brasileiro"
     this.novoContratoObj['email']="fulano da Silva@gmail.com"
     this.novoContratoObj['profissao']="Analista"
-    this.novoContratoObj['vlrInvestimento']=100000
+    this.novoContratoObj['vlrInvestimento']=150000
     this.novoContratoObj['prazo']=36
     this.novoContratoObj['cep']="13.450-041"
     this.procurarCEP( this.novoContratoObj['cep'])
@@ -354,14 +364,14 @@ export class MeusContratosComponent implements OnInit {
   width="60%"
   height=""
   cols=[
-    { label: "Id",  cxlabel:true ,value: 'id' },
-    { label: "Data",  cxlabel:true ,value: 'datInvestimento' },
+    { label: "Id",  cxlabel:true ,value: 'id' , width: "90px"},
+    { label: "Data",  cxlabel:true ,value: 'datInvestimento' , width: "100px" },
     { label: "Cliente",  cxlabel:true ,value: 'cliente.investidor' },
-    { label: "Tipo",  cxlabel:true ,value: 'tpoContrato' },
+    { label: "Tipo",  cxlabel:true ,value: 'tpoContrato' , width: "90px"},
     { label: "Secretaria",  cxlabel:true ,value: 'secretaria.nome' },
     { label: "Valor",  cxlabel:true ,value: 'vlrInvestimento', number: true },
-    { label: "Prazo",  cxlabel:true ,value: 'prazo' },
-    { label: "Aprv. Secretaria",  cxlabel:false , aprov: true, value: 'statusSecretaria'  },
+    { label: "Prazo",  cxlabel:true ,value: 'prazo', width: "90px" },
+    { label: "Aprv. Secretaria",  cxlabel:false , aprov: true, value: 'statusSecretaria', width: "120px"  },
     { label: "",      cxlabel:false ,value: 'botao', width: "90px" },
   ]
 
