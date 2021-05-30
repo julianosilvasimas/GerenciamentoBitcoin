@@ -100,12 +100,12 @@ export class MeusContratosViewComponent implements OnInit {
         }else if(resp['statusSecretaria'] == 1){
           this.events1[i].icon = PrimeIcons.CHECK
           this.events1[i].color = "green"
-          this.events1[i].responsavel = resp['aprovadorSecretaria']
+          this.events1[i].responsavel = resp['aprovadorSecretaria'].nome
           this.events1[i].data        = resp['dataAprovacaoSecretaria']
         }else{
           this.events1[i].icon = PrimeIcons.TIMES
           this.events1[i].color = "red"
-          this.events1[i].responsavel = resp['aprovadorSecretaria']
+          this.events1[i].responsavel = resp['aprovadorSecretaria'].nome
           this.events1[i].data        = resp['dataAprovacaoSecretaria']
           this.events1[i].observacao  = resp['observacaoSecretaria']
         }

@@ -178,7 +178,7 @@
                     <div class="card">
                         <p-timeline [value]="events1">
                             <ng-template pTemplate="content" let-event>
-                                <small class="p-text-secondary">{{event.data}} - {{event.observacao}}</small>
+                                <small class="p-text-secondary">{{event.data}} -  <b>{{event.responsavel}}</b> - {{event.observacao}}</small>
                             </ng-template>
                             <ng-template pTemplate="marker" let-event>
                                 <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
@@ -186,7 +186,7 @@
                                 </span>
                             </ng-template>
                             <ng-template pTemplate="opposite" let-event>
-                                {{event.status}}
+                                {{event.status}} 
                             </ng-template>
                         </p-timeline>
                     </div>
