@@ -3,7 +3,8 @@ export const VERSIONAMENTO = 1.1
 
 // ============================================================================================
 //EXTERNO1
-// export const API_CONFIG =  'http://200.98.171.178:7777/bitinvestapi'
+// export const API_CONFIG =  'http://200.98.171.178:7777/bitinvestapi' //TESTE ANDREWS
+// export const API_CONFIG =  'http://198.38.86.162:8080/bitinvestapi' //PRODUÇÃO
 
 // LOCAL
 export const API_CONFIG =  'http://localhost:7777'

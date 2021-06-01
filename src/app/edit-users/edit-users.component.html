@@ -2,7 +2,7 @@
   <h2>Editar Usuário</h2>
   <div class="p-col-12 p-grid p-fluid"  *ngIf="carregado==true" >
     <div class="p-col-12 p-md-6" style="text-align: center;">
-       <img height="250px" *ngIf="fileCarregado" width="250px" style="border-radius: 50%;" [src]="localStorage.getItem('foto')" />
+       <img height="250px" *ngIf="fileCarregado" width="250px" style="border-radius: 50%;" [src]="localStorage.getItem('foto')" onError="this.src = 'assets/layout/images/noImage.png'" />
       <p-fileUpload class="p-col-12 p-md-12" #fubauto mode="basic" name="demo[]" accept=".jpg" 
       maxFileSize="1000000" (change)="uploadImage(fubauto)" [auto]="true" chooseLabel="Selecione a Imagem"></p-fileUpload>
 

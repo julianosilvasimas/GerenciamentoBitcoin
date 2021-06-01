@@ -11,13 +11,19 @@ import { ErrorHandler } from 'src/app/app.error-handler';
 export class ServInvestimentosService {
 
   constructor(private http: HttpClient){}
-  httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
+  httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
 
   getTipoDeInvestimentos(){
     return [
       { label: "Investimento Inicial",  cxlabel:true ,value: 'inicial' },
       { label: "Carta Fiança",          cxlabel:true ,value: 'fianca' },
       { label: "Reinvestimento",        cxlabel:true ,value: 'reinvestimento' },
+    ]
+  }
+  getPrazosDeInvestimentos(){
+    return [
+      { label: "24 Meses", value: 24 },
+      { label: "36 Meses", value: 36 },
     ]
   }
   
@@ -49,14 +55,14 @@ export class ServInvestimentosService {
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postInvestimentosByConsult(invest): Observable<any[]>{
-    return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento`,invest,this.httpOptions)
+    return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento/${sessionStorage.getItem('token')}`,invest,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postInvestimentosAprovacao(invest): Observable<any[]>{
     return this.http.post(`${API_CONFIG}/investimentos/statusSecretaria/${sessionStorage.getItem('token')}`,invest,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
-  postInvestimentosAnexos(invest,investOld): Observable<any[]>{
+  postInvestimentosAnexos(invest,investOld, necessita1, necessita2): Observable<any[]>{
     const formData = new FormData();
     formData.append('profile',investOld['imgPerfil'][0]);
     formData.append('documment',investOld['fotoDoc'][0]);

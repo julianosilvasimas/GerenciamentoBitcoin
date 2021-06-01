@@ -20,6 +20,9 @@ export class LoginComponent implements OnInit {
   public novasenhaconfirm: string;
   public senhapad: boolean =false;
   carregando = false
+
+  viewpass=true
+
   constructor(
     
     private authService: AuthService,

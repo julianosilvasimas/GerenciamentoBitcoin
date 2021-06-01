@@ -3,7 +3,6 @@ import {trigger, state, style, transition, animate} from '@angular/animations';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import * as jwt_decode from "jwt-decode";
 import { AppComponent } from './app.component';
-import { UserServiceService } from './administrador/usuarios/user-service.service';
 import { AuthService } from './services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { ServUsuariosService } from './services/serv-usuarios.service';

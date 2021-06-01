@@ -48,7 +48,7 @@
                 </div>
                 <div class="p-field p-col-12 p-md-6">
                     <label>CPF</label>
-                    <p-inputMask type="text" mask="999.999.999-99" [(ngModel)]="novoContratoObj.cpf" ></p-inputMask>
+                    <p-inputMask type="text" mask="999.999.999-99" [(ngModel)]="novoContratoObj.cpf" (onComplete)="preencherPesquisando()"></p-inputMask>
                 </div>
                 <div class="p-field p-col-12 p-md-6">
                     <label>Data de Nascimento</label>
@@ -170,7 +170,7 @@
                 </div>
                 <div class="p-field p-col-12 p-md-3">
                     <label >Prazo</label>
-                    <p-inputNumber suffix=" meses" [(ngModel)]="novoContratoObj.prazo" :min="36" locale="pt-BR" [minFractionDigits]="0"></p-inputNumber>
+                    <p-dropdown [options]="prazos" [(ngModel)]="novoContratoObj.prazo" [filter]="true" ></p-dropdown>
                 </div>
                 <div class="p-field p-col-12 p-md-6">
                     <label>Data do Investimento</label>
@@ -266,7 +266,7 @@
                 </div>
 
 
-                <div class="p-field p-col-12 p-md-6" style="text-align: center;">
+                <div *ngIf="precisaFotoDoc" class="p-field p-col-12 p-md-6" style="text-align: center;">
                     <p-fileUpload chooseLabel="Foto Documento" uploadLabel="Enviar" customUpload="true" (uploadHandler)="onUpload(2,$event)" [auto]="true"> 
                     <ng-template pTemplate="content">
                         <ul *ngIf="novoContratoObj.fotoDoc.length">
@@ -277,7 +277,7 @@
                 </div>
 
                 
-                <div class="p-field p-col-12 p-md-6" style="text-align: center;">
+                <div *ngIf="precisaFotoFotoPerfil" class="p-field p-col-12 p-md-6" style="text-align: center;">
                     <p-fileUpload chooseLabel="Foto Perfil" uploadLabel="Enviar" customUpload="true" (uploadHandler)="onUpload(1,$event)" [auto]="true"> 
                     <ng-template pTemplate="content">
                         <ul *ngIf="novoContratoObj.imgPerfil.length">
@@ -292,14 +292,11 @@
             <!-- ================================================================================================= -->
 
             <div class="p-field p-formgrid p-grid">
-                <div class="p-col-4 ">
+                <div class="p-col-6 ">
                     <p-button class="p-col-12" (click)="salvar()" label="Salvar" icon="pi pi-check"   styleClass="p-button-success p-button-rounded p-button-sm"></p-button>
                 </div>
-                <div class="p-col-4 ">
+                <div class="p-col-6 ">
                     <p-button class="p-col-12" (click)="cancelar()"  label="Cancelar" icon="pi pi-times" styleClass="p-button-secondary p-button-rounded p-button-sm"></p-button>
-                </div>
-                <div class="p-col-4 ">
-                    <p-button class="p-col-12" (click)="deletar()"   label="Deletar" icon="pi pi-trash"  styleClass="p-button-danger p-button-rounded p-button-sm"></p-button>
                 </div>
                 
             </div>

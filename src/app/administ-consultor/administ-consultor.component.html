@@ -14,14 +14,14 @@
             <div class="initials" style="background-color:#20d077;color:#038d4a">CA</div>
             <div class="card">
                 <span class="highlight-box-icon pi pi-question-circle"></span>
-                <span>Contratos Aprovados</span>
+                <span>Contratos Ativos</span>
                 <span class="count" style="font-size: 25px">{{contratosAtivos}}</span>
             </div>
         </div>
     </div>
     <div class="p-col-12 p-md-4">
         <div class="highlight-box">
-            <div class="initials" style="background-color:#ef6262;color:#a83d3b">CR</div>
+            <div class="initials" style="background-color:#e8ef62;color:#a88f3b">VN</div>
             <div class="card">
                 <span class="highlight-box-icon pi pi-question-circle"></span>
                 <span>Valor Negociado</span>
@@ -34,9 +34,9 @@
             <ul class="contacts">
                 <li *ngFor="let cli of maioresClientes">
                     <a href="#" >
-                        <img src="{{cli[0].imgPerfil==null? 'assets/layout/images/noImage.png' : cli[0].imgPerfil}}" height="35" style="border-radius: 50%;">
-                        <span class="name">{{cli[0].investidor}}</span>
-                        <span class="email">{{converter(cli[1])
+                        <img  [src]="cli[0].imgPerfil" onError="this.src = 'assets/layout/images/noImage.png'" height="35" style="border-radius: 50%;">
+                        <span class="name" style="font-size: 12px;">{{cli[0].investidor}}</span>
+                        <span class="email" style="font-size: 11px;">{{converter(cli[1])
                             + ' - ' +cli[2]}} Contratos</span>
                     </a>
                 </li>
@@ -44,12 +44,12 @@
         </p-panel>
     </div>
     <div class="p-col-12 p-md-4">
-        <p-panel header="Atividade" [style]="{'height':'100%'}">
+        <p-panel header="Pagamentos" [style]="{'height':'100%'}">
             <ul class="activity-list">
                 <li>
                     <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
-                        <h5 class="activity p-m-0">Comissão</h5>
-                        <div style="font-size: 15px;" class="count">
+                        <h5 class="activity p-m-0">Consultor</h5>
+                        <div style="font-size: 12px;" class="count">
                             {{converter(pagamConsult)}}/{{converter(pagamConsultMax)}}
                         </div>
                     </div>
@@ -57,8 +57,8 @@
                 </li>
                 <li>
                     <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
-                        <h5 class="activity p-m-0">Pagamento de Investidores</h5>
-                        <div class="count" style="font-size: 15px;background-color:#f9c851">
+                        <h5 class="activity p-m-0">Investidores</h5>
+                        <div class="count" style="font-size: 12px;background-color:#f9c851">
                             {{converter(pagamClient)}}/{{converter(pagamClientMax)}}
                         </div>
                     </div>
@@ -72,16 +72,14 @@
         <p-panel header="Proximos Pagamentos" [style]="{'height':'100%'}">
             <ul class="contacts">
                 <li *ngFor="let cli of pagamentosConsultor">
-                    <a href="#" >
-                        <img src="assets/layout/images/noImage.png" height="35" style="border-radius: 50%;">
-                        <span class="name">{{cli.dataPagamento}}</span>
-                        <span class="email">{{cli.dataPagamento}} - R$ {{cli.status.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} </span>
+                    <a href="#" style="height: 50px;">
+                        <span class="name"  style="margint-top: 10px ;font-size: 12px;" >{{cli.dataPagamento}}</span>
+                        <span class="email" style="font-size: 10px;" >{{cli.dataPagamento}} - R$ {{cli.status.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} </span>
                     </a>
                 </li>
             </ul>
         </p-panel>
     </div>
-
 
     <div class="p-col-12 p-lg-12" >
         <p-panel header="Meus Contratos" [style]="{'height':'100%'}">

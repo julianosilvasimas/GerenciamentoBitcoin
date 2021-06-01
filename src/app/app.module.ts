@@ -143,10 +143,8 @@ import { LogservService } from './login/logserv.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
-import { UserServiceService } from './administrador/usuarios/user-service.service';
 import { HomeComponent } from './home/home.component';
 import { AdministradorComponent } from './administrador/administrador.component';
-import { UsuariosComponent } from './administrador/usuarios/usuarios.component';
 import { CadUsersComponent } from './cadastros/cad-users/cad-users.component';
 import { CadContractsComponent } from './cadastros/cad-contracts/cad-contracts.component';
 import { RelatorioBancosComponent } from './relatorios/relatorio-bancos/relatorio-bancos.component';
@@ -161,7 +159,7 @@ import { ServCepService } from './utils/ceps/serv-cep.service';
 import { ServBancosService } from './services/serv-bancos.service';
 import { ServContasService } from './services/serv-contas.service';
 import { ServContatosService } from './services/serv-contatos.service';
-import { EditUsersComponent } from './administrador/usuarios/edit-users/edit-users.component';
+import { EditUsersComponent } from './edit-users/edit-users.component';
 import { ServInvestimentosService } from './services/serv-contratos.service';
 import { ServDashboardsService } from './services/serv-dashboards.service';
 import { CadContractContasComponent } from './cadastros/cad-contracts/cad-contract-contas/cad-contract-contas.component';
@@ -260,7 +258,7 @@ import { SecretAprovacoesContratosComponent } from './administ-secretaria/secret
         VirtualScrollerModule,
         AppCodeModule,
         ProgressSpinnerModule,
-        SidebarModule
+        SidebarModule,
     ],
     declarations: [
         AppComponent,
@@ -310,7 +308,6 @@ import { SecretAprovacoesContratosComponent } from './administ-secretaria/secret
         HomeComponent,
         LoginComponent,
         AdministradorComponent,
-        UsuariosComponent,
         CadUsersComponent,
         CadContractsComponent,
         RelatorioBancosComponent,
@@ -333,7 +330,6 @@ import { SecretAprovacoesContratosComponent } from './administ-secretaria/secret
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService,MessageService,
         AuthService,
-        UserServiceService, 
         LogservService,
         ServUsuariosService,
         ServRolesService,

@@ -39,6 +39,7 @@ export class MeusContratosComponent implements OnInit {
   bancos=[]
   tiposContratos=[]
   secretarias=[]
+  prazos=[]
 
   ngOnInit(): void {
     this.recarregaTamanho()
@@ -49,14 +50,13 @@ export class MeusContratosComponent implements OnInit {
         this.servBancos.getBancos().subscribe(resp=>{
           this.bancos=resp
         
+          this.prazos = this.serv.getPrazosDeInvestimentos()
           this.tiposContratos = this.serv.getTipoDeInvestimentos()
           this.comoSoube=this.servClient.getComoSoube()
           this.estCivil=this.servClient.getTiposEstadosCivil()
           this.bens=this.servClient.getTipoDeComunhaoDeBens()
           this.tiposDeConta=this.contasserv.getTiposDeConta()
           this.ufs=this.cepserv.getUFs()
-
-          // this.novoContrato()
         })
       }
     );
@@ -78,6 +78,8 @@ export class MeusContratosComponent implements OnInit {
   newContract=false
   novoContratoObj={}
   novoContrato(){
+    this.precisaFotoDoc=true
+    this.precisaFotoFotoPerfil=true
     var dt= new Date()
     dt.setFullYear(dt.getFullYear()-19)
     this.novoContratoObj={
@@ -99,7 +101,7 @@ export class MeusContratosComponent implements OnInit {
       datInvestimento: new Date(),
       vlrInvestimento: null,
       tpoContrato: this.tiposContratos[0].value,
-      prazo: null,
+      prazo: 24,
       secretaria:this.secretarias[0],
       
       cep: null,
@@ -119,27 +121,61 @@ export class MeusContratosComponent implements OnInit {
     }
     this.activeItem = this.steps[0];
     this.newContract=true
-    // this.preehcher()
+    this.preencher()
   }
 
-  preehcher(){
-    this.activeItem = this.steps[0];
-    this.novoContratoObj['investidor']="Fulano de Tal"
-    this.novoContratoObj['cpf']="123.654.789-19"
-    this.novoContratoObj['rg']="12.365.456-9"
-    this.novoContratoObj['ufDoc']="RJ"
-    this.novoContratoObj['orgEmissor']="DETRAN"
-    this.novoContratoObj['nacionalidade']="Brasileiro"
-    this.novoContratoObj['email']="fulano da Silva@gmail.com"
-    this.novoContratoObj['profissao']="Analista"
-    this.novoContratoObj['vlrInvestimento']=150000
+  precisaFotoDoc=true
+  precisaFotoFotoPerfil=true
+
+  preencher(){
+    this.novoContratoObj['vlrInvestimento']=10000
     this.novoContratoObj['prazo']=36
-    this.novoContratoObj['cep']="13.450-041"
-    this.procurarCEP( this.novoContratoObj['cep'])
-    this.novoContratoObj['nro']="1722"
-    this.novoContratoObj['contatos']=[{ tpoContato: 1, contato:'vitorheserrosa@gmail.com.br'}]
-    this.novoContratoObj['contasBancarias']=[{ banco: this.bancos[1], agencia: "2222", titular: "Ciclano da Silva", conta: "112223344556", docTitular: "123654789" }]
+    this.novoContratoObj['secretaria']=this.secretarias[0]
+    this.novoContratoObj['cpf']="111.111.111-11"
+    this.novoContratoObj['contatos']=[{ tpoContato: 1, contato: "teste" }]
+    this.novoContratoObj['contasBancarias']=[{
+      agencia: "dasd",
+      banco: {id: 2, codBanco: "0003", banco: "BCO DA AMAZONIA S.A."},
+      cod: "asd",
+      conta: "asd",
+      contaConjunta: true,
+      docTitular: "dasd",
+      titular: "sdsa",
+      tpo: 0
+    }]
+    this.preencherPesquisando()
   }
+
+
+  preencherPesquisando(){
+    this.servClient.preenchAutomatico(this.novoContratoObj['cpf']).subscribe(
+      resp=>{
+        if(resp!=null){
+          this.novoContratoObj['investidor']=resp['investidor']
+          this.novoContratoObj['cpf']=resp['cpf']
+          this.novoContratoObj['rg']=resp['rg']
+          this.novoContratoObj['ufDoc']=resp['ufDoc']
+          this.novoContratoObj['orgEmissor']=resp['orgEmissor']
+          this.novoContratoObj['nacionalidade']=resp['nacionalidade']
+          this.novoContratoObj['email']=resp['email']
+          this.novoContratoObj['profissao']=resp['profissao']
+          this.novoContratoObj['cep']=resp['cep']
+          this.novoContratoObj['estado']=resp['estado']
+          this.novoContratoObj['pais']=resp['pais']
+          this.novoContratoObj['rua']=resp['rua']
+          this.novoContratoObj['nro']=resp['nro']
+          this.novoContratoObj['cidade']=resp['cidade']
+          this.novoContratoObj['bairro']=resp['bairro']
+  
+          this.precisaFotoDoc = resp['fotoDoc']!=null ? resp['fotoDoc'].length>0 ? false : true : true
+          this.precisaFotoFotoPerfil = resp['imgPerfil']!=null ? resp['imgPerfil'].length>0 ? false : true : true
+          
+          this.novoContratoObj['cidade']=resp['cidade']
+        }
+      }
+    )
+  }
+  
 
 
   anexos={
@@ -165,7 +201,6 @@ export class MeusContratosComponent implements OnInit {
       this.novoContratoObj['datInvestimento']=this.format(this.novoContratoObj['datInvestimento'])
       this.novoContratoObj['cpf']=this.novoContratoObj['cpf'].replaceAll("\.","").replaceAll("-","")
       this.novoContratoObj['rg']=this.novoContratoObj['rg'].replaceAll("\.","").replaceAll("-","")
-      this.newContract=false
       this.anexos['imgPerfil']=this.novoContratoObj['imgPerfil']
       this.anexos['fotoDoc']=this.novoContratoObj['fotoDoc']
       this.anexos['fotoDeposito']=this.novoContratoObj['fotoDeposito']
@@ -173,22 +208,27 @@ export class MeusContratosComponent implements OnInit {
     }
   }
   salvarHTTP(){
+    this.novoContratoObj['investidor'] = this.novoContratoObj['investidor'].toUpperCase()
+    this.novoContratoObj['datInvestimento'] = this.novoContratoObj['datInvestimento'].length>10 ? this.format(this.novoContratoObj['datInvestimento']) : this.novoContratoObj['datInvestimento']
     this.serv.postInvestimentosByConsult(this.novoContratoObj).subscribe(
       resp=>{
         this.messageService.add({severity:'success', summary: 'Investimento', detail:'Seu contrato foi salvo com sucesso', life: 5000});
         this.consultorModule.recarregarDash()
 
-        this.serv.postInvestimentosAnexos(resp,this.anexos).subscribe(
+        this.serv.postInvestimentosAnexos(resp,this.anexos, this.precisaFotoDoc , this.precisaFotoFotoPerfil).subscribe(
           anexos=>{
-            this.messageService.add({severity:'success', summary: 'Anexos', detail:'Os anexos foram salvos com sucesso', life: 5000});            
+            this.messageService.add({severity:'success', summary: 'Anexos', detail:'Os anexos foram salvos com sucesso', life: 5000});        
+            this.newContract=false    
           },
           erro=>{
             this.messageService.add({severity:'error', summary: 'Anexos', detail:'Houve um erro ao salvar os Anexos', life: 5000});
+            this.newContract=false    
           }
         )
       },
       erro=>{
         this.messageService.add({severity:'error', summary: 'Investimento', detail:'Houve um erro ao salvar seu contrato', life: 5000});
+        this.newContract=false    
       }
     )
   }
@@ -198,9 +238,9 @@ export class MeusContratosComponent implements OnInit {
   //==========================================================================
   //CHECAGENS PARA SALVAR
   format(data:Date){
-    var  dia  = data.getDate().toString(),
+    var  dia  = (data.getDate()).toString(),
         diaF = (dia.length == 1) ? '0'+dia : dia,
-        mes  = data.getMonth().toString(), //+1 pois no getMonth Janeiro começa com zero.
+        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
         mesF = (mes.length == 1) ? '0'+mes : mes,
         anoF = data.getFullYear();
     return diaF+"/"+mesF+"/"+anoF;
@@ -273,8 +313,6 @@ export class MeusContratosComponent implements OnInit {
   etapa4(){
     var check = false
     if( 
-      this.check("imgPerfil",1) &&
-      this.check("fotoDoc",1)  &&
       this.check("fotoDeposito",1) 
     ){
       check=true

@@ -11,10 +11,15 @@ import { ErrorHandler } from 'src/app/app.error-handler';
 export class ServUsuariosService {
 
   constructor(private http: HttpClient){}
-  httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
+  httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
 
   getEscritorios(): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/usuarios/escritorios`,this.httpOptions)
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
+  
+  getMeuCargo(): Observable<any>{
+    return this.http.get(`${API_CONFIG}/usuarios/meuCargo/${localStorage.getItem('token')}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   

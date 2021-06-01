@@ -25,7 +25,7 @@
                     <ng-template pTemplate="body" let-rowData  let-columns="columns">
                         <tr style="font-size: 11px">
                             <td *ngFor="let col of columns">
-                                <img *ngIf="col.value=='foto'" width="30px" height="30px" style="border-radius: 50%;" [src]="usuario.foto==null ? 'assets/layout/images/noImage.png' : usuario.foto">
+                                <img *ngIf="col.value=='foto'" width="30px" height="30px" style="border-radius: 50%;" [src]="usuario.foto==null ? 'assets/layout/images/noImage.png' : usuario.foto"  onError="this.src = 'assets/layout/images/noImage.png'">
                                 <p-inputSwitch *ngIf="col.value=='ativo'" (click)="ativarUsuario(usuario)" [(ngModel)]="usuario.ativo"></p-inputSwitch>
                                 {{ col.cxlabel ?  col.number ? ( _(rowData, col.value ) | currency:'BRL':true:'1.2-2') :  _(rowData, col.value ) : null }}
                                 <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verInvestimento(rowData)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
@@ -66,7 +66,7 @@
         <p-scrollPanel [style]="{'margin-top': '10px', width: '100%', height: height}" styleClass="custom">
             <div *ngIf="activeItem.id==1" class="p-fluid p-formgrid p-grid">
                 <div class="p-field p-col-12 p-md-3" style="text-align: center;">
-                    <img [src]="investimento.cliente.imgPerfil==null? 'assets/layout/images/noImage.png' : investimento.cliente.imgPerfil" width="200px" height="200px" style="border-radius: 50%;"/>
+                    <img [src]="investimento.cliente.imgPerfil==null? 'assets/layout/images/noImage.png' : investimento.cliente.imgPerfil"   onError="this.src = 'assets/layout/images/noImage.png'" width="200px" height="200px" style="border-radius: 50%;"/>
                 </div>
                 <div class="p-field p-col-12 p-md-9 p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-12">
@@ -103,7 +103,7 @@
                             <button pButton pRipple type="button" (click)="op1.toggle($event)" icon="pi pi-eye" class="p-button-rounded p-button-success  p-button-outlined"></button>
                         </label>
                         <p-overlayPanel class="p-field p-col-12 p-md-12" #op1>
-                            <img  width="400px" *ngIf="investimento.imagemRecibo!=null"  [src]="investimento.imagemRecibo" alt="Imagem Recibo" />
+                            <img  width="400px" *ngIf="investimento.imagemRecibo!=null"  onError="this.src = 'assets/layout/images/noImage.png'" [src]="investimento.imagemRecibo" alt="Imagem Recibo" />
                         </p-overlayPanel>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                         <ng-template pTemplate="selectedItem">
                             <div class="box"  *ngIf="investimento.consultor">
                                 <div>
-                                    <img [src]="investimento.consultor.foto==null? 'assets/layout/images/noImage.png' : investimento.consultor.foto" />
+                                    <img [src]="investimento.consultor.foto==null? 'assets/layout/images/noImage.png' : investimento.consultor.foto"  onError="this.src = 'assets/layout/images/noImage.png'" />
                                 </div>
                                 <div class="nome">
                                     <div style="margin-left: 20px;">
@@ -129,7 +129,7 @@
                         <ng-template let-consultores pTemplate="item">
                             <div class="box">
                                 <div>
-                                    <img [src]="consultores.foto==null? 'assets/layout/images/noImage.png' : consultores.foto" />
+                                    <img [src]="consultores.foto==null? 'assets/layout/images/noImage.png' : consultores.foto"  onError="this.src = 'assets/layout/images/noImage.png'"/>
                                 </div>
                                 <div class="nome">
                                     <div style="margin-left: 20px;">
@@ -148,7 +148,7 @@
                         <ng-template pTemplate="selectedItem">
                             <div class="box"  *ngIf="investimento.secretaria">
                                 <div>
-                                    <img [src]="investimento.secretaria.foto==null? 'assets/layout/images/noImage.png' : investimento.secretaria.foto" />
+                                    <img [src]="investimento.secretaria.foto==null? 'assets/layout/images/noImage.png' : investimento.secretaria.foto"  onError="this.src = 'assets/layout/images/noImage.png'"/>
                                 </div>
                                 <div class="nome">
                                     <div style="margin-left: 20px;">
@@ -161,7 +161,7 @@
                         <ng-template let-secretarias pTemplate="item">
                             <div class="box">
                                 <div>
-                                    <img [src]="secretarias.foto==null? 'assets/layout/images/noImage.png' : secretarias.foto" />
+                                    <img [src]="secretarias.foto==null? 'assets/layout/images/noImage.png' : secretarias.foto"  onError="this.src = 'assets/layout/images/noImage.png'"/>
                                 </div>
                                 <div class="nome">
                                     <div style="margin-left: 20px;">
