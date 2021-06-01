@@ -10,7 +10,7 @@ import { ErrorHandler } from 'src/app/app.error-handler';
 @Injectable()
 export class ServRolesService {
   constructor(private http: HttpClient){}
-  httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
+  httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
 
   
   getPerfis(): Observable<any[]>{

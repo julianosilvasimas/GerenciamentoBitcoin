@@ -34,6 +34,8 @@ export class AdministConsultorComponent implements OnInit {
 
   }
 
+  value1: string;
+
   recarregarDash(){
     this.serv.getDash().subscribe(
       resp=>{
@@ -68,7 +70,6 @@ export class AdministConsultorComponent implements OnInit {
     
     this.serv2.getInvestimentosByConsultor().subscribe(
       resp=>{
-        console.log(resp)
         this.investimentos=resp
         this.calcularPagamentos(resp)
         this.carregado1=true
@@ -100,7 +101,6 @@ export class AdministConsultorComponent implements OnInit {
     this.pagamentosConsultor=[]
     this.pagamentosCliente=[]
     
-    console.log(arrInvestimentos)
     
     for(let inv of arrInvestimentos){
       for(let pagam of inv.pagamentos){

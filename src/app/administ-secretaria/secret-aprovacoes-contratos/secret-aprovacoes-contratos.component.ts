@@ -58,8 +58,10 @@ export class SecretAprovacoesContratosComponent implements OnInit {
     }
   }
   tipos=[]
+  prazos=[]
 
   ngOnInit(): void {
+    this.prazos = this.serv.getPrazosDeInvestimentos()
     this.tipos = this.serv.getTipoDeInvestimentos()
     this.recarregaTamanho()
     // console.clear()
@@ -86,7 +88,8 @@ export class SecretAprovacoesContratosComponent implements OnInit {
       resp=>{
         this.investimento = resp
         this.investimento.rendimento = this.investimento.rendimento!=null ? this.investimento.rendimento*100 : 0
-        console.log(resp)
+        this.investimento.rendimentoFuncionario = this.investimento.rendimentoFuncionario!=null ? this.investimento.rendimentoFuncionario*100 : 0
+
         this.events1 = [
           {status: 'Lançamento',            responsavel: invest.consultor.nome    , observacao:null, data: resp['datLancamento'], icon: PrimeIcons.CHECK,       color: 'green'},
           {status: 'Secretaria',            responsavel:''                        , observacao:null, data: ''                   , icon: PrimeIcons.USER,        color: 'grey'},
@@ -163,6 +166,7 @@ export class SecretAprovacoesContratosComponent implements OnInit {
   
   aprovar(){
     var obj = this.convertObj(this.investimento)
+    console.log(obj)
     obj.statusSecretaria=1
     this.serv.postInvestimentosAprovacao(obj).subscribe(
       resp=>{
@@ -174,6 +178,7 @@ export class SecretAprovacoesContratosComponent implements OnInit {
   }
   reprovar(){
     var obj = this.convertObj(this.investimento)
+    console.log(obj)
     obj.statusSecretaria=3
     this.serv.postInvestimentosAprovacao(obj).subscribe(
       resp=>{
@@ -182,6 +187,14 @@ export class SecretAprovacoesContratosComponent implements OnInit {
         this.return(2)
       }
     )
+  }
+  format(data:Date){
+    var  dia  = (data.getDate()).toString(),
+        diaF = (dia.length == 1) ? '0'+dia : dia,
+        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+        mesF = (mes.length == 1) ? '0'+mes : mes,
+        anoF = data.getFullYear();
+    return diaF+"/"+mesF+"/"+anoF;
   }
   return(stat){
     if(stat==1){
@@ -197,13 +210,14 @@ export class SecretAprovacoesContratosComponent implements OnInit {
   convertObj(obj){
     return {
 	    id: obj.id,
-	    datInvestimento: obj.datInvestimento,
+	    datInvestimento: obj['datInvestimento'] instanceof Date && !isNaN(obj['datInvestimento'].valueOf()) ? this.format(obj['datInvestimento']) : obj['datInvestimento'],
 	    vlrInvestimento: obj.vlrInvestimento,
 	    prazo: obj.prazo,
 	    statusSecretaria: obj.statusSecretaria, // 1 = pago, 2 = pendente, 3 = erro
 	    observacaoSecretaria: obj.observacaoSecretaria,
 	    tpoContrato: obj.tpoContrato,
 	    rendimento: obj.rendimento/100,
+	    rendimentoFuncionario: obj.rendimentoFuncionario/100,
     }
   }
 }

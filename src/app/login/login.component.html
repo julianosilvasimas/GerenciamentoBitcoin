@@ -1,14 +1,19 @@
 <p-dialog header="Altere a sua senha" [(visible)]="senhapad" modal="modal" showEffect="fade" [style]="{width: '400px'}">
     <div class="ui-g-12">
     <span class="md-inputfield">
-        <input type="password" [(ngModel)]="novasenha" pInputText>
-        <label>Nova senha</label>
+        <div class="p-inputgroup">
+            <input type="{{viewpass ? 'password' : 'text'}}" placeholder="Nova Senha"  [(ngModel)]="novasenha" pInputText>
+            <p-toggleButton type="button" [(ngModel)]="viewpass"  onIcon="pi pi-eye" offIcon="pi pi-eye-slash"></p-toggleButton>
+        </div>
+
     </span>
     </div>
     <div class="ui-g-12">
     <span class="md-inputfield">
-        <input type="password" [(ngModel)]="novasenhaconfirm" pInputText>
-        <label>Confirme a nova senha</label>
+        <div class="p-inputgroup">
+            <input type="{{viewpass ? 'password' : 'text'}}" placeholder="Repita a Nova Senha" [(ngModel)]="novasenhaconfirm" pInputText>
+            <p-toggleButton type="button" [(ngModel)]="viewpass"  onIcon="pi pi-eye" offIcon="pi pi-eye-slash"></p-toggleButton>
+        </div>
     </span>
     </div>
     <p-footer>
@@ -25,18 +30,21 @@
         <div id="login-container">
             <div class="p-grid p-fluid">
                 <div class="p-col-12">
-                    <input type="text" autocomplete="off" [(ngModel)]="usuario.email" pInputText placeholder="Username" />
+                    <input type="text" autocomplete="off" [(ngModel)]="usuario.email" pInputText placeholder="Email" />
                 </div>
                 <div class="p-col-12">
-                    <input type="password" autocomplete="off" [(ngModel)]="usuario.senha" pInputText placeholder="Password" />
+                    <div class="p-inputgroup">
+                        <input type="{{viewpass ? 'password' : 'text'}}" autocomplete="off" [(ngModel)]="usuario.senha" pInputText placeholder="Password" [toggleMask]="true"/>
+                        <p-toggleButton type="button" [(ngModel)]="viewpass"  onIcon="pi pi-eye" offIcon="pi pi-eye-slash"></p-toggleButton>
+                    </div>
                 </div>
-                <div class="p-col-12 p-md-6">
+                <!-- <div class="p-col-12 p-md-6">
                     <span class="remember-me">Relembre-me</span>
                     <input type="checkbox">
                 </div>
                 <div class="p-col-12 p-md-6">
                     <a href="#">Esqueci a senha</a>
-                </div>
+                </div> -->
                 <div class="p-col-12" *ngIf="carregando==false" >
                     <p-button type="button" icon="pi pi-user"  label="Entrar" (click)= "logar()" icon="ui-icon-person"></p-button>
                 </div>

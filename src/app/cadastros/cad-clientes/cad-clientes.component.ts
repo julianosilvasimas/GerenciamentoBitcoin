@@ -199,6 +199,7 @@ export class CadClientesComponent implements OnInit {
   }
 
   salvarUsuario(){
+    this.consultor.investidor = this.consultor.investidor.toUpperCase()
     this.consultor.cpf = this.consultor.cpf.replaceAll(".","").replaceAll("-","")
     if(this.consultor.investidor==null  || this.consultor.email==null || this.consultor.cpf==null){
       this.messageService.add({severity:'warn', summary: 'Faltam Itens', detail:'Preencha pelo menos o nome e o email', life: 5000});
@@ -234,9 +235,9 @@ export class CadClientesComponent implements OnInit {
     }
   }
   format(data:Date){
-    var  dia  = data.getDate().toString(),
+    var  dia  = (data.getDate()).toString(),
         diaF = (dia.length == 1) ? '0'+dia : dia,
-        mes  = data.getMonth().toString(), //+1 pois no getMonth Janeiro começa com zero.
+        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
         mesF = (mes.length == 1) ? '0'+mes : mes,
         anoF = data.getFullYear();
     return diaF+"/"+mesF+"/"+anoF;

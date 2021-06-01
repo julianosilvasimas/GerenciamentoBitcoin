@@ -25,10 +25,10 @@
         <p-panel header="Maiores Clientes" [style]="{'height':'100%'}">
             <ul class="contacts">
                 <li *ngFor="let cli of maioresClientes">
-                    <a href="#" >
-                        <img src="{{cli[0].imgPerfil==null? 'assets/layout/images/noImage.png' : cli[0].imgPerfil}}" height="35" style="border-radius: 50%;">
-                        <span class="name">{{cli[0].investidor}}</span>
-                        <span class="email">R$ {{cli[1].toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})
+                    <a href="#" style="height: 60px;" >
+                        <img [src]="cli[0].imgPerfil" onError="this.src = 'assets/layout/images/noImage.png'" height="35" style="border-radius: 50%;">
+                        <span class="name" style="font-size: 12px;">{{cli[0].investidor}}</span>
+                        <span class="email" style="font-size: 11px;">R$ {{cli[1].toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})
                             + ' - ' +cli[2]}} Contratos</span>
                     </a>
                 </li>
@@ -41,18 +41,13 @@
             <ul class="contacts">
                 <li *ngFor="let cli of maioresConsultores">
                     <a href="#">
-                        <img src="{{cli[0].foto==null? 'assets/layout/images/noImage.png' : cli[0].foto}}" height="35" style="border-radius: 50%;">
-                        <span class="name">{{cli[0].nome}}</span>
-                        <span class="email">R$ {{cli[1].toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})
+                        <img [src]="cli[0].imgPerfil" onError="this.src = 'assets/layout/images/noImage.png'" height="35" style="border-radius: 50%;">
+                        <span class="name" style="font-size: 12px;">{{cli[0].nome}}</span>
+                        <span class="email" style="font-size: 11px;">R$ {{cli[1].toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})
                             + ' - ' +cli[2]}} Contratos</span>
                     </a>
                 </li>
             </ul>
         </p-panel>
     </div>
-    <!-- <div class="p-col-12 p-lg-8" >
-        <p-panel header="Meus Contratos" [style]="{'height':'100%'}">
-            
-        </p-panel>
-    </div> -->
 </div>

@@ -14,7 +14,7 @@ import { WidgetsComponent } from './utilities/widgets.component';
 import { CadUsersComponent } from './cadastros/cad-users/cad-users.component';
 import { CadClientesComponent } from './cadastros/cad-clientes/cad-clientes.component';
 import { CadContractsComponent } from './cadastros/cad-contracts/cad-contracts.component';
-import { EditUsersComponent } from './administrador/usuarios/edit-users/edit-users.component';
+import { EditUsersComponent } from './edit-users/edit-users.component';
 import { OverlaysDemoComponent } from './demo/view/overlaysdemo.component';
 import { FormLayoutDemoComponent } from './demo/view/formlayoutdemo.component';
 import { InputDemoComponent } from './demo/view/inputdemo.component';

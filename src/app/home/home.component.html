@@ -1,4 +1,4 @@
-<p-tabMenu *ngIf="localStorage.getItem('cargo').indexOf('Gerente')>-1" [model]="items"></p-tabMenu>
+<p-tabMenu *ngIf="cargo" [model]="items"></p-tabMenu>
 <div class="p-grid p-fluid dashboard" *ngIf="activeItem.id==1">
     <app-administrador  class="p-col-12"></app-administrador>
 </div>

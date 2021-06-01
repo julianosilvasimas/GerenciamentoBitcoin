@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import {EventService} from '../demo/service/eventservice';
 import * as jwt_decode from "jwt-decode";
 import { MenuItem } from 'primeng/api';
+import { ServUsuariosService } from '../services/serv-usuarios.service';
 
 @Component({
   selector: 'app-home',
@@ -34,38 +35,51 @@ export class HomeComponent implements OnInit {
 
     nome:String;
 
-    constructor(private eventService: EventService) {
+    constructor(private eventService: EventService,
+      private adminserv: ServUsuariosService) {
         document.body.style.background  = '#ebebeb8f';
      }
 
-    
+    cargo=false
     ngOnInit() {
-        document.body.style.zoom = "100%";
-        if(localStorage.getItem('cargo').indexOf('Gerente')>-1){
-            this.items = [
-                { id: 1, label: 'Home',       icon: 'pi pi-fw pi-home', command: (event) => { 
-                    this.activeItem= event.item 
-                  }
-                },
-                { id: 2, label: 'Consultor',  icon: 'pi pi-fw pi-calendar', command: (event) => { 
-                    this.activeItem= event.item 
-                  }
-                },
-                { id: 3, label: 'Secretaria', icon: 'pi pi-fw pi-calendar', command: (event) => { 
-                    this.activeItem= event.item 
-                  }
-                },
-            ];
-            this.activeItem = this.items[2];
-        }else if(localStorage.getItem('cargo').indexOf('Consultor')>-1){
-            this.items=[]
+      
+      document.body.style.zoom = "100%";
+      this.adminserv.getMeuCargo().subscribe(
+        cred=>{
+            var resp = cred.email
+
+          var modules = [
+            { id: 1, label: 'Home',       icon: 'pi pi-fw pi-home', command: (event) => { 
+                this.activeItem= event.item 
+              }
+            },
+            { id: 2, label: 'Consultor',  icon: 'pi pi-fw pi-calendar', command: (event) => { 
+                this.activeItem= event.item 
+              }
+            },
+            { id: 3, label: 'Secretaria', icon: 'pi pi-fw pi-calendar', command: (event) => { 
+                this.activeItem= event.item 
+              }
+            },
+          ] 
+
+
+
+          if(resp.indexOf('Gerente')>-1){
+            this.cargo=true
+            this.items = modules;
+            this.activeItem = this.items[0];
+
+              
+          }else if(resp.indexOf('Consultor')>-1){
+            this.items=[modules[1]]
             this.activeItem={id:2}
-        }else if(localStorage.getItem('cargo').indexOf('Secretaria')>-1){
-            this.items=[]
+
+          }else if(resp.indexOf('Secretaria')>-1){
+            this.items=[modules[2]]
             this.activeItem={id:3}
+          }
         }
-        
-
+      )
     }
-
 }

@@ -11,7 +11,7 @@ import { ErrorHandler } from 'src/app/app.error-handler';
 export class ServBancosService {
 
   constructor(private http: HttpClient){}
-  httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
+  httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
 
   
   getBancos(): Observable<any[]>{

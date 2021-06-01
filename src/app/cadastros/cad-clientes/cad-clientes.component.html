@@ -33,7 +33,7 @@
                     <ng-template pTemplate="body" let-usuario  let-columns="columns">
                         <tr style="font-size: 11px">
                             <td *ngFor="let col of columns">
-                                <img *ngIf="col.value=='imgPerfil'" width="30px" height="30px" style="border-radius: 50%;" [src]="usuario.imgPerfil==null ? 'assets/layout/images/noImage.png' : usuario.imgPerfil">
+                                <img *ngIf="col.value=='imgPerfil'" width="30px" height="30px" style="border-radius: 50%;"  onError="this.src = 'assets/layout/images/noImage.png'" [src]="usuario.imgPerfil==null ? 'assets/layout/images/noImage.png' : usuario.imgPerfil">
                                 <span *ngIf="col.cxlabel">{{usuario[col.value]}}</span>
                                 <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verConsultor(usuario)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
                             </td> 
@@ -71,7 +71,7 @@
                     </p-fileUpload>
                     <button *ngIf="consultor.imgPerfil!=null" label="Mostrar Foto" (click)="op1.toggle($event)" pButton type="button" icon="pi pi-external-link" ></button>
                     <p-overlayPanel class="p-field p-col-12 p-md-12" #op1>
-                        <img  width="400px" *ngIf="consultor.imgPerfil!=null"  [src]="consultor.imgPerfil" alt="Imagem Perfil" />
+                        <img  width="400px" *ngIf="consultor.imgPerfil!=null"  onError="this.src = 'assets/layout/images/noImage.png'" [src]="consultor.imgPerfil" alt="Imagem Perfil" />
                     </p-overlayPanel>
                 </div>
 
@@ -85,7 +85,7 @@
                     </p-fileUpload>
                    <button  *ngIf="consultor.fotoDoc!=null" pButton type="button" icon="pi pi-external-link" label="Mostrar Documento" (click)="op2.toggle($event)"></button>
                     <p-overlayPanel class="p-field p-col-12 p-md-12"   #op2>
-                        <img width="400px" *ngIf="consultor.fotoDoc!=null"  [src]="consultor.fotoDoc" alt="Imagem Documento" />
+                        <img width="400px" *ngIf="consultor.fotoDoc!=null"  onError="this.src = 'assets/layout/images/noImage.png'" [src]="consultor.fotoDoc" alt="Imagem Documento" />
                     </p-overlayPanel>
                 </div>
 

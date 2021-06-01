@@ -11,7 +11,7 @@ import { ErrorHandler } from 'src/app/app.error-handler';
 export class ServClientesService {
 
   constructor(private http: HttpClient){}
-  httpOptions = {headers: new HttpHeaders().set('Authorization',sessionStorage.getItem('token'))}
+  httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
 
   getTipoDeComunhaoDeBens(){
     return[
@@ -40,6 +40,11 @@ export class ServClientesService {
     ]
   }
 
+  
+  preenchAutomatico(id): Observable<any[]>{
+    return this.http.get(`${API_CONFIG}/clientes/preenchimentoAutomatico/${id.replaceAll("\.","").replaceAll("-","")}/${localStorage.getItem('token')}`,this.httpOptions)
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
   
   getClientes(): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/clientes`,this.httpOptions)
