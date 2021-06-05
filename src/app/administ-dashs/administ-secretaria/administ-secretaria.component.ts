@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ServInvestimentosService } from '../services/serv-contratos.service';
-import { ServDashboardsService } from '../services/serv-dashboards.service';
+import { ServInvestimentosService } from '../../services/serv-contratos.service';
+import { ServDashboardsService } from '../../services/serv-dashboards.service';
 
 @Component({
   selector: 'app-administ-secretaria',

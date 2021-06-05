@@ -8,7 +8,7 @@ export const AWS_BUCKET =  'sgci-images' //TESTE ANDREWS;
 // export const API_CONFIG =  'http://198.38.86.162:8080/bitinvestapi' //PRODUÇÃO
 
 // export const API_CONFIG =  'http://200.98.171.178:7777/bitinvestapi' //TESTE ANDREWS
-
+// 
 export const API_CONFIG =  'http://localhost:7777'
 
 

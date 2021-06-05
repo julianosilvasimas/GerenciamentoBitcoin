@@ -122,7 +122,7 @@ export class MeusContratosComponent implements OnInit {
     this.activeItem = this.steps[0];
     this.newContract=true
     this.preencher()
-    this.preencher2()
+    // this.preencher2()
   }
 
   precisaFotoDoc=true
