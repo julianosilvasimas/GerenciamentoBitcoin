@@ -256,7 +256,7 @@
             <!-- Fotos Requeridas-->
             <div class="p-fluid p-formgrid p-grid" *ngIf="activeItem.id==4" style="margin-top: 20px;">
                 <div class="p-field p-col-12 p-md-6" style="text-align: center;">
-                    <p-fileUpload chooseLabel="Foto Depósito" uploadLabel="Enviar" customUpload="true" (uploadHandler)="onUpload(3,$event)" [auto]="true"> 
+                    <p-fileUpload chooseLabel="Recibo de Depósito" uploadLabel="Enviar" customUpload="true" accept="image/*" (uploadHandler)="onUpload(3,$event)" [auto]="true"> 
                     <ng-template pTemplate="content">
                         <ul *ngIf="novoContratoObj.fotoDeposito.length">
                             <li *ngFor="let file of novoContratoObj.fotoDeposito">{{file.name}} - {{file.size}} bytes</li>
@@ -265,9 +265,8 @@
                     </p-fileUpload>
                 </div>
 
-
                 <div *ngIf="precisaFotoDoc" class="p-field p-col-12 p-md-6" style="text-align: center;">
-                    <p-fileUpload chooseLabel="Foto Documento" uploadLabel="Enviar" customUpload="true" (uploadHandler)="onUpload(2,$event)" [auto]="true"> 
+                    <p-fileUpload chooseLabel="Documento com Foto" uploadLabel="Enviar" customUpload="true" accept="image/*" (uploadHandler)="onUpload(2,$event)" [auto]="true"> 
                     <ng-template pTemplate="content">
                         <ul *ngIf="novoContratoObj.fotoDoc.length">
                             <li *ngFor="let file of novoContratoObj.fotoDoc">{{file.name}} - {{file.size}} bytes</li>
@@ -275,10 +274,9 @@
                     </ng-template>    
                     </p-fileUpload>
                 </div>
-
                 
                 <div *ngIf="precisaFotoFotoPerfil" class="p-field p-col-12 p-md-6" style="text-align: center;">
-                    <p-fileUpload chooseLabel="Foto Perfil" uploadLabel="Enviar" customUpload="true" (uploadHandler)="onUpload(1,$event)" [auto]="true"> 
+                    <p-fileUpload chooseLabel="Foto de Perfil" uploadLabel="Enviar" customUpload="true" accept="image/*" (uploadHandler)="onUpload(1,$event)" [auto]="true"> 
                     <ng-template pTemplate="content">
                         <ul *ngIf="novoContratoObj.imgPerfil.length">
                             <li *ngFor="let file of novoContratoObj.imgPerfil">{{file.name}} - {{file.size}} bytes</li>
@@ -309,20 +307,20 @@
     <p-dialog header="Nova Conta" [(visible)]="editarNovaConta" [style]="{width: '400px', height: '450px'}">
         <div *ngIf="editarNovaConta" class="p-fluid p-formgrid p-grid">
             <div class="p-field p-col-12 p-md-6">
-                <label >Nome</label>
+                <label >Titular</label>
                 <input type="text" [(ngModel)]="newObj.titular" pInputText> 
             </div>
             <div class="p-field p-col-12 p-md-6">
-                <label >Documento</label>
+                <label >CPF/CNPJ - Titular</label>
                 <input type="text" [(ngModel)]="newObj.docTitular" pInputText> 
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <label >Banco</label>
-                <p-dropdown [options]="bancos" [(ngModel)]="newObj.banco" optionLabel="banco" placeholder="Select"></p-dropdown>
+                <p-dropdown [options]="bancos" [filter]="true"  [(ngModel)]="newObj.banco" optionLabel="banco" placeholder="Select"></p-dropdown>
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <label >Tipo</label>
-                <p-dropdown [options]="tiposDeConta" [(ngModel)]="newObj.tpo" placeholder="Select"></p-dropdown>
+                <p-dropdown [options]="tiposDeConta" [filter]="true"  [(ngModel)]="newObj.tpo" placeholder="Select"></p-dropdown>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <label >Agencia</label>
@@ -347,7 +345,7 @@
 
     
     <!-- NOVO CONTATO -->
-    <p-dialog header="Novo editarNovoContato" [(visible)]="editarNovoContato" >
+    <p-dialog header="Novo Contato" [(visible)]="editarNovoContato" >
         <div *ngIf="editarNovoContato" class="p-fluid p-formgrid p-grid">
             <div class="p-field p-col-12 p-md-12">
                 <label >Tipo de Contato</label>

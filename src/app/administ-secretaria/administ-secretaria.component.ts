@@ -30,7 +30,7 @@ export class AdministSecretariaComponent implements OnInit {
     this.serv.getInvestimentosBySecretaria().subscribe(
       contratosPendentes=>{
         this.contratosPendentes=contratosPendentes
-        console.log(contratosPendentes)
+        
         this.totalContratos=0
         this.totalContratosAprovados=0
         this.totalContratosPendentes=0

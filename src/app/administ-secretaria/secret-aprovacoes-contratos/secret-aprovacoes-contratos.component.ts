@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {get} from 'lodash';
 import { MessageService, PrimeIcons } from 'primeng/api';
 import { ServInvestimentosService } from 'src/app/services/serv-contratos.service';
-import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
 import { AdministSecretariaComponent } from '../administ-secretaria.component';
 
 @Component({
@@ -33,6 +33,7 @@ export class SecretAprovacoesContratosComponent implements OnInit {
     private serv:ServInvestimentosService,
     private serv2:AdministSecretariaComponent,
     private messageService: MessageService,
+    private http: HttpClient
   ) { }
 
 
@@ -64,7 +65,10 @@ export class SecretAprovacoesContratosComponent implements OnInit {
     this.prazos = this.serv.getPrazosDeInvestimentos()
     this.tipos = this.serv.getTipoDeInvestimentos()
     this.recarregaTamanho()
-    // console.clear()
+    
+
+    //ApagarDepois
+    this.viewPicture('https://bitinvest-images.s3.us-east-2.amazonaws.com/doc1.jpg')
 
   }
   events1 = [];
@@ -77,6 +81,13 @@ export class SecretAprovacoesContratosComponent implements OnInit {
   
   selectedConsultor: string;
   selectedSecretario: string;
+
+  novoContratoObj={
+    fotoDoc:[],
+    fotoDeposito:[],
+    imgPerfil:[],
+  }
+
   verInvestimento(invest){
     this.consultores=[invest['consultor']]
     this.secretarias=[invest['secretaria']]
@@ -135,6 +146,11 @@ export class SecretAprovacoesContratosComponent implements OnInit {
   steps = [
     {
       id: 1, label: 'Investimento', icon: "pi pi-money-bill", command: (event) => { 
+        this.activeItem= event.item 
+      }
+    },
+    {
+      id: 2 , label: 'Anexos', icon: "pi pi-paperclip", command: (event) => { 
         this.activeItem= event.item 
       }
     },
@@ -219,5 +235,65 @@ export class SecretAprovacoesContratosComponent implements OnInit {
 	    rendimento: obj.rendimento/100,
 	    rendimentoFuncionario: obj.rendimentoFuncionario/100,
     }
+  }
+
+
+  onUpload(item, evnt){
+    var file = evnt.files
+    if(file.length>0){
+      switch(item){
+        case 1:
+          this.salvarInvest(file[0],1)
+          break;
+        case 2:
+          this.salvarInvest(file[0],2)
+          break;
+        case 3:
+          this.salvarInvest(file[0],3)
+          break;
+  
+      }
+    }
+  }
+
+
+
+  salvarInvest(file, id){
+    this.serv.postInvestimentosAnexos(this.investimento,file, id).subscribe(
+      anexos=>{
+        this.messageService.add({severity:'success', summary: 'Anexos', detail:'Sua imagem foi Salva com sucesso', life: 5000});           
+      },
+      erro=>{
+        this.messageService.add({severity:'error', summary: 'Anexos', detail:'Houve um erro ao salvar a imagem', life: 5000});
+      }
+    )
+  }
+
+  currVerifiedLoanOfficerPhoto: string
+
+
+  viewPicture(img){
+    // console.clear()
+    // img = img.replaceAll("https://bitinvest-images.s3.us-east-2.amazonaws.com/","")
+    // var albumBucketName = 'BUCKET_NAME';
+    // // var AWS = require('aws-sdk');
+    // var s3 = new AWS.S3();
+    // s3.listBuckets(function(err, data) { console.log(err, data); });
+    // **DO THIS**:
+    //   Replace this block of code with the sample code located at:
+    //   Cognito -- Manage Identity Pools -- [identity_pool_name] -- Sample Code -- JavaScript
+    //
+    // Initialize the Amazon Cognito credentials provider
+    // AWS.config.region = AWS_REGION; // Region
+    // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    //     IdentityPoolId: AWS_SECRET,
+    // });
+
+    // // Create a new service object
+    // var s3 = new AWS.S3({
+    //   apiVersion: '2006-03-01',
+    //   params: {Bucket: albumBucketName}
+    // });
+
   }
 }

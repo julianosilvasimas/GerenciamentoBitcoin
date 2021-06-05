@@ -152,6 +152,40 @@ export class MeusContratosViewComponent implements OnInit {
 
 
 
+  novoContratoObj={
+    fotoDoc:[],
+    fotoDeposito:[],
+    imgPerfil:[],
+  }
+
+  onUpload(item, evnt){
+    var file = evnt.files
+    if(file.length>0){
+      switch(item){
+        case 1:
+          this.salvarInvest(file[0],1)
+          break;
+        case 2:
+          this.salvarInvest(file[0],2)
+          break;
+        case 3:
+          this.salvarInvest(file[0],3)
+          break;
+  
+      }
+    }
+  }
+  salvarInvest(file, id){
+    this.serv.postInvestimentosAnexos(this.investimento,file, id).subscribe(
+      anexos=>{
+        this.messageService.add({severity:'success', summary: 'Anexos', detail:'Sua imagem foi Salva com sucesso', life: 5000});           
+      },
+      erro=>{
+        this.messageService.add({severity:'error', summary: 'Anexos', detail:'Houve um erro ao salvar a imagem', life: 5000});
+      }
+    )
+  }
+
   activeItem
   steps = [
     {
@@ -161,6 +195,11 @@ export class MeusContratosViewComponent implements OnInit {
     },
     {
       id: 0 , label: 'Aprovação', icon: "pi pi-user", command: (event) => { 
+        this.activeItem= event.item 
+      }
+    },
+    {
+      id: 2 , label: 'Anexos', icon: "pi pi-paperclip", command: (event) => { 
         this.activeItem= event.item 
       }
     },

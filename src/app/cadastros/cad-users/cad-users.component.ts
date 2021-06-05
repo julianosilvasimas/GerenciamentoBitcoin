@@ -4,6 +4,7 @@ import { ServBancosService } from 'src/app/services/serv-bancos.service';
 import { ServRolesService } from 'src/app/services/serv-roles.service';
 import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
 
+
 @Component({
   selector: 'app-cad-users',
   templateUrl: './cad-users.component.html',
@@ -50,6 +51,10 @@ export class CadUsersComponent implements OnInit {
     this.carregarUsers()
   }
 
+  //========================================================
+  //TESTES
+  
+  //========================================================
   recarregaTamanho(){
     var w = window,
     d = document,

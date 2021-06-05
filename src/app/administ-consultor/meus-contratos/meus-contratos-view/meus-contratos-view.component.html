@@ -5,6 +5,7 @@
         <img  width="400px" *ngIf="investimento.imagemRecibo!=null"  [src]="investimento.imagemRecibo" onError="this.src = 'assets/layout/images/noImage.png'" alt="Imagem Recibo" />
     </p-overlayPanel>
     <p-scrollPanel [style]="{'margin-top': '10px', width: '100%', height: height}" styleClass="custom">
+        <p-toast   [style]="{marginTop: '5px'}"></p-toast>
         <div *ngIf="activeItem.id==1" class="p-fluid p-formgrid p-grid">
             <div class="p-field p-col-12 p-md-3" style="text-align: center;">
                 <img [src]="investimento.cliente.imgPerfil==null? 'assets/layout/images/noImage.png' : investimento.cliente.imgPerfil" onError="this.src = 'assets/layout/images/noImage.png'" width="200px" height="200px" style="border-radius: 50%;"/>
@@ -129,6 +130,43 @@
                     </p-timeline>
                 </div>
             </div>
+        </div>
+        <div *ngIf="activeItem.id==2" class="p-fluid p-formgrid p-grid">
+
+
+            <!-- ================================================================================================= -->
+            <!-- Fotos Requeridas-->
+                <div class="p-field p-col-12 p-md-6" style="text-align: center;">
+                    <p-fileUpload chooseLabel="Recibo de Depósito" uploadLabel="Enviar" customUpload="true" accept="image/*" (uploadHandler)="onUpload(1,$event)" [auto]="false"> 
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="novoContratoObj.fotoDeposito.length">
+                            <li *ngFor="let file of novoContratoObj.fotoDeposito">{{file.name}} - {{file.size}} bytes</li>
+                        </ul>
+                    </ng-template>    
+                    </p-fileUpload>
+                </div>
+
+                <div class="p-field p-col-12 p-md-6" style="text-align: center;">
+                    <p-fileUpload chooseLabel="Documento com Foto" uploadLabel="Enviar" customUpload="true" accept="image/*" (uploadHandler)="onUpload(2,$event)" [auto]="false"> 
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="novoContratoObj.fotoDoc.length">
+                            <li *ngFor="let file of novoContratoObj.fotoDoc">{{file.name}} - {{file.size}} bytes</li>
+                        </ul>
+                    </ng-template>    
+                    </p-fileUpload>
+                </div>
+                
+                <div class="p-field p-col-12 p-md-6" style="text-align: center;">
+                    <p-fileUpload chooseLabel="Foto de Perfil" uploadLabel="Enviar" customUpload="true" accept="image/*" (uploadHandler)="onUpload(3,$event)" [auto]="false"> 
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="novoContratoObj.imgPerfil.length">
+                            <li *ngFor="let file of novoContratoObj.imgPerfil">{{file.name}} - {{file.size}} bytes</li>
+                        </ul>
+                    </ng-template>    
+                    </p-fileUpload>
+                </div>
+
+
         </div>
         <div *ngIf="activeItem.id==3" class="p-fluid p-formgrid p-grid">
             <app-cad-contract-contatos class="p-field p-col-12 p-md-12 p-formgrid p-grid" [cliente]="investimento"></app-cad-contract-contatos>

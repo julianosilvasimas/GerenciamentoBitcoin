@@ -35,6 +35,10 @@ export class ServInvestimentosService {
     return this.http.get(`${API_CONFIG}/investimentos/consultor/${sessionStorage.getItem('token')}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
+  getInvestimentosPagamentosByConsultor(): Observable<any[]>{
+    return this.http.get(`${API_CONFIG}/investimentos/consultor/pagamentos/${sessionStorage.getItem('token')}`,this.httpOptions)
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
   getInvestimentosBySecretaria(): Observable<any[]>{
     return this.http.get(`${API_CONFIG}/investimentos/secretaria/${sessionStorage.getItem('token')}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
@@ -62,12 +66,13 @@ export class ServInvestimentosService {
     return this.http.post(`${API_CONFIG}/investimentos/statusSecretaria/${sessionStorage.getItem('token')}`,invest,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
-  postInvestimentosAnexos(invest,investOld, necessita1, necessita2): Observable<any[]>{
+  postInvestimentosAnexos(invest,doc, idx): Observable<any[]>{
     const formData = new FormData();
-    formData.append('profile',investOld['imgPerfil'][0]);
-    formData.append('documment',investOld['fotoDoc'][0]);
-    formData.append('transfer',investOld['fotoDeposito'][0]);
-    return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento/anexos/${invest.id}/${invest.cliente.cpf}`,formData,this.httpOptions)
+    formData.append('id',invest.id);
+    formData.append('cpf',invest.cliente.cpf);
+    formData.append('indx',idx);
+    formData.append('doc',doc);
+    return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento/anexos`,formData,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   deleteInvestimentos(user): Observable<any[]>{
