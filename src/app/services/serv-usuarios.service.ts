@@ -19,6 +19,7 @@ export class ServUsuariosService {
   }
   
   getMeuCargo(): Observable<any>{
+    this.httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
     return this.http.get(`${API_CONFIG}/usuarios/meuCargo/${localStorage.getItem('token')}`,this.httpOptions)
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }

@@ -71,6 +71,7 @@ export class AdministConsultorComponent implements OnInit {
     this.serv2.getInvestimentosByConsultor().subscribe(
       resp=>{
         this.investimentos=resp
+        console.log(resp)
         this.calcularPagamentos(resp)
         this.carregado1=true
       },erro=>{
@@ -96,51 +97,13 @@ export class AdministConsultorComponent implements OnInit {
 
     this.pagamClient=0
     this.pagamClientPorcent=0
-    this.pagamClientMax=0
-
-    this.pagamentosConsultor=[]
-    this.pagamentosCliente=[]
-    
-    
-    for(let inv of arrInvestimentos){
-      for(let pagam of inv.pagamentos){
-        // console.log(pagam)
-        switch(pagam.recebedor){
-          case "Consultor":
-            this.pagamConsultMax+= pagam.valor
-            if(pagam.status.indexOf("Pendente")>-1){
-              this.pagamentosConsultor.push(pagam)
-
-            }else if(pagam.status.indexOf("Erro")>-1){
-              this.pagamentosConsultor.push(pagam)
-
-            }else if(pagam.status.indexOf("Pago")>-1){
-              this.pagamConsult+= pagam.valor
-            }
-            break;
-
-          case "Cliente":
-            this.pagamClientMax+= pagam.valor
-            if(pagam.status.indexOf("Pendente")>-1){
-              this.pagamentosCliente.push(pagam)
-
-            }else if(pagam.status.indexOf("Erro")>-1){
-              this.pagamentosCliente.push(pagam)
-
-            }else if(pagam.status.indexOf("Pago")>-1){
-              this.pagamClient+= pagam.valor
-            }
-            break;
-        }
-      }
+    this.pagamClientMax=0    
+    for(var i=0;i<arrInvestimentos.length;i++){
+      this.pagamClient+=arrInvestimentos[i].pagamentosClientExec
+      this.pagamClientMax+=arrInvestimentos[i].pagamentosClient
+      this.pagamConsult+=arrInvestimentos[i].pagamentosFuncExec
+      this.pagamConsultMax+=arrInvestimentos[i].pagamentosFunc
     }
-
-    this.pagamentosConsultor = this.pagamentosConsultor.sort(function(a,b){  return new Date(a.dataPagamento.substring(6,10),a.dataPagamento.substring(6,5),1)<new Date(b.dataPagamento.substring(6,10),b.dataPagamento.substring(3,5),1) ? -1 : 1 })
-    if(this.pagamentosConsultor.length>5){
-      this.pagamentosConsultor = this.pagamentosConsultor.splice(0,5)
-    }
-    console.log(this.pagamentosConsultor)
-
     this.pagamConsultPorcent = ((this.pagamConsult/ this.pagamConsultMax)*100)
     this.pagamClientPorcent =   ((this.pagamClient/ this.pagamClientMax)*100)
   }

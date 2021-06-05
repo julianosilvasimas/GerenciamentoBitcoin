@@ -122,6 +122,7 @@ export class MeusContratosComponent implements OnInit {
     this.activeItem = this.steps[0];
     this.newContract=true
     this.preencher()
+    this.preencher2()
   }
 
   precisaFotoDoc=true
@@ -131,7 +132,10 @@ export class MeusContratosComponent implements OnInit {
     this.novoContratoObj['vlrInvestimento']=10000
     this.novoContratoObj['prazo']=36
     this.novoContratoObj['secretaria']=this.secretarias[0]
+  }
+  preencher2(){
     this.novoContratoObj['cpf']="111.111.111-11"
+    this.preencherPesquisando()
     this.novoContratoObj['contatos']=[{ tpoContato: 1, contato: "teste" }]
     this.novoContratoObj['contasBancarias']=[{
       agencia: "dasd",
@@ -143,7 +147,7 @@ export class MeusContratosComponent implements OnInit {
       titular: "sdsa",
       tpo: 0
     }]
-    this.preencherPesquisando()
+
   }
 
 
@@ -214,20 +218,32 @@ export class MeusContratosComponent implements OnInit {
       resp=>{
         this.messageService.add({severity:'success', summary: 'Investimento', detail:'Seu contrato foi salvo com sucesso', life: 5000});
         this.consultorModule.recarregarDash()
+        this.newContract=false    
 
-        this.serv.postInvestimentosAnexos(resp,this.anexos, this.precisaFotoDoc , this.precisaFotoFotoPerfil).subscribe(
-          anexos=>{
-            this.messageService.add({severity:'success', summary: 'Anexos', detail:'Os anexos foram salvos com sucesso', life: 5000});        
-            this.newContract=false    
-          },
-          erro=>{
-            this.messageService.add({severity:'error', summary: 'Anexos', detail:'Houve um erro ao salvar os Anexos', life: 5000});
-            this.newContract=false    
-          }
-        )
+        if(this.novoContratoObj['imgPerfil'].length>0){
+          this.salvarAnexos(resp,'imgPerfil',2)
+        }
+        if(this.novoContratoObj['fotoDoc'].length>0){
+          this.salvarAnexos(resp,'fotoDoc',3)
+        }
+        if(this.novoContratoObj['imgfotoDepositoPerfil'].length>0){
+          this.salvarAnexos(resp,'fotoDeposito',1)
+        }
       },
       erro=>{
         this.messageService.add({severity:'error', summary: 'Investimento', detail:'Houve um erro ao salvar seu contrato', life: 5000});
+        this.newContract=false    
+      }
+    )
+  }
+  salvarAnexos(resp, campo, idx){
+    this.serv.postInvestimentosAnexos(resp, this.novoContratoObj[campo], idx).subscribe(
+      anexos=>{
+        this.messageService.add({severity:'success', summary: 'Anexos', detail:campo+' foi Salva com sucesso', life: 5000});        
+        this.newContract=false    
+      },
+      erro=>{
+        this.messageService.add({severity:'error', summary: 'Anexos', detail:'Houve um erro ao salvar '+campo, life: 5000});
         this.newContract=false    
       }
     )
