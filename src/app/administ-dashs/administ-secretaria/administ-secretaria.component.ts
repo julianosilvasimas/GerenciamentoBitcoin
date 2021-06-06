@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ServInvestimentosService } from 'src/app/services/serv-investimentos.service';
 import { ServInvestAportesService } from 'src/app/services/serv-invest-aportes.service';
-import { ServInvestimentosService } from '../../services/serv-investimentos.service';
 import { ServDashboardsService } from '../../services/serv-dashboards.service';
 
 @Component({

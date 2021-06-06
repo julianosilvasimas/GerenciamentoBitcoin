@@ -66,8 +66,8 @@ export class SecretAprovacoesContratosComponent implements OnInit {
     this.recarregaTamanho()
     
 
-    //ApagarDepois
-    this.viewPicture('https://bitinvest-images.s3.us-east-2.amazonaws.com/doc1.jpg')
+    // //ApagarDepois
+    // this.viewPicture('https://bitinvest-images.s3.us-east-2.amazonaws.com/doc1.jpg')
 
   }
   events1 = [];
