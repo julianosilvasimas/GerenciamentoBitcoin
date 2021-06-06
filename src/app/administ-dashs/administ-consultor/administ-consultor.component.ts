@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ServInvestimentosService } from '../../services/serv-contratos.service';
+import { ServInvestimentosService } from '../../services/serv-investimentos.service';
 import { ServDashboardsService } from '../../services/serv-dashboards.service';
 import { ServUsuariosService } from '../../services/serv-usuarios.service';
 
