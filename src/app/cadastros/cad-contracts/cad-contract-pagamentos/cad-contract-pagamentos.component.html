@@ -1,4 +1,11 @@
+
 <div class="p-col-12 p-md-12">
+    <p-overlayPanel class="p-field p-col-12 p-md-12" #op1>
+        <img  width="400px" *ngIf="src!=null"  [src]="src" onError="this.src = 'assets/layout/images/noImage.png'" alt="Imagem Recibo" />
+    </p-overlayPanel>
+    <p-overlayPanel class="p-field p-col-12 p-md-12" #op2>
+        Justificativa: {{observacao}}
+    </p-overlayPanel>
     <p-toolbar styleClass="p-mb-12">
         <ng-template pTemplate="right">
             <i class="pi pi-money-bill"  style="font-size: 2rem"></i>
@@ -29,10 +36,10 @@
             <tr style="font-size: 11px">
                 <td *ngFor="let col of columns">
                     <span *ngIf="col.cxlabel">{{ col.number ? (usuario[col.value]  | currency:'BRL':'symbol')  :usuario[col.value]  }}</span>
-                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('Pendente')>-1" value="Pendente" severity="warning" [rounded]="true"></p-tag>
-                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('Pago')>-1"     value="Pago" severity="success" [rounded]="true"></p-tag>
-                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('Erro')>-1"     value="Erro" severity="danger"  [rounded]="true"></p-tag>
-                    <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verConsultor(usuario)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('pendente')>-1" value="Pendente" severity="warning" [rounded]="true"></p-tag>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('pago')>-1"     value="Pago" severity="success" [rounded]="true"></p-tag>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value].indexOf('erro')>-1"     value="Erro" severity="danger"  [rounded]="true"></p-tag>
+                    <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="verComprovante(op1,op2, $event,usuario)" icon="pi pi-eye" class="p-button-rounded p-button-outlined"></button>
                 </td> 
             </tr>
         </ng-template>

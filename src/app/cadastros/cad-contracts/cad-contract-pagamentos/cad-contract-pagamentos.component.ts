@@ -27,4 +27,21 @@ export class CadContractPagamentosComponent implements OnInit {
   }
 
   ver   
+
+  src=""
+  observacao=""
+  verComprovante(op1,op2, event,unidade){
+    this.src=null
+    this.observacao=null
+    if(unidade['status'].indexOf('pago')>-1){
+      this.src=unidade['imagemComprovante']
+      console.log(this.src)
+      op1.toggle(event)
+    }else if(unidade['status'].indexOf('erro')>-1){
+      this.observacao=unidade['observacao']
+      console.log(this.observacao)
+      op2.toggle(event)
+    }
+
+  }
 }

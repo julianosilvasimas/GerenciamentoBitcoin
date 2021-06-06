@@ -1,1 +1,104 @@
-<p>view-financeiro-pagamentos works!</p>
+<p-table class="p-fluid p-col-12" [value]="listaPagamentosPendentes" [columns]="cols"  [paginator]="true" [rows]="20">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex">
+            <span class="p-input-icon-left p-ml-auto">
+                <i class="pi pi-search"></i>
+                <input  pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Filtro Inteligente" />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header"  let-columns>
+        <tr>
+            <th *ngFor="let col of columns" pSortableColumn="{{col.value}}" [style]="col.width==null? null : { 'width': col.width }">
+                {{col.label}}
+                <p-columnFilter type="text" field="{{col.value}}" display="menu" class="p-ml-auto"></p-columnFilter>
+            </th>
+        </tr>
+        <tr ></tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData  let-columns="columns">
+        <tr style="font-size: 11px">
+            <td *ngFor="let col of columns">
+               {{ col.cxlabel ?  col.number ? ( _(rowData, col.value ) | currency:'BRL':true:'1.2-2') :  _(rowData, col.value ) : null }}
+                <button *ngIf="col.value=='botao'" pButton pRipple type="button" (click)="realizarPagamento(rowData)" icon="pi pi-dollar" class="p-button-rounded p-button-success p-button-outlined"></button>
+                <p-tag styleClass="p-mr-12" *ngIf="col.aprov &&  (_(rowData, col.value)).indexOf('pendente')>-1" value="Pendente" severity="warning" [rounded]="true"></p-tag>
+                <p-tag styleClass="p-mr-12" *ngIf="col.aprov &&  (_(rowData, col.value)).indexOf('erro')>-1" value="Erro" severity="danger"  [rounded]="true"></p-tag>
+
+                <p-tag styleClass="p-mr-12" *ngIf="col.prazo &&  noPrazo(_(rowData, col.value))==1" value="No Prazo" severity="success" [rounded]="true"></p-tag>
+                <p-tag styleClass="p-mr-12" *ngIf="col.prazo &&  noPrazo(_(rowData, col.value))==2" value="Hoje" severity="warning" [rounded]="true"></p-tag>
+                <p-tag styleClass="p-mr-12" *ngIf="col.prazo &&  noPrazo(_(rowData, col.value))==3" value="Vencida" severity="danger" [rounded]="true"></p-tag>
+
+            </td> 
+        </tr>
+    </ng-template>
+</p-table>
+<p-sidebar [(visible)]="pagando"  [fullScreen]="false" [style]="{'width': '50%', 'height': '100%' }" [baseZIndex]="10000">
+    <div class="card" style="width: 100%;" *ngIf="pagando">
+        <p-scrollPanel [style]="{'margin-top': '10px', width: '100%', height: height}" styleClass="custom">
+            <p-toast   [style]="{marginTop: '5px'}"></p-toast>
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-12 p-formgrid p-grid " style="text-align: center;">
+                    <div class="p-field p-col-12 p-md-12" style="text-align: center;">
+                        <h4><b>Dados do Pagamento</b></h4>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Tipo Recebedor</label>
+                        <input type="text" [disabled]="true" [(ngModel)]="pagamento.recebedor" pInputText> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-8">
+                        <label >Recebedor</label>
+                        <input type="text" [disabled]="true" [(ngModel)]="pagamento.nomeRecebedor" pInputText> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Id Banco</label>
+                        <input type="text" [disabled]="true" [(ngModel)]="pagamento.conta.banco.codBanco" pInputText> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-8">
+                        <label >Banco</label>
+                        <input type="text" [disabled]="true" [(ngModel)]="pagamento.conta.banco.banco" pInputText> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Agencia</label>
+                        <input type="text" [disabled]="true" [(ngModel)]="pagamento.conta.agencia" pInputText> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Op</label>
+                        <input type="text" [disabled]="true" [(ngModel)]="pagamento.conta.cod" pInputText> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label >Conta</label>
+                        <input type="text" [disabled]="true" [(ngModel)]="pagamento.conta.conta" pInputText> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-12">
+                        <h2>Valor devido: {{converter(pagamento.valor)}}</h2>
+                    </div>
+                    
+
+                    <br>
+                    <div class="p-field p-col-12 p-md-12" style="text-align: center;">
+                        <h4><b>Ações</b></h4>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6" style="text-align: center">
+                        <button pButton pRipple (click)="aprovar()" label="Pago" type="button" icon="pi pi-check" class="p-button-rounded p-button-outlined" style="margin-top: 40px;"></button>
+                        <button pButton pRipple (click)="reprovar()" label="Erro" type="button" icon="pi pi-times " class="p-button-rounded p-button-danger  p-button-outlined" style="margin-top: 5px;"></button>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6" style="text-align: center;">
+                        <h5>Observação - {{pagamento.observacao==null? 0 : pagamento.observacao.length}}/255</h5>
+                        <textarea [(ngModel)]="pagamento.observacao" rows="7" cols="30" maxlength="255" pInputTextarea autoResize="autoResize"></textarea>
+                    </div>
+                </div>
+                <div class="p-field p-col-12 p-md-12">
+                    <div class="p-field p-col-12 p-md-12" style="text-align: center;">
+                        <p-fileUpload chooseLabel="Comprovante de Transferência" uploadLabel="Enviar" customUpload="true" accept="image/*" (uploadHandler)="onUpload($event)" [auto]="true"> 
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="imgcomprovante.length">
+                                <li *ngFor="let file of imgcomprovante">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template>    
+                        </p-fileUpload>
+                    </div>
+                </div>
+            </div>
+        </p-scrollPanel>
+    </div>
+</p-sidebar>

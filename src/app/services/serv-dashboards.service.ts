@@ -11,21 +11,28 @@ import { ErrorHandler } from 'src/app/app.error-handler';
 export class ServDashboardsService {
 
   constructor(private http: HttpClient){}
-  httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
+  httpOptions(){
+    return {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
+  }
 
   
   getDash(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/dashboards/consultor/${localStorage.getItem('token')}`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/dashboards/consultor/${localStorage.getItem('token')}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
   getDashSecretaria(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/dashboards/secretaria/${localStorage.getItem('token')}`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/dashboards/secretaria/${localStorage.getItem('token')}`,this.httpOptions())
+    .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
+  }
+
+  getDashFinanceiro(): Observable<any[]>{
+    return this.http.get(`${API_CONFIG}/dashboards/financeiro/${localStorage.getItem('token')}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   
   getMaioresClientes(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/dashboards/clientes/${localStorage.getItem('token')}`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/dashboards/clientes/${localStorage.getItem('token')}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }

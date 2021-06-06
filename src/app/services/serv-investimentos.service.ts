@@ -11,7 +11,9 @@ import { ErrorHandler } from 'src/app/app.error-handler';
 export class ServInvestimentosService {
 
   constructor(private http: HttpClient){}
-  httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
+  httpOptions(){
+    return {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
+  }
 
   getTipoDeInvestimentos(){
     return [
@@ -28,42 +30,42 @@ export class ServInvestimentosService {
   }
   
   getInvestimentos(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/investimentos`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/investimentos`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   getInvestimentosByConsultor(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/investimentos/consultor/${sessionStorage.getItem('token')}`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/investimentos/consultor/${localStorage.getItem('token')}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   getInvestimentosPagamentosByConsultor(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/investimentos/consultor/pagamentos/${sessionStorage.getItem('token')}`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/investimentos/consultor/pagamentos/${localStorage.getItem('token')}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   getInvestimentosBySecretaria(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/investimentos/secretaria/${sessionStorage.getItem('token')}`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/investimentos/secretaria/${localStorage.getItem('token')}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
 
   getInvestimentosId(id): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/investimentos/${id}`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/investimentos/${id}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
   putInvestimentos(user): Observable<any[]>{
-    return this.http.put(`${API_CONFIG}/investimentos/${user.id}`,user,this.httpOptions)
+    return this.http.put(`${API_CONFIG}/investimentos/${user.id}`,user,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postInvestimentos(user): Observable<any[]>{
-    return this.http.post(`${API_CONFIG}/investimentos`,user,this.httpOptions)
+    return this.http.post(`${API_CONFIG}/investimentos`,user,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postInvestimentosByConsult(invest): Observable<any[]>{
-    return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento/${sessionStorage.getItem('token')}`,invest,this.httpOptions)
+    return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento/${localStorage.getItem('token')}`,invest,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postInvestimentosAprovacao(invest): Observable<any[]>{
-    return this.http.post(`${API_CONFIG}/investimentos/statusSecretaria/${sessionStorage.getItem('token')}`,invest,this.httpOptions)
+    return this.http.post(`${API_CONFIG}/investimentos/statusSecretaria/${localStorage.getItem('token')}`,invest,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postInvestimentosAnexos(invest,doc, idx): Observable<any[]>{
@@ -72,11 +74,11 @@ export class ServInvestimentosService {
     formData.append('cpf',invest.cliente.cpf);
     formData.append('indx',idx);
     formData.append('doc',doc);
-    return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento/anexos`,formData,this.httpOptions)
+    return this.http.post(`${API_CONFIG}/investimentos/novoInvestimento/anexos`,formData,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   deleteInvestimentos(user): Observable<any[]>{
-    return this.http.delete(`${API_CONFIG}/investimentos/${user.id}`,this.httpOptions)
+    return this.http.delete(`${API_CONFIG}/investimentos/${user.id}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }

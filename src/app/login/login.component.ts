@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
                       this.authService.checkAutenticado(resp.status);
                       document.body.style.background  = '#ebebeb8f';
                       this.router.navigate(['/']);  //precisa melhorar a permissões no menu
-                    }, 500);
+                    }, 1000);
                     
                   }
                   this.carregando= false

@@ -29,10 +29,10 @@
             </div>
         </div>
     </div>
-    <div class="p-col-12 p-md-12">
-        <p-panel header="Aprovação de Contratos" [style]="{'height':'100%'}">
+    <div class="p-col-12 p-md-12 p-grid p-fluid" *ngIf="carregado">
+        <p-panel header="Pagamentos Pendentes" [style]="{'height':'100%'}">
             <app-view-financeiro-pagamentos
-
+            class="p-col-12 p-md-12 p-grid p-fluid" 
             [listaPagamentosPendentes]="listaPagamentosPendentes"
             [pagamentosMes]="pagamentosMes"
             [pagamentosHoje]="pagamentosHoje"
