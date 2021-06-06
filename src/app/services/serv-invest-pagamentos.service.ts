@@ -8,15 +8,18 @@ import { map, catchError } from 'rxjs/operators';
 import { ErrorHandler } from 'src/app/app.error-handler';
 
 @Injectable()
-export class ServRolesService {
+export class ServInvestPagamentosService {
+
   constructor(private http: HttpClient){}
   httpOptions(){
     return {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
   }
 
-  
-  getPerfis(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/perfis`,this.httpOptions())
+
+  getPagamentos(): Observable<any[]>{
+    return this.http.delete(`${API_CONFIG}/pagamentos/${localStorage.getItem('token')}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
+
+
 }

@@ -20,8 +20,7 @@ export class CadUsersComponent implements OnInit {
     {label:"Gerente", value: "Gerente"},
     {label:"Consultor", value: "Consultor"},
     {label:"Secretaria", value: "Secretaria"},
-    {label:"Financeiro Aprovação", value: "Financeiro Aprovação"},
-    {label:"Financeiro Pagamento", value: "Financeiro Pagamento"},
+    {label:"Financeiro", value: "Financeiro"},
   ]
 
   

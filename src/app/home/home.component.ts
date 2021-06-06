@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
 
     cargo=false
     ngOnInit() {
-      
+      console.clear()
       document.body.style.zoom = "100%";
       this.adminserv.getMeuCargo().subscribe(
         cred=>{
@@ -53,11 +53,15 @@ export class HomeComponent implements OnInit {
                 this.activeItem= event.item 
               }
             },
-            { id: 2, label: 'Consultor',  icon: 'pi pi-fw pi-calendar', command: (event) => { 
+            { id: 2, label: 'Consultor',  icon: 'pi pi-fw pi-user', command: (event) => { 
                 this.activeItem= event.item 
               }
             },
-            { id: 3, label: 'Secretaria', icon: 'pi pi-fw pi-calendar', command: (event) => { 
+            { id: 3, label: 'Secretaria', icon: 'pi pi-fw pi-pencil', command: (event) => { 
+                this.activeItem= event.item 
+              }
+            },
+            { id: 4, label: 'Financeiro', icon: 'pi pi-fw pi-dollar', command: (event) => { 
                 this.activeItem= event.item 
               }
             },
@@ -78,10 +82,15 @@ export class HomeComponent implements OnInit {
           }else if(resp.indexOf('Secretaria')>-1){
             this.items=[modules[2]]
             this.activeItem={id:3}
+
+          }else if(resp.indexOf('Financeiro')>-1){
+            this.items=[modules[3]]
+            this.activeItem={id:4}
           }
 
 
           //ApagarDepois
+            this.activeItem={id:4}
 
 
         }

@@ -1,1 +1,98 @@
-<p>cad-aportes works!</p>
+<div class="p-col-12 p-md-12">
+    <p-toolbar [style]="{'width': '100%'}">
+        <ng-template style="text-align: right;" pTemplate="right">
+            <button pButton pRipple label="Novo Aporte" icon="pi pi-plus" class="p-button-success" (click)="FunctionNovoAporte(null,1)"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table #dt1 [value]="aportes" [columns]="cols" [paginator]="true" [rows]="5" >
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Filtro Inteligente" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr style="font-size: 11px">
+                <th *ngFor="let col of columns" pSortableColumn="{{col.value}}" [style]="col.width==null? null : { 'width': col.width }">
+                    {{col.label}}
+                    <p-sortIcon field="{{col.value}}"></p-sortIcon>
+                </th>
+            </tr>
+            <tr style="font-size: 11px">
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario  let-columns="columns">
+            <tr style="font-size: 11px">
+                <td *ngFor="let col of columns">
+                    <span *ngIf="col.cxlabel">{{ col.number ? (usuario[col.value]  | currency:'BRL':'symbol')  :usuario[col.value]  }}</span>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value]==2"     value="Pendente" severity="warning" [rounded]="true"></p-tag>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value]==1"     value="Aprovado" severity="success" [rounded]="true"></p-tag>
+                    <p-tag styleClass="p-mr-12" *ngIf="col.tick &&  usuario[col.value]==3"     value="Reprovado" severity="danger"  [rounded]="true"></p-tag>
+                    <button icon="pi pi-eye"    (click)="verAporte(usuario)" *ngIf="col.value=='botao'" pButton pRipple type="button"  class="p-button-rounded p-button-outlined"></button>
+                    <button icon="pi pi-trash"  (click)="apagarAporte(usuario)" *ngIf="col.value=='botao2' && usuario['statusSecretaria'] >=2  " pButton pRipple type="button"  class="p-button-danger p-button-rounded p-button-outlined"></button>
+                </td> 
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-dialog header="Novo Aporte" [(visible)]="novoAporte" >
+        <div *ngIf="novoAporte" class="p-fluid p-formgrid p-grid">
+            
+            <div class="p-field p-col-12 p-md-12">
+                <label >Valor do Aporte</label>
+                <p-inputNumber prefix="R$ " [(ngModel)]="newObj.valoraporte" :min="5000"  mode="decimal" locale="pt-BR" [minFractionDigits]="2"></p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <label >Imagem de comprovante</label>
+                <div class="p-field p-col-12 p-md-12" style="text-align: center;">
+                    <p-fileUpload chooseLabel="Comprovante de Transferência" uploadLabel="Enviar" customUpload="true" accept="image/*" (uploadHandler)="onUpload($event)" [auto]="true"> 
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="newObj.imgcomprovante.length">
+                            <li *ngFor="let file of newObj.imgcomprovante">{{file.name}} - {{file.size}} bytes</li>
+                        </ul>
+                    </ng-template>    
+                    </p-fileUpload>
+                </div>
+            </div>
+            <div class="p-col-6 ">
+                <p-button class="p-col-12" (click)="salvar()" label="Salvar" icon="pi pi-check"   styleClass="p-button-success p-button-rounded p-button-sm"></p-button>
+            </div>
+            <div class="p-col-6 ">
+                <p-button class="p-col-12" (click)="Cancelar()"  label="Cancelar" icon="pi pi-times" styleClass="p-button-secondary p-button-rounded p-button-sm"></p-button>
+            </div>
+        </div>
+    </p-dialog>
+    <p-dialog header="Visualizar Aporte" [(visible)]="aporteExistente"  [style]="{ 'width': width, 'max-width': width}" >
+        <div *ngIf="aporteExistente" class="p-fluid p-formgrid p-grid">
+            
+            <div class="p-field p-col-12 p-md-6">
+                <label >Valor do Aporte</label>
+                <p-inputNumber prefix="R$ " [disabled]="true" [(ngModel)]="aporte.valoraporte" :min="5000"  mode="decimal" locale="pt-BR" [minFractionDigits]="2"></p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label >Data do lançamento</label>
+                <input  type="text" [disabled]="true" [(ngModel)]="aporte.dataLancamento" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label >Data do aporte</label>
+                <input  type="text" [disabled]="true" [(ngModel)]="aporte.dataporte" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label >Data da aprovação</label>
+                <input  type="text" [disabled]="true" [(ngModel)]="aporte.dataLancamento" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label >Aprovador Secretaria</label>
+                <input  type="text" [disabled]="true" [(ngModel)]="aporte.aprovadorSecretaria==null ? null : aporte.aprovadorSecretaria.nome" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <label >Justificativa da aprovação</label>
+                <input  type="text" [disabled]="true" [(ngModel)]="aporte.observacaoSecretaria" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <img [src]="aporte.imgcomprovante" width="300px">
+            </div>
+        </div>
+    </p-dialog>
+</div>

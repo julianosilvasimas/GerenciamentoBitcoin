@@ -1,0 +1,58 @@
+.box {
+    display: flex;
+    align-items: stretch;
+}
+.box>div>img{
+    border-radius: 30%;
+    height: 50px !important;
+}
+.box>div>.nome{
+    height: 100%;
+}
+.box>div>span{
+    margin-top: 20px !important;
+    vertical-align: middle !important;
+}
+
+
+
+
+.custom-marker {
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+::ng-deep {
+    .p-timeline-event-content,
+    .p-timeline-event-opposite {
+        line-height: 1;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    ::ng-deep {
+        .customized-timeline {
+            .p-timeline-event:nth-child(even) {
+                flex-direction: row !important;
+                
+                .p-timeline-event-content {
+                    text-align: left !important;
+                }
+            }
+
+            .p-timeline-event-opposite {
+                flex: 0;
+            }
+
+            .p-card {
+                margin-top: 1rem;
+            }
+        }
+    }
+}

@@ -45,6 +45,11 @@ export class AppMenuComponent implements OnInit {
                     this.model=[
                         { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
                     ]
+                }else if(cargo.indexOf('Financeiro')>-1){
+                    this.model=[
+                        { label: 'Dashboards', icon: 'pi pi-chart-bar', routerLink:'/'},
+                    ]
+
 
                 }else if(cargo.indexOf('Secretaria')>-1){
                     this.model=[

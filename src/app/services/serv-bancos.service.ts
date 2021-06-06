@@ -11,24 +11,28 @@ import { ErrorHandler } from 'src/app/app.error-handler';
 export class ServBancosService {
 
   constructor(private http: HttpClient){}
-  httpOptions = {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
+
+
+  httpOptions(){
+    return {headers: new HttpHeaders().set('Authorization',localStorage.getItem('token'))}
+  }
 
   
   getBancos(): Observable<any[]>{
-    return this.http.get(`${API_CONFIG}/bancos`,this.httpOptions)
+    return this.http.get(`${API_CONFIG}/bancos`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 
   putBancos(bancos): Observable<any[]>{
-    return this.http.put(`${API_CONFIG}/bancos/${bancos.id}`,bancos,this.httpOptions) 
+    return this.http.put(`${API_CONFIG}/bancos/${bancos.id}`,bancos,this.httpOptions()) 
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   postBancos(bancos): Observable<any[]>{
-    return this.http.post(`${API_CONFIG}/bancos`,bancos,this.httpOptions)
+    return this.http.post(`${API_CONFIG}/bancos`,bancos,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
   deleteBancos(bancos): Observable<any[]>{
-    return this.http.delete(`${API_CONFIG}/bancos/${bancos.id}`,this.httpOptions)
+    return this.http.delete(`${API_CONFIG}/bancos/${bancos.id}`,this.httpOptions())
     .pipe(map((res : any[]) => res, catchError(ErrorHandler.handleError)))
   }
 }
