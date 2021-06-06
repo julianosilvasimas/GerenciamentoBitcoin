@@ -14,6 +14,10 @@ export class AdministFinanceiroComponent implements OnInit {
   carregado=false
 
   ngOnInit(): void {
+    this.carregarInvestimentos()
+  }
+  carregarInvestimentos(){
+    this.carregado=false
     console.clear()
     this.serv.getDashFinanceiro().subscribe(
       resp=>{
@@ -21,6 +25,7 @@ export class AdministFinanceiroComponent implements OnInit {
         this.calcularPagamentos(resp)
       }
     )
+
   }
 
   valorPagamentosMes=0

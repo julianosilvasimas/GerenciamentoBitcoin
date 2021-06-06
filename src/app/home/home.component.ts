@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
 
 
           //ApagarDepois
-            this.activeItem={id:4}
+            // this.activeItem={id:4}
 
 
         }

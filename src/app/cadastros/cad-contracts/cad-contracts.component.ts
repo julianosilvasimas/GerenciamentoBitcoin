@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ServInvestimentosService } from 'src/app/services/serv-investimentos.service';
 import {get} from 'lodash';
 import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
 import { MessageService } from 'primeng/api';
@@ -8,6 +7,7 @@ import { ServClientesService } from 'src/app/services/serv-clientes.service';
 import { ServContasService } from 'src/app/services/serv-contas.service';
 import { ServBancosService } from 'src/app/services/serv-bancos.service';
 import { ServContatosService } from 'src/app/services/serv-contatos.service';
+import { ServInvestimentosService } from 'src/app/services/serv-investimentos.service';
 
 @Component({
   selector: 'app-cad-contracts',

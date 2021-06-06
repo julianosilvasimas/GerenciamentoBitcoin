@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {get} from 'lodash';
 import { ServUsuariosService } from 'src/app/services/serv-usuarios.service';
-import { ServInvestimentosService } from 'src/app/services/serv-investimentos.service';
 import { MessageService, PrimeIcons } from 'primeng/api';
 import { CadContractsComponent } from '../cad-contracts.component';
+import { ServInvestimentosService } from 'src/app/services/serv-investimentos.service';
 
 @Component({
   selector: 'app-meus-contratos-view',

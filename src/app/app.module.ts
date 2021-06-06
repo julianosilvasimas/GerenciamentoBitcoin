@@ -144,7 +144,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-
+import { ServInvestimentosService } from './services/serv-investimentos.service';
 import { CadUsersComponent } from './cadastros/cad-users/cad-users.component';
 import { CadContractsComponent } from './cadastros/cad-contracts/cad-contracts.component';
 import { RelatorioBancosComponent } from './relatorios/relatorio-bancos/relatorio-bancos.component';
@@ -160,7 +160,7 @@ import { ServBancosService } from './services/serv-bancos.service';
 import { ServContasService } from './services/serv-contas.service';
 import { ServContatosService } from './services/serv-contatos.service';
 import { EditUsersComponent } from './administ-editarusuario/edit-users.component';
-import { ServInvestimentosService } from './services/serv-investimentos.service';
+
 import { ServDashboardsService } from './services/serv-dashboards.service';
 import { CadContractContasComponent } from './cadastros/cad-contracts/cad-contract-contas/cad-contract-contas.component';
 import { CadContractContatosComponent } from './cadastros/cad-contracts/cad-contract-contatos/cad-contract-contatos.component';
@@ -175,6 +175,7 @@ import { ServInvestAportesService } from './services/serv-invest-aportes.service
 import { SecretAprovacoesAportesComponent } from './administ-dashs/administ-secretaria/secret-aprovacoes-aportes/secret-aprovacoes-aportes.component';
 import { AdministFinanceiroComponent } from './administ-dashs/administ-financeiro/administ-financeiro.component';
 import { ViewFinanceiroPagamentosComponent } from './administ-dashs/administ-financeiro/view-financeiro-pagamentos/view-financeiro-pagamentos.component';
+import { ServInvestPagamentosService } from './services/serv-invest-pagamentos.service';
 @NgModule({
     imports: [
         BrowserModule,
@@ -348,7 +349,8 @@ import { ViewFinanceiroPagamentosComponent } from './administ-dashs/administ-fin
         ServContatosService,
         ServInvestimentosService,
         ServDashboardsService,
-        ServInvestAportesService
+        ServInvestAportesService,
+        ServInvestPagamentosService
     ],
     bootstrap: [AppComponent]
 })

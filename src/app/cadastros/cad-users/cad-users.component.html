@@ -81,7 +81,7 @@
                     </div>
 
                     
-                    <div class="p-fluid p-formgrid p-grid p-field p-col-12 p-md-12 " *ngIf="consultor.cargo=='Consultor'">
+                    <div class="p-fluid p-formgrid p-grid p-field p-col-12 p-md-12 " *ngIf="consultor.cargo=='Consultor' || consultor.cargo=='Gerente'">
                         <div class="p-field p-col-12  p-md-12">
                             <label>CPF</label>
                             <p-inputMask type="text" mask="999.999.999-99" [(ngModel)]="consultor.cpf" ></p-inputMask>
