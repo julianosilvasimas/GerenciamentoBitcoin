@@ -83,7 +83,7 @@
 
     <div class="p-col-12 p-lg-12" >
         <p-panel header="Meus Contratos" [style]="{'height':'100%'}">
-            <app-meus-contratos *ngIf="carregado1" [investimentos]="investimentos" ></app-meus-contratos>
+            <app-cad-contracts [importado]="'true'" *ngIf="carregado1" [investimentos]="investimentos" ></app-cad-contracts>
         </p-panel>
     </div>
 </div>

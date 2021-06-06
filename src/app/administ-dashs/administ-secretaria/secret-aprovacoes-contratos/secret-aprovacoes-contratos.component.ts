@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {get} from 'lodash';
 import { MessageService, PrimeIcons } from 'primeng/api';
-import { ServInvestimentosService } from 'src/app/services/serv-contratos.service';
+import { ServInvestimentosService } from 'src/app/services/serv-investimentos.service';
 import { AdministSecretariaComponent } from '../administ-secretaria.component';
 
 @Component({
@@ -33,7 +33,6 @@ export class SecretAprovacoesContratosComponent implements OnInit {
     private serv:ServInvestimentosService,
     private serv2:AdministSecretariaComponent,
     private messageService: MessageService,
-    private http: HttpClient
   ) { }
 
 

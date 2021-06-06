@@ -144,7 +144,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AdministradorComponent } from './administrador/administrador.component';
+
 import { CadUsersComponent } from './cadastros/cad-users/cad-users.component';
 import { CadContractsComponent } from './cadastros/cad-contracts/cad-contracts.component';
 import { RelatorioBancosComponent } from './relatorios/relatorio-bancos/relatorio-bancos.component';
@@ -159,17 +159,19 @@ import { ServCepService } from './utils/ceps/serv-cep.service';
 import { ServBancosService } from './services/serv-bancos.service';
 import { ServContasService } from './services/serv-contas.service';
 import { ServContatosService } from './services/serv-contatos.service';
-import { EditUsersComponent } from './edit-users/edit-users.component';
+import { EditUsersComponent } from './administ-editarusuario/edit-users.component';
 import { ServInvestimentosService } from './services/serv-contratos.service';
 import { ServDashboardsService } from './services/serv-dashboards.service';
 import { CadContractContasComponent } from './cadastros/cad-contracts/cad-contract-contas/cad-contract-contas.component';
 import { CadContractContatosComponent } from './cadastros/cad-contracts/cad-contract-contatos/cad-contract-contatos.component';
 import { CadContractPagamentosComponent } from './cadastros/cad-contracts/cad-contract-pagamentos/cad-contract-pagamentos.component';
-import { AdministConsultorComponent } from './administ-consultor/administ-consultor.component';
-import { MeusContratosComponent } from './administ-consultor/meus-contratos/meus-contratos.component';
-import { AdministSecretariaComponent } from './administ-secretaria/administ-secretaria.component';
-import { MeusContratosViewComponent } from './administ-consultor/meus-contratos/meus-contratos-view/meus-contratos-view.component';
-import { SecretAprovacoesContratosComponent } from './administ-secretaria/secret-aprovacoes-contratos/secret-aprovacoes-contratos.component';
+import { AdministConsultorComponent } from './administ-dashs/administ-consultor/administ-consultor.component';
+import { MeusContratosComponent } from './administ-dashs/administ-consultor/meus-contratos/meus-contratos.component';
+import { AdministSecretariaComponent } from './administ-dashs/administ-secretaria/administ-secretaria.component';
+import { MeusContratosViewComponent } from './administ-dashs/administ-consultor/meus-contratos/meus-contratos-view/meus-contratos-view.component';
+import { SecretAprovacoesContratosComponent } from './administ-dashs/administ-secretaria/secret-aprovacoes-contratos/secret-aprovacoes-contratos.component';
+import { CadAportesComponent } from './cadastros/cad-aportes/cad-aportes.component';
+import { AdministradorComponent } from './administ-dashs/administ-gerente/administrador.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -323,7 +325,8 @@ import { SecretAprovacoesContratosComponent } from './administ-secretaria/secret
         MeusContratosComponent,
         AdministSecretariaComponent,
         MeusContratosViewComponent,
-        SecretAprovacoesContratosComponent
+        SecretAprovacoesContratosComponent,
+        CadAportesComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

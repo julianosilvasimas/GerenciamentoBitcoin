@@ -1,0 +1,44 @@
+<div class="dashboard p-grid p-fluid" >
+    <div class="p-col-12 p-md-4">
+        <div class="highlight-box">
+            <div class="initials" style="background-color:#007be5;color:#00448f">PM</div>
+            <div class="card">
+                <span class="highlight-box-icon pi pi-eye"></span>
+                <span>Pag. do Mês</span>
+                <span class="count" style="font-size: 25px">{{converter(valorPagamentosMes)}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <div class="highlight-box">
+            <div class="initials" style="background-color:#20d077;color:#038d4a">PH</div>
+            <div class="card">
+                <span class="highlight-box-icon pi pi-question-circle"></span>
+                <span>Pag. de Hoje</span>
+                <span class="count" style="font-size: 25px">{{converter(valorPagamentosHoje)}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <div class="highlight-box">
+            <div class="initials" style="background-color:lightcoral;color:rgb(141, 0, 0)">PA</div>
+            <div class="card">
+                <span class="highlight-box-icon pi pi-question-circle"></span>
+                <span>Pag. Atrasados</span>
+                <span class="count" style="font-size: 25px">{{converter(valorPagamentosAtrasados)}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-12">
+        <p-panel header="Aprovação de Contratos" [style]="{'height':'100%'}">
+            <app-view-financeiro-pagamentos
+
+            [listaPagamentosPendentes]="listaPagamentosPendentes"
+            [pagamentosMes]="pagamentosMes"
+            [pagamentosHoje]="pagamentosHoje"
+            [pagamentosAtrasados]="pagamentosAtrasados"
+            
+            ></app-view-financeiro-pagamentos>
+        </p-panel>
+    </div>
+</div>
