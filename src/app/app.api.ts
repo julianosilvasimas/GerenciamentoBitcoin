@@ -7,17 +7,9 @@ export const AWS_BUCKET =  'sgci-images' //TESTE ANDREWS;
 //EXTERNO1
 // export const API_CONFIG =  'http://198.38.86.162:8080/bitinvestapi' //PRODUÇÃO
 
-// export const API_CONFIG =  'http://200.98.171.178:7777/bitinvestapi' //TESTE ANDREWS
+export const API_CONFIG =  'http://200.98.171.178:7777/bitinvestapi' //TESTE ANDREWS
 // 
-export const API_CONFIG =  'http://localhost:7777'
-
-
-
-
-export const AWS_KEYID='AKIA52FSBRFMGCJUZCNB '
-export const AWS_SECRET='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'
-export const AWS_REGION='us-east-2'
-
+//export const API_CONFIG =  'http://localhost:7777'
 
 
 
